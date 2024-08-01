@@ -1,0 +1,17 @@
+.iconBig {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  &--plus {
+    background-image: url(../assets/icons/plusHover.svg);
+  
+    &:hover {
+      background-image: url(../assets/icons/plus.svg);
+    }
+  }
+}

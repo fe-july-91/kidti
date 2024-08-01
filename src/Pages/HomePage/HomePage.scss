@@ -1,0 +1,92 @@
+@import './../../styles/main';
+
+.homePage {
+  display: flex;
+  flex-direction: column;
+  padding-top: 40px;
+  
+  @include on-desktop {
+    padding-top: 60px;
+  }
+
+  &__top {
+    @include section-grid;
+  }
+
+  &__banner {
+    grid-column: 1 / -1;
+
+    @include on-tablet {
+      padding-top: 80px;
+      grid-column: 14 / -1;
+    }
+
+    @include on-desktop {
+      padding-top: 60px;
+      grid-column: 14 / -1;
+    }
+
+    &-img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+  }
+
+  &__text {
+    grid-column: 1 / -1;
+
+    @include on-tablet {
+      grid-column: 1 / 13;
+    }
+
+    @include on-desktop {
+      grid-column: 1 / 12;
+    }
+  }
+
+  &__title {
+    padding-bottom: 24px;
+
+    font-family: Rubik, sans-serif;
+    font-size: 42px;
+    line-height: 42px;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+    color: $colorSkyBlue;
+
+    &-logo {
+      width: 200px;
+      display: inline-block;
+      margin-right: 8px;
+      margin-bottom: 8px;
+
+      @include on-tablet {
+        width: 150px;
+      }
+  
+      @include on-desktop {
+        width: 300px;
+      }
+    }
+  }
+
+  &__paragraph {
+    @include h3-tablet;
+    &-dots {
+      display: flex;
+      align-items: start;
+      gap: 16px;
+    }
+  }
+}
+
+.dot {
+  margin-top: 4px;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  background-color: $colorSkyBlue;
+  border-radius: 50%;
+}

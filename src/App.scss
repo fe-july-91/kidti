@@ -1,0 +1,14 @@
+@import './styles/main';
+
+body {
+  margin: 0;
+  scroll-behavior: smooth;
+  font-family: Rubik, sans-serif;
+  background-color: #F8F9FA;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

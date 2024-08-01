@@ -1,0 +1,33 @@
+@mixin h1-tablet {
+  font-family: Rubik, sans-serif;
+  font-size: 42px;
+  line-height: 50px;
+  letter-spacing: -0.01em;
+  font-weight: bold;
+  color: $colorSkyBlue;
+}
+
+@mixin h2-tablet {
+  font-family: Rubik, sans-serif;
+  font-size: 32px;
+  line-height: 41px;
+  letter-spacing: 0.01em;
+  font-weight: bold;
+  color: $colorTextMain;
+}
+
+@mixin h3-tablet {
+  font-family: Rubik, sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 400;
+  color: $colorTextMain;
+}
+
+h1 {
+  font-family: Rubik, sans-serif;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -0.01em;
+  font-weight: bold;
+}
