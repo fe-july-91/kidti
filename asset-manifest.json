@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/kidti/static/css/main.4f6f47bf.css",
+    "main.js": "/kidti/static/js/main.55aaf918.js",
+    "static/media/Rubik-Bold.ttf": "/kidti/static/media/Rubik-Bold.c934eb22c2c69992b34c.ttf",
+    "static/media/Rubik-Medium.ttf": "/kidti/static/media/Rubik-Medium.0e121b4fa4d6e9bc5c69.ttf",
+    "static/media/Rubik-Regular.ttf": "/kidti/static/media/Rubik-Regular.55fa11cdc8b9a3ee842f.ttf",
+    "static/media/Rubik-Light.ttf": "/kidti/static/media/Rubik-Light.9d2ccd264dc61b954019.ttf",
+    "static/media/1.png": "/kidti/static/media/1.a46098c22872820abfd0.png",
+    "static/media/gear.svg": "/kidti/static/media/gear.d52b4decb3ac2ccb62256442085148d4.svg",
+    "static/media/Logo.svg": "/kidti/static/media/Logo.fff34edb6e6c997d293e9417b382728b.svg",
+    "static/media/Logo_dark.svg": "/kidti/static/media/Logo_dark.464a9d004dadd9e551bbf52cc3bbed36.svg",
+    "static/media/banner.svg": "/kidti/static/media/banner.071b480d27298accd8e1945b78e2a145.svg",
+    "static/media/logIn.svg": "/kidti/static/media/logIn.c60db7b896cfd1e821ecc8846950eadc.svg",
+    "index.html": "/kidti/index.html",
+    "static/media/plus.svg": "/kidti/static/media/plus.7dc9baccea663fd1fb9f100963e4813d.svg",
+    "static/media/plusHover.svg": "/kidti/static/media/plusHover.522c64c0fd29ff310ab771e4c6ddeeca.svg",
+    "main.4f6f47bf.css.map": "/kidti/static/css/main.4f6f47bf.css.map",
+    "main.55aaf918.js.map": "/kidti/static/js/main.55aaf918.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4f6f47bf.css",
+    "static/js/main.55aaf918.js"
+  ]
+}
