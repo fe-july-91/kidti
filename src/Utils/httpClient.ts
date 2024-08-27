@@ -1,6 +1,6 @@
 import { EyesData, VaccinesData, YearlyMeasurementData } from '../Shared/types';
 
-const BASE_URL = './../api';
+const BASE_URL = ' https://fe-july-91.github.io/kidti/api';
 
 export function getData<T>(url: string): Promise<T> {
   return fetch(BASE_URL + url).then(response => response.json());
