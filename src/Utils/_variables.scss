@@ -1,17 +1,26 @@
-$colorIndigo: #5528CF;
-$colorVeronica: #6E33EB;
+$colorIndigo: #404ABD;
+$colorIndigoDark: #272D76;
+$colorVeronica: #6771DE;
 $colorSkyBlue: #50C3F9;
-$colorSendyBrown: #FFA347;
+$colorSendyBrown: #FFA54B;
 $colorCyclamen: #FF5C9D;
 $colorLavender: #C88CF8;
-$colorGrayLight: #F8F9FA;
+$colorGrayLight: #F6F7F7;
+$colorGraySuperLight: #F8F9FA;
+$colorGrayDarck: #a6aeb7;
 $colorTextMain: #1C152F;
-$colorTextSecond: #625F6C;
+$colorTextSecond: #42456C;
 
-$breakpoint-phone: 320px;
-$breakpoint-tablet: 640px;
+$breakpoint-phone: 375px;
+$breakpoint-tablet: 680px;
 $breakpoint-middle: 840px;
-$breakpoint-desktop: 1200px;
+$breakpoint-desktop: 1280px;
 
 $iconsHeaderSize-mobile-tablet: 48px;
 $iconsHeaderSize-desktop: 64px;
+
+$selectionWidth: 100px;
+$buttonWidth: 70px;
+$buttonBigWidth: 120px;
+$iconWidth: 32px;
+$ButtonCardColor: #6771DE;

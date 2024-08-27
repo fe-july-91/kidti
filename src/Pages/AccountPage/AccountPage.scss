@@ -4,125 +4,128 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
+  padding-top: 40px;
 
   &__top {
-    @include section-grid;
-    background-color: $colorGrayLight;
-
-  }
-
-  &__personalInfo {
-    grid-column: 1 / 6;
+    @include padding-inline;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 3px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    align-items: flex-end;
 
-    &-name {
-      font-size: 24px;
-      font-weight: 500;
-      color: $colorIndigo;
-      padding-bottom: 4px;
-    }
-
-    &-age {
-      font-size: 24px;
-      font-weight: 500;
-      color: $colorIndigo;
-      padding-bottom: 16px;
-    }
-
-    &-txt {
-      font-size: 18px;
-      color: $colorTextMain;
-    }
-  }
-
-  &__avatars {
-    grid-column: 7 / 24;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 24px;
-
-    @include on-tablet {
-      gap: 24px;
-    }
-
-    @include on-desktop {
-      gap: 24px;
-    }
-
-    &-card {
-      width: 100px;
-
-      &-title {
-        color: $colorLavender;
-      }
-    }
-
-    &-image {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-    }
-
-    &__add {
+    &__personalInfo {
       display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
+      flex-direction: row;
+      justify-content:flex-start;
+      align-items: flex-start;
+      gap: 16px;
 
-      &-text {
-        color: $colorLavender;
-        font-size: 14px;
+      &--image {
+        width: 100px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 15%;
+        box-shadow: 0px 0px 8px rgba(34, 2, 73, 0.2);
+
         &:hover {
-          color: $colorVeronica;
+          border: 1px solid $colorGrayDarck;
+        }
+
+        @include on-desktop {
+          width: 118px;
+          height: auto;
+          object-fit: cover;
         }
       }
 
-      &-icon {
-        width: 32px;
-        height: 32px;
-        object-fit: contain;
+      &--info {
+        display: flex;
+        flex-direction: column;
+        justify-content:flex-start;
+        gap: 4px;
+      }
+  
+      &-name {
+        font-size: 24px;
+        font-weight: 400;
+        color: $colorIndigoDark;
+        padding-bottom: 4px;
+
+        @include on-desktop {
+          padding-bottom: 10px;
+          font-size: 26px;
+          color: $colorIndigoDark;
+        }
+      }
+  
+      &-txt {
+        font-size: 16px;
+        color: $colorIndigoDark;
+
+        @include on-desktop {
+          font-size: 18px;
+          color: $colorIndigoDark;
+        }
       }
     }
 
-  }
-}
+    &__avatars {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      gap: 8px;
+  
+      &__card {
+        width: 50px;
+        height: 50px;
+        background-color: $colorGrayLight;
+        border-radius: 50%;
+        box-shadow: 0px 0px 8px rgba(34, 2, 73, 0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
 
-.dashboard {
-  @include section-grid;
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 20px;
+        &:hover {
+          border: 1px solid $colorGrayDarck;
+        }
 
-  @media (min-width: 640px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+        &--image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
 
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
+        }
+      }
+  
+      &__add {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+  
+        &--text {
+          color: $colorTextSecond;
+          font-size: 12px;
+          text-align: center;
+          &:hover {
+            color: $colorVeronica;
+          }
+        }
 
-  &__item {
-    width: 100%;
-    height: 280px;
-    background-color: $colorGrayLight;
-    padding: 24px 32px;
-
-    &-chart {
-      width: 240px;
-      height: 160px;
+        &--plus {
+          color: $colorTextSecond;
+          font-size: 24px;
+          text-align: center;
+          &:hover {
+            color: $colorVeronica;
+          }
+        }
+      }
+  
     }
-
-    &-title {
-      font-size: 32px;
-      font-weight: 500;
-      padding-bottom: 26px;
-      color: $colorIndigo;
-    }
   }
-
-
 }

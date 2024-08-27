@@ -1,0 +1,104 @@
+@import './../../styles/main';
+
+.card {
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    .edit-button {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+  
+    &:hover {
+      .edit-button {
+        opacity: 1;
+      }
+    }
+
+    &-top {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: top;
+      width: 100%;
+
+      @include on-tablet {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: top;
+        padding-bottom: 0;
+      }
+    }
+
+    &-top-leftBlock {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    &-image {
+      width: $iconWidth;
+      object-fit: contain;
+    }
+
+    &-selectors {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      height: 104px;
+
+    }
+
+    &-select {
+      border: none;
+      background-color: $colorGrayLight;
+      border-bottom: 1px solid $colorGrayDarck;
+      color: $colorTextSecond;
+    }
+
+    &-chart {
+      width: 100%;
+      max-width: 380px;
+    }
+
+    &-values{
+      display: flex;
+      gap: 16px;
+      width: max-content;
+    }
+
+    &-title {
+      font-size: 24px;
+      font-weight: 500;
+      color: $colorTextSecond;
+      &-active {
+        color: $colorCyclamen;
+      }
+    }
+
+    &-edit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 8px;
+      gap: 24px;
+
+      @include on-tablet {
+        padding-top: 0;
+        align-items: flex-end;
+        justify-content: flex-start;
+        gap: 24px;
+      }
+    }
+
+    &__button {
+      @include button-card;
+    }
+  }
+}

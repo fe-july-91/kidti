@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { account, logo, settings } from "../../Utils/kit";
 import './Header.scss';
@@ -15,6 +15,8 @@ export const Header: React.FC<Props> = ({ setIsSettings, isSettings }) => {
     setIsSettings((prev: boolean) => !prev);
   };
 
+  const [isLogin, setIsLogIn] = useState(false);
+
   return (
     <header className="header">
       <Link to="/" className="header__logo">
@@ -23,12 +25,19 @@ export const Header: React.FC<Props> = ({ setIsSettings, isSettings }) => {
 
       <div className="navContainer">
         <div className="navContainer__actions">
-          <Link to="account">
-            <p className="navContainer__actions-text">log in</p>
-          </Link>
-          <Link to="accaunt" className="navContainer__accaunt">
+          {!isLogin ? (
+          <Link
+            to="account"
+              className="navContainer__account"
+              onClick={() => setIsLogIn(true)}
+            >
+          <p className="navContainer__actions-text">log in</p>
+        </Link>
+          ) : (
+            <Link to="account" className="navContainer__account">
             <img src={account} className="navContainer-img" alt="account" />
           </Link>
+          )}
         </div>
         <div className="navContainer__settings">
           <button
@@ -36,7 +45,7 @@ export const Header: React.FC<Props> = ({ setIsSettings, isSettings }) => {
             className="navContainer-button"
             onClick={toggleSettings}
           >
-            <img src={settings} className="navContainer-img" alt="settings"/>
+            <img src={settings} className="navContainer-button-img" alt="settings"/>
           </button>
         </div>
       </div>
