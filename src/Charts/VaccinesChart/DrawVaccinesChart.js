@@ -27,8 +27,6 @@ export function DrawVaccinesChart(
     age = getAgeAtVaccination(targeVaccine.date,birth)
   }
 
-  console.log(vaccinTypes)
-
   // Создаем массив уникальных комбинаций (дата, месяц, год)
   const xData = data.map(d => d.date);
   const uniqueXData = [...new Set(xData)]

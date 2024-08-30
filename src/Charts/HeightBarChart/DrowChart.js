@@ -1,5 +1,8 @@
-import { scaleLinear,scaleBand, max, extent,axisBottom, line} from 'd3';
+import { scaleLinear,scaleBand, max, extent,axisBottom} from 'd3';
 import * as d3 from "d3";
+import { months } from "../../Utils/kit";
+import { sortDataByMonth } from '../../Shared/hendlers/sortDataByMoonth';
+
 
 export function DrawChart(
   SVG,
@@ -7,13 +10,15 @@ export function DrawChart(
   height,
   width,
   margin,
-  targetMonth,
+  selectedMonth,
   slider,
   HandleGraph
 ) {
 
+  sortDataByMonth(data);
+
   const xScale = scaleBand()
-  .domain(data.map((d) => d.month))
+  .domain(months.map((m) => m))
   .range([0, width - margin])
   .padding(0.4);
   
@@ -21,80 +26,82 @@ export function DrawChart(
     .domain(extent([0, max(data, d => d.value) + 3]))
     .nice()
     .range([height - margin, margin * 2]);
-  
-  const filteredData = data.filter(d => d.value > 0);
-  
-  SVG.selectAll('.bar').remove();
+
+  // SVG.selectAll('.bar').remove();
 
  // Create bars
- const bars = SVG.selectAll('.bar')
-   .data(data);
+  const bars = SVG.selectAll('.bar').data(data, d => d.id);
 
-// Enter
-bars.enter()
- .append('rect')
- .attr('class', 'bar')
- .attr('x', d => xScale(d.month))
- .attr('y', d => yScale(d.value))
- .attr('width', xScale.bandwidth())
- .attr('height', d => height - margin - yScale(d.value))
- .attr('fill', d =>
-   d.month === targetMonth
-     ? '#FF5C9D'
-     : '#50C3F9'
- )
- .attr('rx', '10')
-  .attr('ry', '10')
-  .style('cursor', 'pointer')
-  .on('click', (event, d) => {
-    HandleGraph(d);
-  });
 
-// Update
-  bars
-    .transition()
-    .duration(500)
-    .attr('x', d => xScale(d.month))
-    .attr('y', d =>
-      slider > 0 && d.month === targetMonth
-        ? yScale(slider)
-        : yScale(d.value)
-    )
-    .attr('width', xScale.bandwidth())
-    .attr('height', d =>
-      slider > 0 && d.month === targetMonth
-        ? height - margin - yScale(slider)
-        : height - margin - yScale(d.value)
-    )
-    .attr('fill', d =>
-      d.month === targetMonth
-        ? '#FF5C9D'
-        : '#50C3F9'
-    )
-    .attr('rx', '10')
-    .attr('ry', '10');
+// Enter - Add new bars with animation
+const barsEnter = bars.enter()
+.append('rect')
+.attr('class', 'bar')
+.attr('x', d => xScale(d.month))
+.attr('y', d => yScale(0)) // Start from the bottom of the chart
+.attr('width', xScale.bandwidth())
+.attr('height', 0) // Start with height 0
+.attr('fill', d =>
+  d.month === selectedMonth
+    ? '#FF5C9D'
+    : '#50C3F9'
+)
+.attr('rx', '10')
+.attr('ry', '10')
+.style('cursor', 'pointer')
+.on('click', (event, d) => {
+  HandleGraph(d);
+});
+
+barsEnter.transition()
+.duration(500)
+.attr('y', d => yScale(d.value)) // Animate to the final y position
+.attr('height', d => height - margin - yScale(d.value)); // Animate to the final height
+
+// Update existing bars without animation
+bars.transition()
+.duration(0) // Remove transition to avoid animating all bars
+.attr('x', d => xScale(d.month))
+.attr('y', d =>
+  slider > 0 && d.month === selectedMonth
+    ? yScale(slider)
+    : yScale(d.value)
+)
+.attr('width', xScale.bandwidth())
+.attr('height', d =>
+  slider > 0 && d.month === selectedMonth
+    ? height - margin - yScale(slider)
+    : height - margin - yScale(d.value)
+)
+.attr('fill', d =>
+  d.month === selectedMonth
+    ? '#FF5C9D'
+    : '#50C3F9'
+)
+.attr('rx', '10')
+.attr('ry', '10');
+
 
 // Exit
   bars.exit().remove();
   
   // Add labels
-  const labels = SVG.selectAll('.label')
-    .data(filteredData);
+  const labels = SVG.selectAll('.label').data(data);
 
   // Enter
   labels.enter()
     .append('text')
     .attr('class', 'label')
     .attr('x', d => xScale(d.month) + xScale.bandwidth() / 2)
-    .attr('y', d => yScale(d.value) - 5)  // Adjust vertical position
+    .attr('y', d => yScale(d.value) - 5)
     .attr('text-anchor', 'middle')
     .attr('fill', d =>
-      d.month.toLowerCase() === targetMonth.toLowerCase()
+      d.month.toLowerCase() === selectedMonth.toLowerCase()
         ? '#FF5C9D'
         : '#625F6C'
     )
     .text(d =>
-      slider > 0 && d.month === targetMonth
+      slider > 0 && d.month === selectedMonth
         ? slider
         : d.value);
 
@@ -103,57 +110,38 @@ bars.enter()
     .transition()
     .duration(500)
     .attr('x', d => xScale(d.month) + xScale.bandwidth() / 2)
-    .attr('y', d => yScale(d.value) - 5)  // Adjust vertical position
+    .attr('y', d => yScale(d.value) - 5)
     .attr('fill', d =>
-      d.month.toLowerCase() === targetMonth.toLowerCase()
+      d.month.toLowerCase() === selectedMonth.toLowerCase()
         ? '#FF5C9D'
         : '#625F6C'
     )
     .text(d =>
-      slider > 0 && d.month === targetMonth
+      slider > 0 && d.month === selectedMonth
         ? slider
         : d.value);
 
   // Exit
   labels.exit().remove();
-
-    // Add line
-
-
-  const lineGenerator = line()
-  .x(d => xScale(d.month) + xScale.bandwidth() / 2)
-  .y(d => yScale(d.value))
-  .curve(d3.curveLinear); // Optional: curve type for smoothness
-
-const filteredDataForLine = data.filter(d => d.value > 0);
-
-
-SVG.selectAll('.line').remove(); // Remove existing line if any
-
-SVG.append('path')
-  .datum(filteredDataForLine)
-  .attr('class', 'line')
-  .attr('d', lineGenerator)
-  .attr('fill', 'none')
-  .attr('stroke', '#50C3F9') // Line color
-    .attr('stroke-width', 2) // Line width
-    .style('stroke-dasharray', '4 4');
-
   
   // Добавляем ось X
 SVG.selectAll('.x-axis').remove();
 const xAxisGroup = SVG.append('g')
   .attr('class', 'x-axis')
   .attr('transform', `translate(0,${height - margin})`)
-  .call(axisBottom(xScale).tickFormat(d => d.slice(0, 3)))
+  .call(axisBottom(xScale).tickFormat(m => m.slice(0, 3)))
   .selectAll('text') 
   .style('font-size', '12px')
-  .style('cursor', 'pointer')  // Добавляем стиль курсора для указания интерактивности
+  .style('cursor', 'pointer')
   
-  xAxisGroup
-    .style('fill', d => d === targetMonth ? '#FF5C9D' : '#625F6C')
-    .on('click', (event, d) => {
-      HandleGraph({ month: d, value: data.find(item => item.month === d).value });
-    });
-
+xAxisGroup
+  .style('fill', m => m === selectedMonth ? '#FF5C9D' : '#625F6C')
+  .on('click', (event, m) => {
+    const targetMonthData = data.find(item => item.month === m)
+    if (targetMonthData) {
+      HandleGraph({ month: m, value: targetMonthData.value});
+    } else {
+      HandleGraph({ month: m, value: 0});
+    }
+  });
 }

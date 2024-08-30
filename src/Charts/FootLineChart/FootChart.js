@@ -13,8 +13,6 @@ export const FootChart = ({
 }) => {
 
   const margin = 20;
-  const targetMonth = selectedMonth;
-
   const xAxisRef = useRef(null);
   const rectRef = useRef();
 
@@ -31,7 +29,7 @@ export const FootChart = ({
       height,
       width,
       margin,
-      targetMonth,
+      selectedMonth,
       slider,
       HandleGraph
     );
@@ -41,7 +39,7 @@ export const FootChart = ({
     if (xAxisRef.current) {
       d3.select(xAxisRef.current).call(xAxis);
     }
-  }, [data, targetMonth, xScale, width, height, slider, HandleGraph]);
+  }, [data, selectedMonth, xScale, width, height, slider, HandleGraph]);
 
   return (
     <svg ref={rectRef} viewBox={`0 0 ${width} ${height}`}>

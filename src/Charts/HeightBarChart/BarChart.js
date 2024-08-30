@@ -12,7 +12,6 @@ export const BarChart = ({
 }) => {
 
   const margin = 20;
-  const targetMonth = selectedMonth;
 
   const rectRef = useRef();
 
@@ -24,10 +23,10 @@ export const BarChart = ({
       height,
       width,
       margin,
-      targetMonth,
+      selectedMonth,
       slider,
       HandleGraph)
-  }, [ data, targetMonth, width, height, slider, HandleGraph]);
+  }, [ data, selectedMonth, width, height, slider, HandleGraph]);
 
   return <svg ref={rectRef} viewBox={`0 0 ${width} ${height}`}>
     </svg>

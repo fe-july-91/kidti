@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { vaccine, vaccinesSelect } from "../../Utils/kit";
 import { parse } from 'date-fns';
 import "./CardVaccines.scss";
@@ -28,6 +28,10 @@ export const CardVaccines: React.FC<Props> = ({ data, child }) => {
     month: '2-digit',
     year: 'numeric',
   });
+
+  useEffect(() => {
+    setNewdata(data)
+  }, [data])
 
   const updateVaccines = (newVaccine: VaccineData, currentVaccines: VaccineData[]) : VaccineData[] => {
     let newSetOfVaccines;

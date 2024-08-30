@@ -1,5 +1,7 @@
 import { scaleLinear,scaleBand, max, extent, area, axisBottom } from 'd3';
 import * as d3 from "d3";
+import { months } from '../../Utils/kit';
+import { sortDataByMonth } from '../../Shared/hendlers/sortDataByMoonth';
 
 export function DrowLineChart(
   SVG,
@@ -13,7 +15,7 @@ export function DrowLineChart(
 ) {
 
   const xScale = scaleBand()
-  .domain(data.map((d) => d.month))
+  .domain(months.map(m => m))
   .range([0, width])
   .padding(0.4);
   
@@ -21,10 +23,8 @@ export function DrowLineChart(
     .domain(extent([0, max(data, d => d.value) + 3]))
     .nice()
     .range([height - margin, margin * 2]);
-  
-    // Filter out zero values
-  const filteredData = data.filter(d => d.value > 0);
-  
+
+  sortDataByMonth(data);
 
   // Create groups for area, line, and points
   const areaGroup = SVG.selectAll('.area-group');
@@ -42,7 +42,7 @@ export function DrowLineChart(
     .curve(d3.curveLinear);
 
   newAreaGroup.append('path')
-    .datum(filteredData)
+    .datum(data)
     .attr('class', 'area')
     .attr('d', areaGenerator)
     .attr('fill', '#50C3F9') // Area color
@@ -54,7 +54,7 @@ export function DrowLineChart(
 
   // Add points
   const points = newPointGroup.selectAll('.point')
-    .data(filteredData);
+    .data(data);
 
   // Enter
   points.enter()
@@ -95,7 +95,7 @@ export function DrowLineChart(
 
   // Add labels
   const labels = SVG.selectAll('.label')
-    .data(filteredData);
+    .data(data);
 
   // Enter
   labels.enter()
@@ -144,7 +144,12 @@ const xAxisGroup = SVG.append('g')
   .style('cursor', 'pointer');
   xAxisGroup
     .style('fill', d => d === targetMonth ? '#FF5C9D' : '#625F6C')
-    .on('click', (event, d) => {
-      HandleGraph({ month: d, value: data.find(item => item.month === d).value });
+    .on('click', (event, m) => {
+      const targetMonthData = data.find(item => item.month === m)
+      if (targetMonthData) {
+        HandleGraph({ month: m, value: targetMonthData.value});
+      } else {
+        HandleGraph({ month: m, value: 0});
+      }
     });
 }

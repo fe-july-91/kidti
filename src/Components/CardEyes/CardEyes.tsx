@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import cn from "classnames";
 import Slider from "react-input-slider";
 import "./CardEyes.scss";
@@ -18,11 +18,14 @@ export const CardEyes: React.FC<Props> = ({ data }) => {
   const [leftSliderValue, setLeftSliderValue] = useState({ x: data.left });
   const [rightSliderValue, setRightSliderValue] = useState({ x: data.right });
 
+  useEffect(() => {
+    setActiveParametrs(data);
+  }, [data]);
   
-  const reset = () => {
-    setLeftSliderValue({ x: 0 });
-    setRightSliderValue({ x: 0 });
-  };
+  // const reset = () => {
+  //   setLeftSliderValue({ x: 0 });
+  //   setRightSliderValue({ x: 0 });
+  // };
 
   const saveData = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (e) {
@@ -34,7 +37,6 @@ export const CardEyes: React.FC<Props> = ({ data }) => {
     };
   
     setActiveParametrs(newParametrs);
-    reset();
   };
 
   const handleEditClick = () => {
@@ -58,13 +60,6 @@ export const CardEyes: React.FC<Props> = ({ data }) => {
     setActiveSlider(false);
     saveData(e);
   };
-
-  // const HandleGraph = (d: Data) => {
-  //   setActiveSlider(true);
-  //   setSelectedMonth(d.month);
-  //   setActiveParametrs(d);
-  //   setSliderValue({ x: d.value });
-  // };
 
   return (
     <div className="eyes__item">
@@ -192,7 +187,7 @@ export const CardEyes: React.FC<Props> = ({ data }) => {
         <EyesChart
           width={400}
           height={200}
-          data={data}
+          data={activeParametrs}
           sliderLeft={leftSliderValue.x}
           sliderRight={rightSliderValue.x}
         />

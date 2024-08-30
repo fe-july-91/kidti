@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import cn from "classnames";
 import { BarChart } from "../../Charts/HeightBarChart/BarChart";
 import Slider from "react-input-slider";
 import "./CardHeight.scss";
 import { Data } from "../../Shared/types";
-import { ageHeightValue, height, sliderWidth} from "../../Utils/kit";
+import { ageHeightValue, height, months, sliderWidth } from "../../Utils/kit";
 
 type Props = {
   data: Data[];
   years: string[];
-  age?: number;
 };
 
 export const CardHeight: React.FC<Props> = ({ data, years }) => {
@@ -21,21 +20,6 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
   });
   const todayMonth = formattedDate.split(" ")[0];
 
-  const months = [
-    "Січень",
-    "Лютий",
-    "Березень",
-    "Квітень",
-    "Травень",
-    "Червень",
-    "Липень",
-    "Серпень",
-    "Вересень",
-    "Жовтень",
-    "Листопад",
-    "Грудень",
-  ];
-
   const monthIndex = months.findIndex(
     (month) => month.toLowerCase() === todayMonth.toLowerCase()
   );
@@ -43,13 +27,15 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
   const [selectedYear, setSelectedYear] = useState(years[0]);
   const [selectedMonth, setSelectedMonth] = useState(months[monthIndex]);
   const [newData, setNewdata] = useState<Data[]>(data);
-
-  const currentData = data.find(
+  const currentData = newData.find(
     (d) => d.month === selectedMonth && d.year === selectedYear
   );
+
   const [activeParametrs, setActiveParametrs] = useState<Data | undefined>(
     currentData
   );
+
+  console.log(newData);
 
   const [activeSlider, setActiveSlider] = useState(false);
   const [sliderValue, setSliderValue] = useState({ x: 0 });
@@ -62,31 +48,32 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
     if (e) {
       e.preventDefault();
     }
-    const newParametrs: Data = {
+
+    const newParametr: Data = {
+      id: newData.length + 1,
       year: selectedYear,
       month: selectedMonth,
       value: sliderValue.x,
     };
 
-    setNewdata((currentData) => {
-      const index = currentData.findIndex(
-        (d) => d.month === newParametrs.month && d.year === newParametrs.year
-      );
-
-      if (index !== -1) {
-        return currentData.map((d, i) => (i === index ? newParametrs : d));
-      } else {
-        return [...currentData, newParametrs];
-      }
-    });
-    setActiveParametrs(newParametrs);
+    if (currentData) {
+      const updatedData = newData.map((d, i) => (
+        d.id === currentData.id
+          ? { ...d, value: sliderValue.x }
+          : d
+      ))
+      setNewdata(updatedData)
+    } else {
+      setNewdata([...newData, newParametr]);
+      setActiveParametrs(newParametr);
+    }
     reset();
   };
 
   const handleEditClick = () => {
     setActiveSlider(true);
     if (activeParametrs) {
-      setSliderValue({ x: activeParametrs.value === 0 ? maxValue : activeParametrs.value});
+      setSliderValue({ x: activeParametrs.value ? maxValue : activeParametrs.value});
     }
   };
   const handleCanсelClick = () => {
@@ -105,7 +92,7 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
 
   const handleMonthChenge = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedMonth(event.target.value);
-    const newParametr = data.find(
+    const newParametr = newData.find(
       (d) => d.month === event.target.value && d.year === selectedYear
     );
     setActiveParametrs(newParametr);
@@ -114,16 +101,20 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
 
   const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedYear(event.target.value);
-    const newParametr = data.find(
+    const newParametr = newData.find(
       (d) => d.month === selectedMonth && d.year === event.target.value
     );
     setActiveParametrs(newParametr);
     setActiveSlider(false);
   };
-
+  
+  useEffect(() => {
+    setNewdata(data)
+  }, [data])
+  
   const filteredData = newData.filter((d) => d.year === selectedYear);
-  const currentIndex = data.findIndex(d => d === activeParametrs)
-  const maxValue = Math.max(...data.slice(0, currentIndex).filter(d => d.value > 0).map(d => d.value));
+  const currentIndex = newData.findIndex(d => d === activeParametrs)
+  const maxValue = Math.max(...newData.slice(0, currentIndex).map(d => d.value));
 
   const HandleGraph = (d: Data) => {
     setActiveSlider(true);
@@ -151,7 +142,7 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
             >
               {activeSlider
                 ? `${sliderValue.x}см`
-                : activeParametrs?.value === 0 ? `${maxValue}` :`${activeParametrs?.value}см`}
+                : !activeParametrs ? `${maxValue}` :`${activeParametrs?.value}см`}
             </p>
           </div>
 

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import cn from "classnames";
 import Slider from "react-input-slider";
 import "./CardFoot.scss";
 import { Data } from "../../Shared/types";
-import { foot, sliderWidth} from "../../Utils/kit";
+import { foot, months, sliderWidth} from "../../Utils/kit";
 import { FootChart } from "../../Charts/FootLineChart/FootChart";
 
 type Props = {
@@ -21,21 +21,6 @@ export const CardFoot: React.FC<Props> = ({ data, years }) => {
   });
   const todayMonth = formattedDate.split(" ")[0];
 
-  const months = [
-    "Січень",
-    "Лютий",
-    "Березень",
-    "Квітень",
-    "Травень",
-    "Червень",
-    "Липень",
-    "Серпень",
-    "Вересень",
-    "Жовтень",
-    "Листопад",
-    "Грудень",
-  ];
-
   const monthIndex = months.findIndex(
     (month) => month.toLowerCase() === todayMonth.toLowerCase()
   );
@@ -44,15 +29,20 @@ export const CardFoot: React.FC<Props> = ({ data, years }) => {
   const [selectedMonth, setSelectedMonth] = useState(months[monthIndex]);
   const [newData, setNewdata] = useState<Data[]>(data);
 
-  const currentData = data.find(
+  const currentData = newData.find(
     (d) => d.month === selectedMonth && d.year === selectedYear
   );
+
   const [activeParametrs, setActiveParametrs] = useState<Data | undefined>(
     currentData
   );
 
-  const currentIndex = data.findIndex(d => d === activeParametrs)
-  const maxValue = Math.max(...data.slice(0, currentIndex).filter(d => d.value > 0).map(d => d.value));
+  useEffect(() => {
+    setNewdata(data)
+  }, [data])
+
+  const currentIndex = newData.findIndex(d => d === activeParametrs)
+  const maxValue = Math.max(...newData.slice(0, currentIndex).filter(d => d.value > 0).map(d => d.value));
 
   const [activeSlider, setActiveSlider] = useState(false);
   const [sliderValue, setSliderValue] = useState({ x: maxValue });
@@ -65,24 +55,25 @@ export const CardFoot: React.FC<Props> = ({ data, years }) => {
     if (e) {
       e.preventDefault();
     }
-    const newParametrs: Data = {
+
+    const newParametr: Data = {
+      id: newData.length,
       year: selectedYear,
       month: selectedMonth,
       value: sliderValue.x,
     };
 
-    setNewdata((currentData) => {
-      const index = currentData.findIndex(
-        (d) => d.month === newParametrs.month && d.year === newParametrs.year
-      );
-
-      if (index !== -1) {
-        return currentData.map((d, i) => (i === index ? newParametrs : d));
-      } else {
-        return [...currentData, newParametrs];
-      }
-    });
-    setActiveParametrs(newParametrs);
+    if (currentData) {
+      const updatedData = newData.map((d, i) => (
+        d.id === currentData.id
+          ? { ...d, value: sliderValue.x }
+          : d
+      ))
+      setNewdata(updatedData)
+    } else {
+      setNewdata([...newData, newParametr]);
+      setActiveParametrs(newParametr);
+    }
     reset();
   };
 
@@ -108,7 +99,7 @@ export const CardFoot: React.FC<Props> = ({ data, years }) => {
 
   const handleMonthChenge = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedMonth(event.target.value);
-    const newParametr = data.find(
+    const newParametr = newData.find(
       (d) => d.month === event.target.value && d.year === selectedYear
     );
     setActiveParametrs(newParametr);
@@ -117,7 +108,7 @@ export const CardFoot: React.FC<Props> = ({ data, years }) => {
 
   const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedYear(event.target.value);
-    const newParametr = data.find(
+    const newParametr = newData.find(
       (d) => d.month === selectedMonth && d.year === event.target.value
     );
     setActiveParametrs(newParametr);
@@ -153,7 +144,7 @@ export const CardFoot: React.FC<Props> = ({ data, years }) => {
             >
               {activeSlider
                 ? `${sliderValue.x}см`
-                : activeParametrs?.value === 0 ? `${maxValue}см` :`${activeParametrs?.value}см`}
+                : !activeParametrs ? `${maxValue}см` :`${activeParametrs?.value}см`}
             </p>
           </div>
           <select

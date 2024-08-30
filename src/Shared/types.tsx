@@ -2,14 +2,17 @@ interface MonthData {
   [key: string]: number; // e.g., "Січень": 12, "Лютий": 0, etc.
 }
 
-interface YearData {
-  YEAR: string;
-  MONTH: MonthData;
+export type Data = {
+  id: number;
+  year: string;
+  month: string;
+  value: number;
 }
+
 
 export interface YearlyMeasurementData {
   type: "weight" | "height" | "foot";
-  data: YearData[];
+  data: Data[];
 }
 
 export type Eye = {
@@ -42,10 +45,3 @@ export type Child = {
   birth: string;
   image: number;
 };
-
-export type Data = {
-  year: string;
-  month: string;
-  value: number;
-}
-
