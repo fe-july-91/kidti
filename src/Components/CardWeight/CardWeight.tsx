@@ -142,7 +142,7 @@ export const CardWeight: React.FC<Props> = ({ data, years }) => {
               >
                 {activeSlider
                   ? `${sliderValue.x}кг`
-                  : !activeParametrs ? `${maxValue}` :`${activeParametrs?.value}кг`}
+                  : !activeParametrs ? `${maxValue}кг` :`${activeParametrs?.value}кг`}
               </p>
             </div>
 

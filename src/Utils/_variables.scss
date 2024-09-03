@@ -8,8 +8,10 @@ $colorLavender: #C88CF8;
 $colorGrayLight: #F6F7F7;
 $colorGraySuperLight: #F8F9FA;
 $colorGrayDarck: #a6aeb7;
-$colorTextMain: #1C152F;
-$colorTextSecond: #585b89;
+$colorTextMain: #201835;
+$colorTextSecond: #3b3d5d;
+$colorTextThird: #6c6e90;
+
 
 $breakpoint-phone: 375px;
 $breakpoint-tablet: 680px;
@@ -25,10 +27,17 @@ $buttonBigWidth: 120px;
 $iconWidth: 32px;
 $ButtonCardColor: #6771DE;
 
+
+$colorVeronicaLight: #adb0d9;
+$colorSkyBlueLight: #9bc7dc;
+$colorSendyBrownLight: #d5b99c;
+$colorCyclamenLight: #e2a1bb;
+$colorLavenderLight: #cdbdda;
+
 $colors: (
-  $colorVeronica: #adb0d9,
-  $colorSkyBlue: #9bc7dc,
-  $colorSendyBrown: #d5b99c,
-  $colorCyclamen: #e2a1bb,
-  $colorLavender: #cdbdda
+  $colorVeronicaLight: #adb0d9,
+  $colorSkyBlueLight: #9bc7dc,
+  $colorSendyBrownLight: #d5b99c,
+  $colorCyclamenLight: #e2a1bb,
+  $colorLavenderLight: #cdbdda
 );

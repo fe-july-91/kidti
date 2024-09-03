@@ -1,6 +1,3 @@
-interface MonthData {
-  [key: string]: number; // e.g., "Січень": 12, "Лютий": 0, etc.
-}
 
 export type Data = {
   id: number;
@@ -41,7 +38,9 @@ export type ChildData = (YearlyMeasurementData | EyesData | VaccinesData)[];
 export type Child = {
   id: number;
   name: string;
+  surname: string;
   parent: string;
   birth: string;
+  gender: string;
   image: number;
 };

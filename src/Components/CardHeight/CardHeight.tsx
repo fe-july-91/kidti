@@ -142,7 +142,7 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
             >
               {activeSlider
                 ? `${sliderValue.x}см`
-                : !activeParametrs ? `${maxValue}` :`${activeParametrs?.value}см`}
+                : !activeParametrs ? `${maxValue}см` :`${activeParametrs?.value}см`}
             </p>
           </div>
 

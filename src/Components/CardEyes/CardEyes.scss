@@ -8,14 +8,16 @@
     align-items: center;
     padding: 24px 24px;
 
-    .edit-button {
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-  
-    &:hover {
+    @include middle {
       .edit-button {
-        opacity: 1;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+    
+      &:hover {
+        .edit-button {
+          opacity: 1;
+        }
       }
     }
 

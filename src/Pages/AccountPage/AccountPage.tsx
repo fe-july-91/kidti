@@ -7,6 +7,8 @@ import { Child, Data, Eye, EyesData, VaccineData, VaccinesData, YearlyMeasuremen
 import { calculateFullChildAge } from "../../Shared/hendlers/generateYearArray";
 import ChildCard_1 from './../../api/ChildData_1.json';
 import ChildCard_2 from './../../api/ChildData_2.json';
+import { AddModal } from "../../Components/AddModal/AddModal";
+import { AdditModal } from "../../Components/AdditModal/AdditModal";
 
 
 const colors = ['#cdbdda','#adb0d9', '#9bc7dc', '#d5b99c', '#e2a1bb'];
@@ -19,6 +21,8 @@ export const AccountPage: React.FC = () => {
   const [footData, setFootData] = useState<Data[] | null>(null);
   const [vaccinesData, setVaccinesData] = useState<VaccineData[] | null>(null);
   const [eyesData, setEyesData] = useState<Eye | null>(null);
+  const [modal, setModal] = useState(false);
+  const [additingModal, setAdditingModal] = useState(false);
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -41,7 +45,6 @@ export const AccountPage: React.FC = () => {
   //   fetchData()
   //   .catch(error => console.error('Error fetching data:', error));
   // }, [child]);
-
   const ChildsDataArray = [ChildCard_1, ChildCard_2]
 
   useEffect(() => {
@@ -50,7 +53,8 @@ export const AccountPage: React.FC = () => {
       const weightCard = ChildsDataArray[child.id - 1].find(item => item.type === "weight") as YearlyMeasurementData;
       const footCard = ChildsDataArray[child.id - 1].find(item => item.type === "foot") as YearlyMeasurementData;
       const eyeCard = ChildsDataArray[child.id - 1].find(item => item.type === "eyes") as EyesData;
-      const vaccinesCard = ChildsDataArray[child.id - 1].find(item => item.type === "vaccines") as VaccinesData;
+    const vaccinesCard = ChildsDataArray[child.id - 1].find(item => item.type === "vaccines") as VaccinesData;
+
 
       setHeightData(heightCard.data);
       setWeightData(weightCard.data);
@@ -58,7 +62,7 @@ export const AccountPage: React.FC = () => {
       setEyesData(eyeCard.data);
       setVaccinesData(vaccinesCard.data);
 
-  }, [child]);
+  }, [child.id]);
 
   const handleChildChange = (index: number,selectedChild: Child) => {
     setActiveIndex(index);
@@ -66,6 +70,7 @@ export const AccountPage: React.FC = () => {
   }
 
   const handleAddChild = () => {
+    setModal(true)
   }
 
   const fullAge = calculateFullChildAge(child.birth);
@@ -74,36 +79,42 @@ export const AccountPage: React.FC = () => {
     <div className="account">
       <div className="account__top">
         <div className="account__top__personalInfo">
-          <img src={avatars[child.image]} alt="avatar" className="account__top__personalInfo--image" />
+          <img
+            src={avatars[child.image]}
+            alt="avatar"
+            className="account__top__personalInfo--image"
+            onClick={() => {
+              console.log('Image clicked');
+              setAdditingModal(true);
+            }}
+            />
           <div  className="account__top__personalInfo--info">
             <header className="account__top__personalInfo-name">
             {child.name}
             </header>
             <p className="account__top__personalInfo-txt">Вік: {fullAge.years}p. {fullAge.months}м.</p>
-            <p className="account__top__personalInfo-txt">Pік народження: 19/08/19</p>
+            <p className="account__top__personalInfo-txt">Pік народження: {child.birth}</p>
             <p className="account__top__personalInfo-txt">Стать: дівчинка</p>
           </div>
         </div>
 
         <div className="account__top__avatars">
-          {Children.map((childItem, index) => (
-              <button
-              className={`account__top__avatars__card ${activeIndex === index ? 'active' : ''}`}
-              key={index}
-              onClick={() => handleChildChange(index, childItem)}
-            >
-              <img src={avatars[childItem.image]} alt="avatar" className="account__top__avatars__card--image" />
-            </button>
-          ))}
-
+      {Children.map((childItem, index) => (
+        <div key={index} className="account__top__avatars__card-container">
           <button
-            className="account__top__avatars__add"
-            onClick={handleAddChild}
+            className={`account__top__avatars__card ${activeIndex === index ? 'active' : ''}`}
+            onClick={() => handleChildChange(index, childItem)}
           >
-            <div className="account__top__avatars__add--plus"> + </div>
-            <div className="account__top__avatars__add--text">Додати<br />дитину</div>
+            <img src={avatars[childItem.image]} alt="avatar" className="account__top__avatars__card--image" />
           </button>
         </div>
+      ))}
+
+      <button className="account__top__avatars__add" onClick={handleAddChild}>
+        <div className="account__top__avatars__add--plus"> + </div>
+        <div className="account__top__avatars__add--text">Додати<br />дитину</div>
+      </button>
+    </div>
       </div>
 
       <div className="account__container" style={{ backgroundColor: colors[activeIndex] }}>
@@ -118,6 +129,24 @@ export const AccountPage: React.FC = () => {
         />
         }
       </div>
+      {modal && ChildsDataArray.length > 0 &&
+        <div className="account__modalContainer">
+          <AddModal setModal= {setModal} />
+        </div>
+      }
+
+      {additingModal && (
+        <div className="account__modalContainer">
+        <AdditModal
+          setModal={setAdditingModal}
+          name={child.name}
+          surname={child.surname}
+          birth={child.birth}
+          gender={child.gender}
+          avatar={avatars[child.image]}
+          />
+        </div>
+      )}
     </div>
   );
 };

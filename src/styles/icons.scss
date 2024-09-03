@@ -15,3 +15,27 @@
     }
   }
 }
+
+.icons {
+  width: 24px;
+  height: 24px;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  &--facebook {
+    background-image: url(../assets/icons/facebook.png);
+  }
+
+  &--google {
+    background-image: url(../assets/icons/google.png);
+  }
+
+  &--close {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background-image: url(../assets/icons/Close.svg);
+  }
+}

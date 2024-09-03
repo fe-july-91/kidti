@@ -5,7 +5,7 @@ import gear from '../assets/icons/gear.svg'
 import plusImage from '../assets/icons/plus.svg'
 import plusImageHover from '../assets/icons/plusHover.svg'
 
-import image from '../assets/images/banner.svg'
+import image from '../assets/images/Bunner_kitty.png'
 import footImage from '../assets/images/foot.png'
 import heightImage from '../assets/images/height.png'
 import weightImage from '../assets/images/weight.png'

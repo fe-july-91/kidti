@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-import { account, logo, settings } from "../../Utils/kit";
+import { logo, settings } from "../../Utils/kit";
 import './Header.scss';
 
 
@@ -26,16 +26,27 @@ export const Header: React.FC<Props> = ({ setIsSettings, isSettings }) => {
       <div className="navContainer">
         <div className="navContainer__actions">
           {!isLogin ? (
+            <>
           <Link
-            to="account"
+            to="login"
               className="navContainer__account"
               onClick={() => setIsLogIn(true)}
             >
-          <p className="navContainer__actions-text">log in</p>
-        </Link>
+              <p className="navContainer__actions--text">Увійти</p>
+              </Link>
+              <span>або</span>
+            <Link
+            to="signup"
+              className="navContainer__account"
+              onClick={() => setIsLogIn(true)}
+            >
+              <p className="navContainer__actions--text">Зареєструватися</p>
+           </Link>
+            </>
+
           ) : (
             <Link to="account" className="navContainer__account">
-            <img src={account} className="navContainer-img" alt="account" />
+            <div className="navContainer__account--hellow"> Вітаю, Марія!</div>
           </Link>
           )}
         </div>
