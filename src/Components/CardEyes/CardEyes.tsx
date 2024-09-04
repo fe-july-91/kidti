@@ -21,11 +21,6 @@ export const CardEyes: React.FC<Props> = ({ data }) => {
   useEffect(() => {
     setActiveParametrs(data);
   }, [data]);
-  
-  // const reset = () => {
-  //   setLeftSliderValue({ x: 0 });
-  //   setRightSliderValue({ x: 0 });
-  // };
 
   const saveData = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (e) {
@@ -70,7 +65,7 @@ export const CardEyes: React.FC<Props> = ({ data }) => {
         </div>
 
 
-        <div className="eyes__item-edit">
+        <div className="eyes__item--edit">
           {!activeSlider ? (
             <button className="card__item__button card__item__button-big edit-button" onClick={handleEditClick}>
               {" "}
@@ -80,7 +75,7 @@ export const CardEyes: React.FC<Props> = ({ data }) => {
             <div className="card__item__button--container">
               <button className="card__item__button" onClick={handleApplyClick}>
                 {" "}
-                Так
+                Додати
               </button>
 
               <button
@@ -88,7 +83,7 @@ export const CardEyes: React.FC<Props> = ({ data }) => {
                 onClick={handleCanсelClick}
               >
                 {" "}
-                Ні
+                Скасувати
               </button>
             </div>
           )}
@@ -121,7 +116,7 @@ export const CardEyes: React.FC<Props> = ({ data }) => {
             track: {
               backgroundColor: "#ddd",
               height: "8px",
-              width: sliderWidth,
+              width: "160px",
               borderRadius: "4px",
             },
             active: {
@@ -165,7 +160,7 @@ export const CardEyes: React.FC<Props> = ({ data }) => {
             track: {
               backgroundColor: "#ddd",
               height: "8px",
-              width: sliderWidth,
+              width: "160px",
               borderRadius: "4px",
             },
             active: {
@@ -181,6 +176,30 @@ export const CardEyes: React.FC<Props> = ({ data }) => {
           }}
           />
         )}
+      </div>
+
+      <div className="eyes__item--mobile-edit">
+          {!activeSlider ? (
+            <button className="eyes__item__button" onClick={handleEditClick}>
+              {" "}
+              Редагувати
+            </button>
+          ) : (
+            <div className="eyes__item__button--container">
+              <button className="eyes__item__button" onClick={handleApplyClick}>
+                {" "}
+                Додати
+              </button>
+
+              <button
+                className="eyes__item__button eyes__item__button--cansel"
+                onClick={handleCanсelClick}
+              >
+                {" "}
+                Скасувати
+              </button>
+            </div>
+          )}
       </div>
 
       <div className="eyes__item-chart">

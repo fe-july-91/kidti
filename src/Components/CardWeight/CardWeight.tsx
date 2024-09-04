@@ -209,7 +209,7 @@ export const CardWeight: React.FC<Props> = ({ data, years }) => {
             <div className="card__item__button--container">
               <button className="card__item__button" onClick={handleApplyClick}>
                 {" "}
-                Так
+                Додати
               </button>
 
               <button
@@ -217,7 +217,7 @@ export const CardWeight: React.FC<Props> = ({ data, years }) => {
                 onClick={handleCanсelClick}
               >
                 {" "}
-                Ні
+                Скасувати
               </button>
             </div>
           )}

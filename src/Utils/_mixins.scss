@@ -68,7 +68,7 @@
 
    @include on-tablet {
     padding: 10px 14px;
-    width: $buttonWidth;
+    width: $buttonWidth + 32px;
    }
 
    &-big {

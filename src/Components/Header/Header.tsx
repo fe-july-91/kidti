@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { logo, settings } from "../../Utils/kit";
 import './Header.scss';
+import { Menu } from "../Menu/Menu";
 
 
 interface Props {
@@ -11,8 +12,14 @@ interface Props {
 
 export const Header: React.FC<Props> = ({ setIsSettings, isSettings }) => {
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const toggleSettings = () => {
     setIsSettings((prev: boolean) => !prev);
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev: boolean) => !prev);
   };
 
   const [isLogin, setIsLogIn] = useState(false);
@@ -50,7 +57,7 @@ export const Header: React.FC<Props> = ({ setIsSettings, isSettings }) => {
           </Link>
           )}
         </div>
-        <div className="navContainer__settings">
+        {/* <div className="navContainer__settings">
           <button
             type="button"
             className="navContainer-button"
@@ -58,8 +65,23 @@ export const Header: React.FC<Props> = ({ setIsSettings, isSettings }) => {
           >
             <img src={settings} className="navContainer-button-img" alt="settings"/>
           </button>
-        </div>
+        </div> */}
       </div>
+
+      <div className="BurgerMenu">
+        <button
+          type="button"
+          className="BurgerMenu__button"
+          onClick={toggleMenu}
+        >
+          {isMenuOpen ? (
+            <div className="icons icons--close-wight"></div>
+          ) : (
+            <div className="icons icons--menu"></div>
+          )}
+        </button>
+      </div>
+      {isMenuOpen && <Menu toggleMenu={ toggleMenu } />}
     </header>
   );
 };

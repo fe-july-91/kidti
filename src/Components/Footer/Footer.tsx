@@ -4,15 +4,38 @@ import './Footer.scss';
 
 
 export const Footer: React.FC = () => {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   return (
-    <div className="footer">
-      <Link to="/" className="footer__logo">
-        <img src={logo} className="footer__logo-img" alt="logo"/>
-      </Link>
-
-      <div className="footer__navContainer">
+    <footer className="footer">
+      <div className="footer__navbar">
+        <Link
+          to="https://github.com/msdreams"
+          className="footer__navbar--link"
+          target="_blank"
+        >
+          Github
+        </Link>
+        <Link
+          to="https://www.linkedin.com/in/mariashmakova"
+          className="footer__navbar--link"
+          target="_blank"
+        >
+          Contacts
+        </Link>
+        <Link
+          to="https://github.com/msdreams"
+          className="footer__navbar--link"
+          target="_blank"
+        >
+          Rights
+        </Link>
       </div>
-    </div>
+    </footer>
   );
 };

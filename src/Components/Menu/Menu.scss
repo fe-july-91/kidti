@@ -1,0 +1,54 @@
+@import '../../styles/main';
+
+.menu {
+  position: fixed;
+  padding-top: 23px;
+  top: 49px;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  z-index: 1;
+  background-color: $colorGrayLight;
+  
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__link {
+    text-decoration: none;
+    font-size: 18px;
+    padding: 8px 0;
+    position: relative;
+    color: $colorTextSecond;
+
+    &:hover {
+      color: $colorIndigo;
+      &::after {
+        position: absolute;
+        content: "";
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: $colorIndigo;
+      }
+    }
+  }
+
+  &__active {
+    color: $colorIndigo;
+    font-weight: 600;
+  }
+
+  @include on-desktop {
+    display: none;
+  }
+
+  @include on-tablet {
+    display: none;
+  }
+}

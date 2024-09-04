@@ -65,7 +65,7 @@
       display: flex;
       gap: 8px;
       align-items:baseline;
-      width: max-content;
+      width: max-content + 4;
     }
 
     &-title {
@@ -95,19 +95,28 @@
       }
     }
 
-    &-edit {
+    &--edit {
+      @include on-phone {
+        display: none;
+      }
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-end;
+      justify-content: flex-start;
+    }
+
+    &--mobile-edit {
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding-top: 8px;
+      padding-top: 16px;
       gap: 24px;
-
+      
       @include on-tablet {
-        padding-top: 0;
-        align-items: flex-end;
-        justify-content: flex-start;
-        gap: 24px;
+        display: none;
       }
     }
 

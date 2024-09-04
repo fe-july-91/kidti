@@ -5,6 +5,8 @@
   flex-direction: column;
   background-color: #F8F9FA;
   height: auto;
+  height: 100vh;
+
 
   @include middle{
     height: 100vh;
@@ -74,7 +76,7 @@
   }
 
   &__bunner {
-    grid-column: 1 / -1;
+    grid-column: 2 / -2;
 
     @include middle {
       grid-column: 1 / 12;

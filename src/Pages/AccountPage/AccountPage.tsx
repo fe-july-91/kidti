@@ -48,7 +48,14 @@ export const AccountPage: React.FC = () => {
   const ChildsDataArray = [ChildCard_1, ChildCard_2]
 
   useEffect(() => {
+    if (additingModal || modal) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+  }, [additingModal, modal]);
 
+  useEffect(() => {
       const heightCard = ChildsDataArray[child.id - 1].find(item => item.type === "height") as YearlyMeasurementData;
       const weightCard = ChildsDataArray[child.id - 1].find(item => item.type === "weight") as YearlyMeasurementData;
       const footCard = ChildsDataArray[child.id - 1].find(item => item.type === "foot") as YearlyMeasurementData;
@@ -70,6 +77,7 @@ export const AccountPage: React.FC = () => {
   }
 
   const handleAddChild = () => {
+    document.body.classList.add('no-scroll');
     setModal(true)
   }
 

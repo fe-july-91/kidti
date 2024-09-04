@@ -67,7 +67,9 @@ export const plusHover = plusImageHover;
 export const account = logInimage;
 export const settings = gear;
 export const bunner = image;
-export const sliderWidth = "140px";
+export const sliderWidth = "200px";
+export const sliderWidthMobile = "300px";
+
 
 export const ageWeightValue = {
   "0": { min: 2, max: 15 },

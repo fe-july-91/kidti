@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { select, scaleBand, axisBottom } from "d3";
 import * as d3 from "d3";
-import { DrawVaccinesChart } from "./DrawVaccinesChart";
+import { DrawVaccinesMobile } from "./DrawVaccinesMobile";
 
-export const VaccinesChart = ({
+export const VaccinesMobile = ({
   width,
   height,
   data,
@@ -30,7 +30,7 @@ export const VaccinesChart = ({
 
   useEffect(() => {
     const SVG = select(rectRef.current);
-    DrawVaccinesChart(
+    DrawVaccinesMobile(
       SVG,
       data,
       height,

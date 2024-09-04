@@ -133,45 +133,46 @@ export const CardFoot: React.FC<Props> = ({ data, years }) => {
     <div className="foot__item">
       <div className="foot__item-top">
         <div className="foot__item-top-leftBlock">
-        <img src={foot} alt="foot" className="foot__item-image"/>
-        <div className="foot__item-selectors">            
-          <div className="foot__item-values">
-            <p className="foot__item-title">Cтопa:</p>
-            <p
-              className={cn("foot__item-value", {
-                "foot__item-value-active": activeSlider,
-              })}
-            >
-              {activeSlider
-                ? `${sliderValue.x}см`
-                : !activeParametrs ? `${maxValue}см` :`${activeParametrs?.value}см`}
-            </p>
-          </div>
-          <select
-            className="foot__item-select"
-            value={selectedYear}
-            onChange={handleYearChange}
-          >
-            {years.map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
-          <select
-            className="foot__item-select"
-            value={selectedMonth}
-            onChange={handleMonthChenge}
-          >
-            {months.map((month) => (
-              <option key={month} value={month}>
-                {month}
-              </option>
-            ))}
-          </select>
-        </div>
-        </div>
+          <img src={foot} alt="foot" className="foot__item-image"/>
+          <div className="foot__item-selectors">            
+            <div className="foot__item-values">
+              <p className="foot__item-title">Cтопa:</p>
+              <p
+                className={cn("foot__item-value", {
+                  "foot__item-value-active": activeSlider,
+                })}
+              >
+                {activeSlider
+                  ? `${sliderValue.x}см`
+                  : !activeParametrs ? `${maxValue}см` :`${activeParametrs?.value}см`}
+              </p>
+            </div>
 
+            <select
+              className="foot__item-select"
+              value={selectedYear}
+              onChange={handleYearChange}
+            >
+              {years.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+
+            <select
+              className="foot__item-select"
+              value={selectedMonth}
+              onChange={handleMonthChenge}
+            >
+              {months.map((month) => (
+                <option key={month} value={month}>
+                  {month}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
 
         <div className="foot__item-edit">
           {activeSlider && (
@@ -209,16 +210,14 @@ export const CardFoot: React.FC<Props> = ({ data, years }) => {
           ) : (
             <div className="card__item__button--container">
               <button className="card__item__button" onClick={handleApplyClick}>
-                {" "}
-                Так
+                Додати
               </button>
 
               <button
                 className="card__item__button card__item__button--cansel"
                 onClick={handleCanсelClick}
               >
-                {" "}
-                Ні
+                Скасувати
               </button>
             </div>
           )}

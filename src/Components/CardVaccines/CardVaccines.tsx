@@ -7,6 +7,7 @@ import { VaccinesChart } from "../../Charts/VaccinesChart/VaccinesChart";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { parseDate } from "../../Shared/hendlers/parseDate";
+import { VaccinesMobile } from "../../Charts/VaccinesChartMobile/VaccinesMobile";
 
 type Props = {
   data: VaccineData[];
@@ -132,6 +133,12 @@ export const CardVaccines: React.FC<Props> = ({ data, child }) => {
     }
   };
 
+  const handleVaccineclick = (vaccineType: string) => {
+    setSelectedVaccine(vaccineType)
+    setStartDate(new Date())
+    setActiveButton(true)
+  }
+
   return (
     <div className="vaccine">
       <div className="vaccine__top">
@@ -141,6 +148,21 @@ export const CardVaccines: React.FC<Props> = ({ data, child }) => {
             <p>Щеплення</p>
           </div>
         </div>
+
+        <div className="vaccine--chart-mobile">
+        <VaccinesMobile
+            width={500}
+            height={360}
+            data={newData}
+            activeVaccine={activeVaccine}
+            selectedVaccine={selectedVaccine}
+            newVaccine={newParametrs}
+            birth={child.birth}
+          HandleGraph={HandleGraph}
+            activeBatton={activeBatton}
+            handleVaccineclick={handleVaccineclick}
+          />
+      </div>
 
         <div className="vaccine__top--rightBlock">
           {!activeVaccine && !activeBatton ? (
@@ -202,7 +224,7 @@ export const CardVaccines: React.FC<Props> = ({ data, child }) => {
         </div>
       </div>
 
-      <div className="vaccine-chart">
+      <div className="vaccine--chart">
         <VaccinesChart
             width={800}
             height={360}
@@ -213,6 +235,7 @@ export const CardVaccines: React.FC<Props> = ({ data, child }) => {
             birth={child.birth}
           HandleGraph={HandleGraph}
           activeBatton={activeBatton}
+          handleVaccineclick={handleVaccineclick}
           />
       </div>
     </div>

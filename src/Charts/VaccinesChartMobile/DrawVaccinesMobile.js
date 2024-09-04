@@ -4,7 +4,7 @@ import { vaccinTypes } from '../../Utils/kit';
 import { getAgeAtVaccination } from '../../Shared/hendlers/VactinationAge';
 import { parseDate } from '../../Shared/hendlers/parseDate';
 
-export function DrawVaccinesChart(
+export function DrawVaccinesMobile(
   SVG,
   data,
   height,
@@ -19,7 +19,7 @@ export function DrawVaccinesChart(
   handleVaccineclick
 ) {
 
-  const marginLeft = margin + 145;
+  const marginLeft = margin + 12;
   const marginGrahp = margin;
 
   let age = "";
@@ -36,6 +36,7 @@ export function DrawVaccinesChart(
   const newVaccine = (d) => {
     return updatedVaccine && d.type === updatedVaccine.type && d.date === updatedVaccine.date
   }
+
   const uniqueAgeData = uniqueXData.map((d, i) => ({
     age: getAgeAtVaccination(d, birth),
     index: i
@@ -73,7 +74,7 @@ export function DrawVaccinesChart(
   ageAxisGroup.selectAll('line').remove(); // Удаляет линии оси
 
     ageAxisGroup.selectAll('text')
-      .style('font-size', '16px')
+      .style('font-size', '12px')
       .style('fill',a => age && a === age ? '#FF5C9D' : '#C88CF8')
     .style('text-anchor', 'middle')
   
@@ -125,10 +126,10 @@ const xAxisGroup = SVG.append('g')
   const yAxisGroup = SVG.append('g')
     .attr('class', 'y-axis')
     .attr('transform', `translate(${marginLeft}, 0)`)
-    .call(axisLeft(yScale)) // Используем шкалу yScale для оси Y
+    .call(axisLeft(yScale).tickFormat(m => m.slice(0, 3))) // Используем шкалу yScale для оси Y
     .selectAll('text')
-    .style('font-size', '16px')
-    .style('letter-spacing', '-0.5px')
+    .style('font-size', '12px')
+    .style('letter-spacing', '-0.6px')
     .style('fill', d => d === selectedVaccine & activeBatton ? '#FF5C9D' :'#42456C')
     .style('font-weight', '400')
     .style('text-rendering', 'optimizeLegibility')

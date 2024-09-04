@@ -35,8 +35,6 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
     currentData
   );
 
-  console.log(newData);
-
   const [activeSlider, setActiveSlider] = useState(false);
   const [sliderValue, setSliderValue] = useState({ x: 0 });
 
@@ -130,9 +128,9 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
   return (
     <div className="card__item">
       <div className="card__item-top">
-      <div className="card__item-top-leftBlock">
-        <img src={height} alt="foot" className="card__item-image"/>
-        <div className="card__item-selectors">
+        <div className="card__item-top-leftBlock">
+          <img src={height} alt="foot" className="card__item-image"/>
+          <div className="card__item-selectors">
           <div className="card__item-values">
             <p className="card__item-title">Зріст:</p>
             <p
@@ -209,7 +207,7 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
             <div className="card__item__button--container">
               <button className="card__item__button" onClick={handleApplyClick}>
                 {" "}
-                Так
+                Додати
               </button>
 
               <button
@@ -217,7 +215,7 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
                 onClick={handleCanсelClick}
               >
                 {" "}
-                Ні
+                Скасувати
               </button>
             </div>
           )}

@@ -38,4 +38,18 @@
     cursor: pointer;
     background-image: url(../assets/icons/Close.svg);
   }
+
+  &--close-wight {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background-image: url(../assets/icons/Close-wight.svg);
+  }
+
+  &--menu {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background-image: url(../assets/icons/menu.svg);
+  }
 }
