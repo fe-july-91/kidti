@@ -5,10 +5,10 @@
   flex-direction: column;
   background-color: #F8F9FA;
   height: auto;
-  height: 100vh;
   
   @include on-tablet {
     padding-top: 60px;
+    height: 100vh;
   }
 
   &__top {
@@ -67,7 +67,7 @@
   &__bunner {
     padding-top: 20px;
     grid-column: 1 / -1;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
 
     @include middle {
       grid-column: 1 / 12;
