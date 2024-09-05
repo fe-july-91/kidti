@@ -1,7 +1,7 @@
 import React from "react";
 import './HomePage.scss';
-import { bunner, logoDark } from "../../Utils/kit";
 import { useNavigate } from 'react-router-dom'
+import Banner from "../../Components/Banner/Banner";
 
 export const HomePage: React.FC = () => {
 
@@ -16,13 +16,12 @@ export const HomePage: React.FC = () => {
     <div className="homePage">
       <div className="homePage__top">
       <div className="homePage__bunner">
-          <img className="homePage__bunner--img" src={bunner} alt="kittens" />
+          <Banner />
         </div>
   
         <div className="homePage__description">
           <div className="homePage__header">
-              <img src={logoDark} alt="logo" className="homePage__header__logo" />
-              <span className="homePage__header__title"> - Надійний cервіс для турботливих батьків</span>
+              <span className="homePage__header__title">KIDTY - надійний cервіс для турботливих батьків</span>
             </div>
 
             <div className="homePage__paragraph">

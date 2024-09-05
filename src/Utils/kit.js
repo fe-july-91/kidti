@@ -1,5 +1,5 @@
-import logoimage from '../assets/icons/Logo.svg'
-import logoimageDark from '../assets/icons/Logo_dark.svg'
+import logoimage from '../assets/icons/Logo-light.svg'
+import logoimageDark from '../assets/icons/Logo-darck.svg'
 import logInimage from '../assets/icons/logIn.svg'
 import gear from '../assets/icons/gear.svg'
 import plusImage from '../assets/icons/plus.svg'

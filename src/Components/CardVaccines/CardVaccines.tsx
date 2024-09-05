@@ -190,18 +190,16 @@ export const CardVaccines: React.FC<Props> = ({ data, child }) => {
               ) : (
                 <span className="vaccine__top--type">{selectedVaccine}</span>
                   )}
-                    
-                  <DatePicker
-                className="vaccine__top--selectDate"
-                selected={startDate}
-                popperPlacement="bottom-start"
-                onChange={(date: Date | null) => {
-                  if (date) {
-                    setStartDate(date);
-                  }
-                }}
-                dateFormat="dd.MM.yyyy"
-                    />
+                  
+                  <input
+                  type="date"
+                  className="vaccine__top--selectDate"
+                  value={startDate.toISOString().split('T')[0]} // Преобразование даты в формат yyyy-mm-dd
+                  onChange={(e) => {
+                    const newDate = new Date(e.target.value);
+                    setStartDate(newDate);
+                  }}
+                />
               </div>
               
               <div className="vaccine__top__button__container">

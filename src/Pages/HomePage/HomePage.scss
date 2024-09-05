@@ -6,13 +6,8 @@
   background-color: #F8F9FA;
   height: auto;
   height: 100vh;
-
-
-  @include middle{
-    height: 100vh;
-  }
   
-  @include on-desktop {
+  @include on-tablet {
     padding-top: 60px;
   }
 
@@ -45,13 +40,7 @@
       line-height: 120%;
       padding-bottom: 8px;    
       font-weight: 500;
-      color: $colorVeronica;
-    }
-
-    &__logo {
-      width: 150px;
-      display: inline-block;
-      margin-right: 8px;
+      color: $colorIndigoDark;
     }
   }
 
@@ -76,7 +65,9 @@
   }
 
   &__bunner {
-    grid-column: 2 / -2;
+    padding-top: 20px;
+    grid-column: 1 / -1;
+    padding-bottom: 40px;
 
     @include middle {
       grid-column: 1 / 12;

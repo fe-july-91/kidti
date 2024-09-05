@@ -30,10 +30,10 @@
     }
 
     &-img {
-      width: 60px;
+      width: 80px;
 
       @include on-desktop {
-        width: 80px;
+        width: 100px;
       }
     }
   }

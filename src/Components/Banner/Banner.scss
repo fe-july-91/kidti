@@ -1,0 +1,73 @@
+.banner-container {
+  position: relative;
+  overflow: hidden;
+  height: 350px; // Высота контейнера
+  cursor: pointer;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); // 5 столбцов
+  grid-template-rows: repeat(7, 70px); // 10 строк по 70px высоты
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  transition: transform 1s linear;
+
+}
+
+.grid-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  font-size: 24px;
+  width: 100%;
+  height: 100%; // Высота элемента соответствует высоте строки
+  box-sizing: border-box;
+}
+
+.grid-item.shape {
+  border-radius: 50%;
+  background-color: #EE71D4;
+}
+
+.grid-item.shape.square {
+  border-radius: 0;
+  width: 50px;
+  height: 50px;
+}
+
+.grid-item.shape.rectangle {
+  border-radius: 0;
+  width: 20px;
+  height: 50px;
+}
+
+.grid-item.shape.t-shape {
+  border-radius: 0;
+  width: 50px;
+  height: 20px;
+}
+
+.grid-item.shape.d-shape {
+  border-radius: 0 25px 25px 0;
+  width: 50px;
+  height: 50px;
+}
+
+.grid-item.shape.circle {
+  border-radius: 0;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* Обрезка в виде круга */
+  object-fit: cover; /* Для корректного отображения изображений */
+}
+

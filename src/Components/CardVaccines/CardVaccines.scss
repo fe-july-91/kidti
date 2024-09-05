@@ -113,11 +113,13 @@
     &--selectDate {
       background-color:  rgba(76, 175, 80, 0);
       border: 1px solid $colorGrayDarck;
-      border-radius: 15px;
+      border-radius: 5px;
       padding-left: 14px;
       color: $colorTextSecond;
-      width: $selectionWidth;
+      width: $selectionWidth + 24;
       margin-left: 10px;
+      font-family: Rubik;
+      ;
     }
 
     &__button {
