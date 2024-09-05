@@ -9,6 +9,7 @@ import ChildCard_1 from './../../api/ChildData_1.json';
 import ChildCard_2 from './../../api/ChildData_2.json';
 import { AddModal } from "../../Components/AddModal/AddModal";
 import { AdditModal } from "../../Components/AdditModal/AdditModal";
+import GenerativeBG from "../../Components/GenerativeBg/GenerativeBG";
 
 
 const colors = ['#cdbdda','#adb0d9', '#9bc7dc', '#d5b99c', '#e2a1bb'];
@@ -85,6 +86,7 @@ export const AccountPage: React.FC = () => {
 
   return (
     <div className="account">
+      <GenerativeBG />
       <div className="account__top">
         <div className="account__top__personalInfo">
           <img

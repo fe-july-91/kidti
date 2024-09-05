@@ -5,7 +5,7 @@ import { avatars } from '../../Utils/kit';
 const Banner = () => {
   const letters = ['K', 'I', 'D', 'T', 'Y'];
   const shapes = ['circle', 'square', 'rectangle', 'd-shape', 't-shape'];
-  const colors = ['#adb0d9', '#9bc7dc', '#e2a1bb', '#cdbdda'];
+  const colors = ['#6771DE', '#C88CF8', '#50C3F9', '#6c6e90'];
 
   const [animationDirection, setAnimationDirection] = useState<'up' | 'down'>('up');
 

@@ -3,17 +3,19 @@
 .homePage {
   display: flex;
   flex-direction: column;
-  background-color: #F8F9FA;
   height: auto;
   
   @include on-tablet {
-    padding-top: 60px;
     height: 100vh;
   }
 
   &__top {
     @include section-grid;
     padding-top: 24px;
+
+    @include on-tablet {
+      padding-top: 60px;
+    }
   }
 
   &__description {
