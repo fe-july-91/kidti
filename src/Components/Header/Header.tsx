@@ -1,22 +1,13 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-import { logo, settings } from "../../Utils/kit";
+import { logo } from "../../Utils/kit";
 import './Header.scss';
 import { Menu } from "../Menu/Menu";
 
 
-interface Props {
-  setIsSettings: React.Dispatch<React.SetStateAction<boolean>>;
-  isSettings: boolean;
-}
-
-export const Header: React.FC<Props> = ({ setIsSettings, isSettings }) => {
+export const Header: React.FC = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleSettings = () => {
-    setIsSettings((prev: boolean) => !prev);
-  };
 
   const toggleMenu = () => {
     setIsMenuOpen((prev: boolean) => !prev);

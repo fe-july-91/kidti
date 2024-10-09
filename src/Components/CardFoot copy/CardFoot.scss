@@ -50,6 +50,7 @@
     &-selectors {
       display: flex;
       flex-direction: column;
+      min-width: 142px;
       gap: 8px;
       height: 104px;
     }
@@ -76,7 +77,7 @@
     }
 
     &-title {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 500;
       color: $colorTextSecond;
       &-active {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './AdditModal.scss'
+import './EditModal.scss'
 import { AvatarSelector } from '../AvatarSelector/AvatarSelector';
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
   avatar: string;
 };
 
-export const AdditModal: React.FC <Props> = ({ setModal, name, surname, birth, gender, avatar }) => {
+export const EditModal: React.FC <Props> = ({ setModal, name, surname, birth, gender, avatar }) => {
 
 const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
   event.preventDefault();

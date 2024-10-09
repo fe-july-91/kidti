@@ -131,7 +131,7 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
         <div className="card__item-top-leftBlock">
           <img src={height} alt="foot" className="card__item-image"/>
           <div className="card__item-selectors">
-          <div className="card__item-values">
+            <div className="card__item-values">
             <p className="card__item-title">Зріст:</p>
             <p
               className={cn("card__item-title", {
@@ -142,31 +142,31 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
                 ? `${sliderValue.x}см`
                 : !activeParametrs ? `${maxValue}см` :`${activeParametrs?.value}см`}
             </p>
-          </div>
+            </div>
 
-          <select
-            className="card__item-select"
-            value={selectedYear}
-            onChange={handleYearChange}
-          >
-            {years.map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
+            <select
+              className="card__item-select"
+              value={selectedYear}
+              onChange={handleYearChange}
+            >
+              {years.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
 
-          <select
-            className="card__item-select"
-            value={selectedMonth}
-            onChange={handleMonthChenge}
-          >
-            {months.map((month) => (
-              <option key={month} value={month}>
-                {month}
-              </option>
-            ))}
-          </select>
+            <select
+              className="card__item-select"
+              value={selectedMonth}
+              onChange={handleMonthChenge}
+            >
+              {months.map((month) => (
+                <option key={month} value={month}>
+                  {month}
+                </option>
+              ))}
+            </select>
           </div>
       </div>
 

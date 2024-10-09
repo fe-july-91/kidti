@@ -8,7 +8,7 @@ import { calculateFullChildAge } from "../../Shared/hendlers/generateYearArray";
 import ChildCard_1 from './../../api/ChildData_1.json';
 import ChildCard_2 from './../../api/ChildData_2.json';
 import { AddModal } from "../../Components/AddModal/AddModal";
-import { AdditModal } from "../../Components/AdditModal/AdditModal";
+import { EditModal } from "../../Components/EditModal/EditModal";
 import GenerativeBG from "../../Components/GenerativeBg/GenerativeBG";
 
 
@@ -147,7 +147,7 @@ export const AccountPage: React.FC = () => {
 
       {additingModal && (
         <div className="account__modalContainer">
-        <AdditModal
+        <EditModal
           setModal={setAdditingModal}
           name={child.name}
           surname={child.surname}
