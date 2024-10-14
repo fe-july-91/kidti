@@ -32,12 +32,12 @@ class Child {
 - birth: LocalDate
 - gender: Gender
 - image: String
-- eye: Eye
 - isDeleted: boolean
 }
 
 class Eye {
 - id: Long
+- child: Child
 - left: float
 - right: float
 - isDeleted: boolean
@@ -50,7 +50,7 @@ GIRL
 
 abstract class Journal {
 - id: Long
-- year: int
+- year: Year
 - month: Month
 - value: short
 - isDeleted: boolean
