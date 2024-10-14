@@ -1,0 +1,111 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface UserDetails
+interface GrantedAuthority
+
+class User {
+- id : Long
+- email : String
+- password : String
+- firstName : String
+- lastName : String
+- roles : Set<Role>
+- isDeleted : boolean
+}
+
+class Role {
+- id : Long
+- name : RoleName
+}
+
+enum RoleName {
+ADMIN
+PARENT
+}
+
+class Child {
+- id: Long
+- name: String
+- surname: String
+- user: User
+- birth: LocalDate
+- gender: Gender
+- image: String
+- eye: Eye
+- isDeleted: boolean
+}
+
+class Eye {
+- id: Long
+- left: float
+- right: float
+- isDeleted: boolean
+}
+
+enum Gender {
+BOY
+GIRL
+}
+
+abstract class Journal {
+- id: Long
+- year: int
+- month: Month
+- value: short
+- isDeleted: boolean
+}
+
+class Weight {
+- child: Child
+}
+
+class Height {
+- child: Child
+}
+
+class Type {
+- id : Long
+- name : typeName
+}
+
+enum typeName {
+TUBERCULOSIS
+HEPATITIS_B
+DIPHTHERIA_TETANUS
+WHOOPING_COUGH
+POLIOMYELITIS
+HIB_INFECTION
+MMR
+}
+
+class Vaccine {
+- id: Long
+- type: Type
+- orderNumber: byte
+- date: LocalDate
+- child: Child
+- isDeleted: boolean
+}
+
+Journal <|-- Weight
+Journal <|-- Height
+Weight "n" --* "1" Child
+Height "n" --* "1" Child
+Type "n" --o "n" Vaccine
+Vaccine "n" -o "1" Child
+Child "1" *-- "1" Eye
+Child "n" -o "1" User
+User "n" o- "n" Role
+UserDetails <|.. User
+GrantedAuthority <|.. Role
+
+note "org.springframework.security.core" as MyNote
+MyNote .. GrantedAuthority
+UserDetails . MyNote
+
+Role <.. RoleName
+typeName ..>Type
+Child <..Gender
+
+@enduml
