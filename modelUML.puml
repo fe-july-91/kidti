@@ -64,6 +64,10 @@ class Height {
 - child: Child
 }
 
+class Foot {
+- child: Child
+}
+
 class Type {
 - id : Long
 - name : typeName
@@ -90,8 +94,10 @@ class Vaccine {
 
 Journal <|-- Weight
 Journal <|-- Height
+Journal <|-- Foot
 Weight "n" --* "1" Child
 Height "n" --* "1" Child
+Foot "n" --* "1" Child
 Type "n" --o "n" Vaccine
 Vaccine "n" -o "1" Child
 Child "1" *-- "1" Eye

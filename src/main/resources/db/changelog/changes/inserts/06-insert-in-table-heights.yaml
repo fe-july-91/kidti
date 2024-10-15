@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-height-of-first-child
+      author: yana_stepanova
+      changes:
+        - insert:
+            tableName: heights
+            columns:
+              - column:
+                  name: year
+                  valueNumeric: 2023
+              - column:
+                  name: month
+                  valueNumeric: 1
+              - column:
+                  name: value
+                  valueNumeric: 100
+              - column:
+                  name: child_id
+                  valueNumeric: 1
