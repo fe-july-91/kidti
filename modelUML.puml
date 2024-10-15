@@ -104,6 +104,10 @@ note "org.springframework.security.core" as MyNote
 MyNote .. GrantedAuthority
 UserDetails . MyNote
 
+note "Created table 'users_roles'" as MyNote2
+User .. MyNote2
+Role .. MyNote2
+
 Role <.. RoleName
 typeName ..>Type
 Child <..Gender

@@ -23,7 +23,7 @@ public class Eye {
     private Long id;
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    private User user;
+    private Child child;
     private float left;
     private float right;
     @Column(name = "is_deleted", nullable = false)
