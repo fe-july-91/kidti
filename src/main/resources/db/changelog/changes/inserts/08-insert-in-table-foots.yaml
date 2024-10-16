@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: insert-height1-of-first-child
+      id: insert-foot1-of-first-child
       author: yana_stepanova
       changes:
         - insert:
-            tableName: heights
+            tableName: foots
             columns:
               - column:
                   name: year
@@ -14,54 +14,16 @@ databaseChangeLog:
                   valueNumeric: 1
               - column:
                   name: value
-                  valueNumeric: 100
+                  valueNumeric: 15
               - column:
                   name: child_id
                   valueNumeric: 1
   - changeSet:
-      id: insert-height2-of-first-child
+      id: insert-foot2-of-first-child
       author: yana_stepanova
       changes:
         - insert:
-            tableName: heights
-            columns:
-              - column:
-                  name: year
-                  valueNumeric: 2023
-              - column:
-                  name: month
-                  valueNumeric: 2
-              - column:
-                  name: value
-                  valueNumeric: 100
-              - column:
-                  name: child_id
-                  valueNumeric: 1
-  - changeSet:
-      id: insert-height3-of-first-child
-      author: yana_stepanova
-      changes:
-        - insert:
-            tableName: heights
-            columns:
-              - column:
-                  name: year
-                  valueNumeric: 2023
-              - column:
-                  name: month
-                  valueNumeric: 3
-              - column:
-                  name: value
-                  valueNumeric: 102
-              - column:
-                  name: child_id
-                  valueNumeric: 1
-  - changeSet:
-      id: insert-height4-of-first-child
-      author: yana_stepanova
-      changes:
-        - insert:
-            tableName: heights
+            tableName: foots
             columns:
               - column:
                   name: year
@@ -71,16 +33,16 @@ databaseChangeLog:
                   valueNumeric: 7
               - column:
                   name: value
-                  valueNumeric: 105
+                  valueNumeric: 16
               - column:
                   name: child_id
                   valueNumeric: 1
   - changeSet:
-      id: insert-height5-of-first-child
+      id: insert-foot3-of-first-child
       author: yana_stepanova
       changes:
         - insert:
-            tableName: heights
+            tableName: foots
             columns:
               - column:
                   name: year
@@ -90,16 +52,16 @@ databaseChangeLog:
                   valueNumeric: 12
               - column:
                   name: value
-                  valueNumeric: 110
+                  valueNumeric: 16
               - column:
                   name: child_id
                   valueNumeric: 1
   - changeSet:
-      id: insert-height6-of-first-child
+      id: insert-foot4-of-first-child
       author: yana_stepanova
       changes:
         - insert:
-            tableName: heights
+            tableName: foots
             columns:
               - column:
                   name: year
@@ -109,16 +71,16 @@ databaseChangeLog:
                   valueNumeric: 3
               - column:
                   name: value
-                  valueNumeric: 112
+                  valueNumeric: 16
               - column:
                   name: child_id
                   valueNumeric: 1
   - changeSet:
-      id: insert-height7-of-first-child
+      id: insert-foot5-of-first-child
       author: yana_stepanova
       changes:
         - insert:
-            tableName: heights
+            tableName: foots
             columns:
               - column:
                   name: year
@@ -128,16 +90,16 @@ databaseChangeLog:
                   valueNumeric: 4
               - column:
                   name: value
-                  valueNumeric: 112
+                  valueNumeric: 17
               - column:
                   name: child_id
                   valueNumeric: 1
   - changeSet:
-      id: insert-height8-of-first-child
+      id: insert-foot6-of-first-child
       author: yana_stepanova
       changes:
         - insert:
-            tableName: heights
+            tableName: foots
             columns:
               - column:
                   name: year
@@ -147,26 +109,7 @@ databaseChangeLog:
                   valueNumeric: 7
               - column:
                   name: value
-                  valueNumeric: 115
-              - column:
-                  name: child_id
-                  valueNumeric: 1
-  - changeSet:
-      id: insert-height9-of-first-child
-      author: yana_stepanova
-      changes:
-        - insert:
-            tableName: heights
-            columns:
-              - column:
-                  name: year
-                  valueNumeric: 2024
-              - column:
-                  name: month
-                  valueNumeric: 8
-              - column:
-                  name: value
-                  valueNumeric: 116
+                  valueNumeric: 18
               - column:
                   name: child_id
                   valueNumeric: 1

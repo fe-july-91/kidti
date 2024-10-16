@@ -15,6 +15,10 @@ databaseChangeLog:
       file: /db/changelog/changes/07-create-table-weights.yaml
   - include:
       file: /db/changelog/changes/08-create-table-foots.yaml
+  - include:
+      file: /db/changelog/changes/09-create-table-types.yaml
+  - include:
+      file: /db/changelog/changes/10-create-table-vaccines.yaml
 
   - include:
       file: /db/changelog/changes/inserts/01-insert-all-roles.yaml
@@ -28,3 +32,11 @@ databaseChangeLog:
       file: /db/changelog/changes/inserts/05-insert-in-table-eyes.yaml
   - include:
       file: /db/changelog/changes/inserts/06-insert-in-table-heights.yaml
+  - include:
+      file: /db/changelog/changes/inserts/07-insert-in-table-weights.yaml
+  - include:
+      file: /db/changelog/changes/inserts/08-insert-in-table-foots.yaml
+  - include:
+      file: /db/changelog/changes/inserts/09-insert-all-types.yaml
+  - include:
+      file: /db/changelog/changes/inserts/10-insert-in-table-vaccines.yaml

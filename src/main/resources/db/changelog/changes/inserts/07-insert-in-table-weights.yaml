@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: insert-height1-of-first-child
+      id: insert-weight1-of-first-child
       author: yana_stepanova
       changes:
         - insert:
-            tableName: heights
+            tableName: weights
             columns:
               - column:
                   name: year
@@ -14,16 +14,16 @@ databaseChangeLog:
                   valueNumeric: 1
               - column:
                   name: value
-                  valueNumeric: 100
+                  valueNumeric: 12
               - column:
                   name: child_id
                   valueNumeric: 1
   - changeSet:
-      id: insert-height2-of-first-child
+      id: insert-weight2-of-first-child
       author: yana_stepanova
       changes:
         - insert:
-            tableName: heights
+            tableName: weights
             columns:
               - column:
                   name: year
@@ -33,16 +33,16 @@ databaseChangeLog:
                   valueNumeric: 2
               - column:
                   name: value
-                  valueNumeric: 100
+                  valueNumeric: 12
               - column:
                   name: child_id
                   valueNumeric: 1
   - changeSet:
-      id: insert-height3-of-first-child
+      id: insert-weight3-of-first-child
       author: yana_stepanova
       changes:
         - insert:
-            tableName: heights
+            tableName: weights
             columns:
               - column:
                   name: year
@@ -52,16 +52,16 @@ databaseChangeLog:
                   valueNumeric: 3
               - column:
                   name: value
-                  valueNumeric: 102
+                  valueNumeric: 13
               - column:
                   name: child_id
                   valueNumeric: 1
   - changeSet:
-      id: insert-height4-of-first-child
+      id: insert-weight4-of-first-child
       author: yana_stepanova
       changes:
         - insert:
-            tableName: heights
+            tableName: weights
             columns:
               - column:
                   name: year
@@ -71,16 +71,54 @@ databaseChangeLog:
                   valueNumeric: 7
               - column:
                   name: value
-                  valueNumeric: 105
+                  valueNumeric: 13
               - column:
                   name: child_id
                   valueNumeric: 1
   - changeSet:
-      id: insert-height5-of-first-child
+      id: insert-weight5-of-first-child
       author: yana_stepanova
       changes:
         - insert:
-            tableName: heights
+            tableName: weights
+            columns:
+              - column:
+                  name: year
+                  valueNumeric: 2023
+              - column:
+                  name: month
+                  valueNumeric: 8
+              - column:
+                  name: value
+                  valueNumeric: 13
+              - column:
+                  name: child_id
+                  valueNumeric: 1
+  - changeSet:
+      id: insert-weight6-of-first-child
+      author: yana_stepanova
+      changes:
+        - insert:
+            tableName: weights
+            columns:
+              - column:
+                  name: year
+                  valueNumeric: 2023
+              - column:
+                  name: month
+                  valueNumeric: 9
+              - column:
+                  name: value
+                  valueNumeric: 14
+              - column:
+                  name: child_id
+                  valueNumeric: 1
+  - changeSet:
+      id: insert-weight7-of-first-child
+      author: yana_stepanova
+      changes:
+        - insert:
+            tableName: weights
             columns:
               - column:
                   name: year
@@ -90,16 +128,35 @@ databaseChangeLog:
                   valueNumeric: 12
               - column:
                   name: value
-                  valueNumeric: 110
+                  valueNumeric: 15
               - column:
                   name: child_id
                   valueNumeric: 1
   - changeSet:
-      id: insert-height6-of-first-child
+      id: insert-weight8-of-first-child
       author: yana_stepanova
       changes:
         - insert:
-            tableName: heights
+            tableName: weights
+            columns:
+              - column:
+                  name: year
+                  valueNumeric: 2024
+              - column:
+                  name: month
+                  valueNumeric: 1
+              - column:
+                  name: value
+                  valueNumeric: 15
+              - column:
+                  name: child_id
+                  valueNumeric: 1
+  - changeSet:
+      id: insert-weight9-of-first-child
+      author: yana_stepanova
+      changes:
+        - insert:
+            tableName: weights
             columns:
               - column:
                   name: year
@@ -109,16 +166,16 @@ databaseChangeLog:
                   valueNumeric: 3
               - column:
                   name: value
-                  valueNumeric: 112
+                  valueNumeric: 16
               - column:
                   name: child_id
                   valueNumeric: 1
   - changeSet:
-      id: insert-height7-of-first-child
+      id: insert-weight10-of-first-child
       author: yana_stepanova
       changes:
         - insert:
-            tableName: heights
+            tableName: weights
             columns:
               - column:
                   name: year
@@ -128,16 +185,35 @@ databaseChangeLog:
                   valueNumeric: 4
               - column:
                   name: value
-                  valueNumeric: 112
+                  valueNumeric: 16
               - column:
                   name: child_id
                   valueNumeric: 1
   - changeSet:
-      id: insert-height8-of-first-child
+      id: insert-weight11-of-first-child
       author: yana_stepanova
       changes:
         - insert:
-            tableName: heights
+            tableName: weights
+            columns:
+              - column:
+                  name: year
+                  valueNumeric: 2024
+              - column:
+                  name: month
+                  valueNumeric: 5
+              - column:
+                  name: value
+                  valueNumeric: 18
+              - column:
+                  name: child_id
+                  valueNumeric: 1
+  - changeSet:
+      id: insert-weight12-of-first-child
+      author: yana_stepanova
+      changes:
+        - insert:
+            tableName: weights
             columns:
               - column:
                   name: year
@@ -147,16 +223,16 @@ databaseChangeLog:
                   valueNumeric: 7
               - column:
                   name: value
-                  valueNumeric: 115
+                  valueNumeric: 17
               - column:
                   name: child_id
                   valueNumeric: 1
   - changeSet:
-      id: insert-height9-of-first-child
+      id: insert-weight13-of-first-child
       author: yana_stepanova
       changes:
         - insert:
-            tableName: heights
+            tableName: weights
             columns:
               - column:
                   name: year
@@ -166,7 +242,7 @@ databaseChangeLog:
                   valueNumeric: 8
               - column:
                   name: value
-                  valueNumeric: 116
+                  valueNumeric: 18
               - column:
                   name: child_id
                   valueNumeric: 1

@@ -70,10 +70,11 @@ class Foot {
 
 class Type {
 - id : Long
-- name : typeName
+- typeName: TypeName
+- description: String
 }
 
-enum typeName {
+enum TypeName {
 TUBERCULOSIS
 HEPATITIS_B
 DIPHTHERIA_TETANUS
@@ -98,7 +99,7 @@ Journal <|-- Foot
 Weight "n" --* "1" Child
 Height "n" --* "1" Child
 Foot "n" --* "1" Child
-Type "n" --o "n" Vaccine
+Type "1" --o "n" Vaccine
 Vaccine "n" -o "1" Child
 Child "1" *-- "1" Eye
 Child "n" -o "1" User
@@ -115,7 +116,7 @@ User .. MyNote2
 Role .. MyNote2
 
 Role <.. RoleName
-typeName ..>Type
+TypeName ..>Type
 Child <..Gender
 
 @enduml
