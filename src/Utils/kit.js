@@ -70,6 +70,12 @@ export const bunner = image;
 export const sliderWidth = "200px";
 export const sliderWidthMobile = "300px";
 
+export const sliderRange = {
+  height: { min: 0, max: 180 },
+  weight: { min: 0, max: 120 },
+  foot: { min: 0, max: 48 },
+  eye: { min: -10, max: 12 },
+}
 
 export const ageWeightValue = {
   "0": { min: 2, max: 15 },

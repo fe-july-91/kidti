@@ -1,0 +1,63 @@
+@import './../../styles/main';
+
+.weight {
+  @include card-stiles;
+
+  &__top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: top;
+    width: 100%;
+
+    @include on-tablet {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: top;
+      padding-bottom: 0;
+    }
+  }
+
+  &__leftBlock {
+    display: flex;
+    flex-direction: column;
+    min-width: $selectionMinWidth;
+    gap: 20px;
+    height: 104px;
+  }
+
+  &__chart {
+    width: 100%;
+    max-width: 380px;
+  }
+
+  &__values{
+    display: flex;
+    gap: 8px;
+    width: max-content;
+  }
+
+  &__title {
+    @include card-title;
+  }
+
+  &__edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 8px;
+    gap: 24px;
+
+    @include on-tablet {
+      padding-top: 0;
+      align-items: flex-end;
+      justify-content: flex-start;
+      gap: 24px;
+    }
+  }
+
+  &__button {
+    @include button-card;
+  }
+}

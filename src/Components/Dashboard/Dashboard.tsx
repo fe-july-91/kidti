@@ -1,11 +1,15 @@
-import { Child, Data, Eye,VaccineData} from '../../Shared/types';
-import './Dashboard.scss';
-import { CardWeight } from "../../Components/CardWeight/CardWeight";
-import { CardHeight } from "../../Components/CardHeight/CardHeight";
-import { CardFoot } from '../CardFoot copy/CardFoot';
-import { CardEyes } from '../CardEyes/CardEyes';
-import { calculateChildAge, generateYearArray } from '../../Shared/hendlers/generateYearArray';
-import { CardVaccines } from '../CardVaccines/CardVaccines';
+import { Child, Data, Eye, VaccineData } from "../../Shared/types";
+import "./Dashboard.scss";
+import { CardWeight } from "../../Cards/CardWeight/CardWeight";
+import { CardHeight } from "../../Cards/CardHeight/CardHeight";
+import { CardFoot } from "../../Cards/CardFoot copy/CardFoot";
+import { CardEyes } from "../../Cards/CardEyes/CardEyes";
+import {
+  calculateChildAge,
+  generateYearArray,
+} from "../../Shared/hendlers/generateYearArray";
+import { CardVaccines } from "../../Cards/CardVaccines/CardVaccines";
+import { useMemo } from "react";
 
 type Props = {
   child: Child;
@@ -14,14 +18,18 @@ type Props = {
   footData: Data[];
   vaccinesData: VaccineData[];
   eyesData: Eye;
-}
+};
 
-export const Dashboard: React.FC<Props> = ({ child, heightData, weightData, footData, vaccinesData, eyesData}) => {
-
-  const birthYear = child.birth.split(".")[2];
-
-  const years = generateYearArray(birthYear).reverse();
-  const age = calculateChildAge(birthYear);
+export const Dashboard: React.FC<Props> = ({
+  child,
+  heightData,
+  weightData,
+  footData,
+  vaccinesData,
+  eyesData,
+}) => {
+  const years = useMemo(() => generateYearArray(child.birth), [child]);
+  const age = useMemo(() => calculateChildAge(child.birth), [child]);
 
   return (
     <div className="dashboard">
@@ -32,10 +40,10 @@ export const Dashboard: React.FC<Props> = ({ child, heightData, weightData, foot
         <CardWeight data={weightData} years={years} />
       </div>
       <div className="dashboard__item">
-      <CardFoot data={footData} years={years} />
+        <CardFoot data={footData} years={years} />
       </div>
       <div className="dashboard__item">
-      <CardEyes data={eyesData}/>
+        <CardEyes data={eyesData} />
       </div>
       <div className="dashboard__item dashboard__item-big">
         <CardVaccines
@@ -46,5 +54,5 @@ export const Dashboard: React.FC<Props> = ({ child, heightData, weightData, foot
         />
       </div>
     </div>
-  )
-}
+  );
+};

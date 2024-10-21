@@ -44,3 +44,11 @@ export type Child = {
   gender: string;
   image: number;
 };
+
+export enum CardTitleTypes {
+  height = 'Зріст',
+  weight = 'Вага',
+  foot = 'Стопа',
+  eyes = 'Зір',
+  vactination = 'Щеплення',
+}

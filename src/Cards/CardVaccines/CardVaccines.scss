@@ -97,15 +97,12 @@
       display: flex;
       flex-direction: row;
       gap: 10px;
-      font-size: 24px;
-      font-weight: 500;
-      color: $colorTextSecond;
+      @include card-title;
     }
 
     &--selectVaccine {
       border: none;
       background-color:  rgba(76, 175, 80, 0);
-      // border-bottom: 1px solid $colorGrayDarck;
       color: $colorTextSecond;
       width: $selectionWidth;
     }

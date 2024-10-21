@@ -28,7 +28,6 @@ export function DrawVaccinesMobile(
     age = getAgeAtVaccination(targeVaccine.date,birth)
   }
 
-  // Создаем массив уникальных комбинаций (дата, месяц, год)
   const xData = data.map(d => d.date);
   const uniqueXData = [...new Set(xData)]
     .sort((a, b) => parseDate(a).getTime() - parseDate(b).getTime());
@@ -41,44 +40,39 @@ export function DrawVaccinesMobile(
     age: getAgeAtVaccination(d, birth),
     index: i
   }));
-
-  console.log(uniqueAgeData)
     
-  // Настраиваем шкалу X
+  // X
   const xScale = scalePoint()
     .domain(uniqueXData)
     .range([marginLeft, width])
     .padding(0.5);
   
-    // Настройка шкалы Y
+    //Y
     const yScale = scaleBand()
     .domain(vaccinTypes)
     .range([height - marginGrahp, margin])
     .padding(0.4);
   
-    // Создаем шкалу X для возраста
     const ageScale = scaleBand()
     .domain(uniqueAgeData.map(d => `${d.age}-${d.index}`))
     .range([marginLeft, width])
       .padding(0.4);
   
-  // Добавляем верхнюю ось X для возраста
   SVG.selectAll('.age-axis').remove();
 
   const ageAxisGroup = SVG.append('g')
     .attr('class', 'age-axis')
-    .attr('transform', `translate(0, ${0})`) // Поднятие оси вверх
+    .attr('transform', `translate(0, ${0})`)
     .call(axisBottom(ageScale).tickFormat(d => d.split('-')[0]));
   
-  ageAxisGroup.selectAll('path').remove();// удаляет линию оси.
-  ageAxisGroup.selectAll('line').remove(); // Удаляет линии оси
+  ageAxisGroup.selectAll('path').remove();
+  ageAxisGroup.selectAll('line').remove();
 
     ageAxisGroup.selectAll('text')
       .style('font-size', '12px')
       .style('fill',a => age && a === age ? '#FF5C9D' : '#C88CF8')
     .style('text-anchor', 'middle')
   
-// Добавляем вертикальные пунктирные линии
 SVG.selectAll('.age-lines').remove();
 SVG.append('g')
   .attr('class', 'age-lines')
@@ -86,15 +80,14 @@ SVG.append('g')
   .data(data)
   .enter()
   .append('line')
-  .attr('x1',  d => xScale(d.date)) // Начало от оси Y
-  .attr('x2', d => xScale(d.date)) // Заканчивается на точке по оси X
-  .attr('y1', marginGrahp + 15) // Начинаем от верхней границы графика
-  .attr('y2', height - marginGrahp) // Заканчиваем на уровне нижней оси X
+  .attr('x1',  d => xScale(d.date))
+  .attr('x2', d => xScale(d.date))
+  .attr('y1', marginGrahp + 15)
+  .attr('y2', height - marginGrahp)
   .style('stroke', d => targeVaccine && d.date === targeVaccine.date ? '#FF5C9D': '#a6aeb7')
   .style('stroke-width', '1px')
   .style('stroke-dasharray', '4 4');
 
-// Добавляем горизонтальные пунктирные линии
 SVG.selectAll('.horizontal-lines').remove();
 SVG.append('g')
   .attr('class', 'horizontal-lines')
@@ -102,15 +95,15 @@ SVG.append('g')
   .data(vaccinTypes)
   .enter()
   .append('line')
-  .attr('x1', marginLeft) // Начало на оси Y
-  .attr('x2', width) // Конец на правом краю графика
-  .attr('y1', d => yScale(d) + yScale.bandwidth() / 2) // Центр по Y для каждого типа вакцины
-  .attr('y2', d => yScale(d) + yScale.bandwidth() / 2) // Центр по Y для каждого типа вакцины
+  .attr('x1', marginLeft)
+  .attr('x2', width)
+  .attr('y1', d => yScale(d) + yScale.bandwidth() / 2)
+  .attr('y2', d => yScale(d) + yScale.bandwidth() / 2)
   .style('stroke', d => targeVaccine && d === targeVaccine.type ? '#FF5C9D': '#a6aeb7')
   .style('stroke-width', '1.5px')
   .style('stroke-dasharray', '4 4');
   
-// Добавляем ось X
+// X
 SVG.selectAll('.x-axis').remove();
 const xAxisGroup = SVG.append('g')
   .attr('class', 'x-axis')
@@ -121,12 +114,12 @@ const xAxisGroup = SVG.append('g')
   .style('text-anchor', 'middle')
   .style('cursor', 'pointer');
 
-  // Добавляем ось Y с текстовыми метками типа вакцин
+  // Y
   SVG.selectAll('.y-axis').remove();
   const yAxisGroup = SVG.append('g')
     .attr('class', 'y-axis')
     .attr('transform', `translate(${marginLeft}, 0)`)
-    .call(axisLeft(yScale).tickFormat(m => m.slice(0, 3))) // Используем шкалу yScale для оси Y
+    .call(axisLeft(yScale).tickFormat(m => m.slice(0, 3)))
     .selectAll('text')
     .style('font-size', '12px')
     .style('letter-spacing', '-0.6px')
@@ -147,7 +140,6 @@ const xAxisGroup = SVG.append('g')
  SVG.selectAll('.point').remove();
  SVG.selectAll('.point-label').remove();
 
-// Добавляем новые точки
 const points = SVG.selectAll('.point')
   .data(data, d => d.date + d.type );
 

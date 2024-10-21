@@ -1,5 +1,6 @@
-export function generateYearArray(startYear: string) {
+export function generateYearArray(birth: string) {
   const today = new Date();
+  const startYear = birth.split(".")[2];
 
   const endYear: string = today.toLocaleDateString("ukr-GB", {
     year: "numeric"});
@@ -8,11 +9,13 @@ export function generateYearArray(startYear: string) {
   for (let year = +startYear; +year <= +endYear; year++) {
     yearArray.push(year.toString());
   }
-  return yearArray;
+  return yearArray.reverse();
 };
 
-export function calculateChildAge(birthYear: string) {
+export function calculateChildAge(birth: string) {
   const today = new Date();
+  const birthYear = birth.split(".")[2];
+
   const currentYear: string = today.toLocaleDateString("ukr-GB", {
     year: "numeric"});
   return +currentYear - +birthYear;

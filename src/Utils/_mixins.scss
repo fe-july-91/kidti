@@ -67,11 +67,11 @@
    }
 
    @include on-tablet {
-    padding: 10px 14px;
-    width: $buttonWidth + 32px;
+    padding: 10px 10px;
+    width: $buttonWidth + 24px;
    }
 
-   &-big {
+   &--big {
     @include on-tablet {
       padding: 10px 14px;
       width: $buttonBigWidth;
@@ -79,13 +79,14 @@
    }
 
    &--cansel {
-    background-color: $colorGrayLight;
+    background-color: $colorTransparent;
     border: 1px solid $colorCyclamen;
     color: $colorCyclamen;
 
     &:hover {
-      background-color: $colorGrayLight;
-     }
+      background-color: $colorTransparent;
+      color: #f33a84;
+    }
    }
    &--container {
     display: flex;
@@ -100,4 +101,26 @@
       gap: 6px;
     }
    }
+}
+
+@mixin card-stiles {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 24px 22px;
+
+  @include middle {
+    .edit-button {
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+  
+    &:hover {
+      .edit-button {
+        opacity: 1;
+      }
+    }
+  }
 }

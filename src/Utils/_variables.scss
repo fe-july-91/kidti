@@ -11,22 +11,24 @@ $colorGrayDarck: #a6aeb7;
 $colorTextMain: #201835;
 $colorTextSecond: #3b3d5d;
 $colorTextThird: #6c6e90;
+$colorTransparent: rgba(255, 255, 255, 0);
+$ButtonCardColor: #6771DE;
+
 
 
 $breakpoint-phone: 375px;
 $breakpoint-tablet: 680px;
 $breakpoint-middle: 840px;
-$breakpoint-desktop: 1280px;
+$breakpoint-desktop: 1380px;
 
 $iconsHeaderSize-mobile-tablet: 48px;
 $iconsHeaderSize-desktop: 64px;
 
 $selectionWidth: 100px;
+$selectionMinWidth: 130px;
 $buttonWidth: 70px;
 $buttonBigWidth: 120px;
-$iconWidth: 32px;
-$ButtonCardColor: #6771DE;
-
+$iconWidth: 30px;
 
 $colorVeronicaLight: #adb0d9;
 $colorSkyBlueLight: #9bc7dc;
