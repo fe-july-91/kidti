@@ -105,14 +105,14 @@ SVG.append('g')
   
 // X
 SVG.selectAll('.x-axis').remove();
-const xAxisGroup = SVG.append('g')
-  .attr('class', 'x-axis')
-  .attr('transform', `translate(0,${height - marginGrahp})`)
-  .call(axisBottom(xScale).tickFormat(d => d.slice(0, 6) + d.slice(8)))
-  .selectAll('text') 
-  .style('font-size', '12px')
-  .style('text-anchor', 'middle')
-  .style('cursor', 'pointer');
+  const xAxisGroup = SVG.append('g')
+    .attr('class', 'x-axis')
+    .attr('transform', `translate(0,${height - marginGrahp})`)
+    .call(axisBottom(xScale).tickFormat(d => d.slice(0, 6) + d.slice(8)))
+    .selectAll('text')
+    .style('font-size', '12px')
+    .style('text-anchor', 'middle');
+  xAxisGroup.style('cursor', 'pointer');
 
   // Y
   SVG.selectAll('.y-axis').remove();

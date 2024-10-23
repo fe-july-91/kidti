@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./CardFoot.scss";
-import { CardTitleTypes, Data } from "../../Shared/types";
-import { foot, months, sliderRange } from "../../Utils/kit";
+import { CardTitleTypes, Data } from "../../Shared/types/types";
+import { cardSize, foot, months, sliderRange } from "../../Utils/kit";
 import { FootChart } from "../../Charts/FootLineChart/FootChart";
 import { findTodayMonth } from "../../Shared/servises/findTodayMonth";
 import { findMaxValue } from "../../Shared/servises/findMaxValue";
@@ -106,8 +106,8 @@ export const CardFoot: React.FC<Props> = ({ data, years }) => {
 
       <div className="foot__chart">
         <FootChart
-          width={400}
-          height={200}
+          width={cardSize.width}
+          height={cardSize.height}
           data={filteredData}
           selectedMonth={selectedMonth}
           slider={sliderValue.x}

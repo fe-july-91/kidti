@@ -23,6 +23,7 @@
     min-width: $selectionMinWidth;
     gap: 20px;
     height: 104px;
+    flex: 1;
   }
 
   &__rightBlock {
@@ -31,6 +32,8 @@
     align-items: end;
     gap: 20px;
     height: 104px;
+    flex: 1;
+    order: 1;
   }
 
   &__chart {

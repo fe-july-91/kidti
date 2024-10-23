@@ -109,11 +109,9 @@ SVG.selectAll('.x-axis').remove();
     .attr('transform', `translate(0,${height - marginGrahp})`)
     .call(axisBottom(xScale).tickFormat(d => d.slice(0, 6) + d.slice(8)))
     .selectAll('text')
-    .style('font-size', '12px')
-    .style('text-anchor', 'middle');
+    .style('font-size', '12px');
   
-    xAxisGroup.style('cursor', 'pointer');
-
+    xAxisGroup.style('text-anchor', 'middle');
   // Y
   SVG.selectAll('.y-axis').remove();
   const yAxisGroup = SVG.append('g')
@@ -126,6 +124,7 @@ SVG.selectAll('.x-axis').remove();
     .style('fill', d => d === selectedVaccine & activeBatton ? '#FF5C9D' :'#42456C')
     .style('font-weight', '400')
     .style('text-rendering', 'optimizeLegibility')
+    .style('cursor', 'pointer')
     .on('click', (event, d) => {
       handleVaccineclick(d);
     })

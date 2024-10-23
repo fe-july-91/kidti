@@ -1,16 +1,17 @@
+import React from "react";
 import "./ButtonsCardBlock.scss"
 
 type Props = {
   handleData: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   value: number | undefined;
   value2?: number;
-  setActiveSlider: React.Dispatch<React.SetStateAction<boolean>>;
-  setSliderValue: React.Dispatch<React.SetStateAction<{ x: number; }>>;
+  setActiveSlider: (value: boolean) => void;
+  setSliderValue: (value: { x: number; }) => void;
   setSecondSliderValue?: React.Dispatch<React.SetStateAction<{ x: number; }>>;
   activeSlider: boolean;
 }
 
-export const ButtonsCardBlock: React.FC<Props> = ({
+export const ButtonsCardBlock: React.FC<Props> = React.memo(({
   activeSlider,
   handleData,
   setActiveSlider,
@@ -20,7 +21,7 @@ export const ButtonsCardBlock: React.FC<Props> = ({
   setSecondSliderValue
 }) => {
   const handleEditClick = () => {
-    setActiveSlider(true);
+    setActiveSlider(true); 
     if (activeSlider) {
       setSliderValue({ x: value });
       if (setSecondSliderValue) {
@@ -28,7 +29,8 @@ export const ButtonsCardBlock: React.FC<Props> = ({
       }
     }
   };
-  
+  console.log('render button')
+
   const handleCanсelClick = () => {
     setActiveSlider(false);
     if (activeSlider) {
@@ -74,4 +76,4 @@ export const ButtonsCardBlock: React.FC<Props> = ({
       )}
     </>
   )
-}
+})

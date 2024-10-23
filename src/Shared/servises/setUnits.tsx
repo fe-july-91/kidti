@@ -1,4 +1,4 @@
-import { CardTitleTypes } from "../types";
+import { CardTitleTypes } from "../types/types";
 
 export const setUnits = (title: string) => {
   switch (title) {
@@ -8,6 +8,6 @@ export const setUnits = (title: string) => {
     case CardTitleTypes.weight:
       return "кг";
     default:
-      return '';
+      return "";
   }
-}
+};

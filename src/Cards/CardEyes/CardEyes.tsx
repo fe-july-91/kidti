@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import cn from "classnames";
 import "./CardEyes.scss";
-import { CardTitleTypes, Eye } from "../../Shared/types";
-import { eye, sliderRange } from "../../Utils/kit";
+import { CardTitleTypes, Eye } from "../../Shared/types/types";
+import { cardSize, eye, sliderRange } from "../../Utils/kit";
 import { EyesChart } from "../../Charts/EyesChart/EyesChart";
 import { TitleCardBlock } from "../../Components/CardTitleBlock/TitleCardBlock";
 import { SliderElement } from "../../Components/SliderElement/SliderElement";
@@ -41,14 +41,14 @@ export const CardEyes: React.FC<Props> = ({ data }) => {
 
         <div className="eyes__edit">
           <ButtonsCardBlock
-              handleData={saveData}
-              value={activeParametrs.left}
-              value2={activeParametrs.right}
-              activeSlider={activeSlider}
-              setActiveSlider={setActiveSlider}
+            handleData={saveData}
+            value={activeParametrs.left}
+            value2={activeParametrs.right}
+            activeSlider={activeSlider}
+            setActiveSlider={setActiveSlider}
             setSliderValue={setLeftSliderValue}
             setSecondSliderValue={setRightSliderValue}
-            />
+          />
         </div>
       </div>
 
@@ -98,20 +98,20 @@ export const CardEyes: React.FC<Props> = ({ data }) => {
 
       <div className="eyes__mobile">
         <ButtonsCardBlock
-            handleData={saveData}
-            value={activeParametrs.left}
-            value2={activeParametrs.right}
-            activeSlider={activeSlider}
-            setActiveSlider={setActiveSlider}
+          handleData={saveData}
+          value={activeParametrs.left}
+          value2={activeParametrs.right}
+          activeSlider={activeSlider}
+          setActiveSlider={setActiveSlider}
           setSliderValue={setLeftSliderValue}
           setSecondSliderValue={setRightSliderValue}
-          />
+        />
       </div>
 
       <div className="eyes__chart">
         <EyesChart
-          width={400}
-          height={200}
+          width={cardSize.width}
+          height={cardSize.height}
           data={activeParametrs}
           sliderLeft={leftSliderValue.x}
           sliderRight={rightSliderValue.x}

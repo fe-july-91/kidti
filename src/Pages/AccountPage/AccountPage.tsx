@@ -3,16 +3,23 @@ import { avatars } from "../../Utils/kit";
 import "./AccountPage.scss";
 import Children from "../../api/Children.json";
 import { useEffect, useState } from "react";
-import { Child, Data, Eye, EyesData, VaccineData, VaccinesData, YearlyMeasurementData } from "../../Shared/types";
+import {
+  Child,
+  Data,
+  Eye,
+  EyesData,
+  VaccineData,
+  VaccinesData,
+  YearlyMeasurementData,
+} from "../../Shared/types/types";
 import { calculateFullChildAge } from "../../Shared/hendlers/generateYearArray";
-import ChildCard_1 from './../../api/ChildData_1.json';
-import ChildCard_2 from './../../api/ChildData_2.json';
+import ChildCard_1 from "./../../api/ChildData_1.json";
+import ChildCard_2 from "./../../api/ChildData_2.json";
 import { AddModal } from "../../Components/AddModal/AddModal";
 import { EditModal } from "../../Components/EditModal/EditModal";
 import GenerativeBG from "../../Components/GenerativeBg/GenerativeBG";
 
-
-const colors = ['#cdbdda','#adb0d9', '#9bc7dc', '#d5b99c', '#e2a1bb'];
+const colors = ["#cdbdda", "#adb0d9", "#9bc7dc", "#d5b99c", "#e2a1bb"];
 
 export const AccountPage: React.FC = () => {
   const [child, setChild] = useState(Children[0]);
@@ -35,7 +42,6 @@ export const AccountPage: React.FC = () => {
   //     const eyeCard = ChildCard.find(item => item.type === "eyes") as EyesData;
   //     const vaccinesCard = ChildCard.find(item => item.type === "vaccines") as VaccinesData;
 
-
   //       setHeightData(heightCard.data);
   //       setWeightData(weightCard.data);
   //       setFootData(footCard.data);
@@ -46,41 +52,49 @@ export const AccountPage: React.FC = () => {
   //   fetchData()
   //   .catch(error => console.error('Error fetching data:', error));
   // }, [child]);
-  const ChildsDataArray = [ChildCard_1, ChildCard_2]
+  const ChildsDataArray = [ChildCard_1, ChildCard_2];
 
   useEffect(() => {
     if (additingModal || modal) {
-      document.body.classList.add('no-scroll');
+      document.body.classList.add("no-scroll");
     } else {
-      document.body.classList.remove('no-scroll');
+      document.body.classList.remove("no-scroll");
     }
   }, [additingModal, modal]);
 
   useEffect(() => {
-      const heightCard = ChildsDataArray[child.id - 1].find(item => item.type === "height") as YearlyMeasurementData;
-      const weightCard = ChildsDataArray[child.id - 1].find(item => item.type === "weight") as YearlyMeasurementData;
-      const footCard = ChildsDataArray[child.id - 1].find(item => item.type === "foot") as YearlyMeasurementData;
-      const eyeCard = ChildsDataArray[child.id - 1].find(item => item.type === "eyes") as EyesData;
-    const vaccinesCard = ChildsDataArray[child.id - 1].find(item => item.type === "vaccines") as VaccinesData;
+    const heightCard = ChildsDataArray[child.id - 1].find(
+      (item) => item.type === "height"
+    ) as YearlyMeasurementData;
+    const weightCard = ChildsDataArray[child.id - 1].find(
+      (item) => item.type === "weight"
+    ) as YearlyMeasurementData;
+    const footCard = ChildsDataArray[child.id - 1].find(
+      (item) => item.type === "foot"
+    ) as YearlyMeasurementData;
+    const eyeCard = ChildsDataArray[child.id - 1].find(
+      (item) => item.type === "eyes"
+    ) as EyesData;
+    const vaccinesCard = ChildsDataArray[child.id - 1].find(
+      (item) => item.type === "vaccines"
+    ) as VaccinesData;
 
-
-      setHeightData(heightCard.data);
-      setWeightData(weightCard.data);
-      setFootData(footCard.data);
-      setEyesData(eyeCard.data);
-      setVaccinesData(vaccinesCard.data);
-
+    setHeightData(heightCard.data);
+    setWeightData(weightCard.data);
+    setFootData(footCard.data);
+    setEyesData(eyeCard.data);
+    setVaccinesData(vaccinesCard.data);
   }, [child.id]);
 
-  const handleChildChange = (index: number,selectedChild: Child) => {
+  const handleChildChange = (index: number, selectedChild: Child) => {
     setActiveIndex(index);
-    setChild(selectedChild)
-  }
+    setChild(selectedChild);
+  };
 
   const handleAddChild = () => {
-    document.body.classList.add('no-scroll');
-    setModal(true)
-  }
+    document.body.classList.add("no-scroll");
+    setModal(true);
+  };
 
   const fullAge = calculateFullChildAge(child.birth);
 
@@ -94,66 +108,86 @@ export const AccountPage: React.FC = () => {
             alt="avatar"
             className="account__top__personalInfo--image"
             onClick={() => {
-              console.log('Image clicked');
+              console.log("Image clicked");
               setAdditingModal(true);
             }}
-            />
-          <div  className="account__top__personalInfo--info">
+          />
+          <div className="account__top__personalInfo--info">
             <header className="account__top__personalInfo-name">
-            {child.name}
+              {child.name}
             </header>
-            <p className="account__top__personalInfo-txt">Вік: {fullAge.years}p. {fullAge.months}м.</p>
-            <p className="account__top__personalInfo-txt">Pік народження: {child.birth}</p>
+            <p className="account__top__personalInfo-txt">
+              Вік: {fullAge.years}p. {fullAge.months}м.
+            </p>
+            <p className="account__top__personalInfo-txt">
+              Pік народження: {child.birth}
+            </p>
             <p className="account__top__personalInfo-txt">Стать: дівчинка</p>
           </div>
         </div>
 
         <div className="account__top__avatars">
-      {Children.map((childItem, index) => (
-        <div key={index} className="account__top__avatars__card-container">
+          {Children.map((childItem, index) => (
+            <div key={index} className="account__top__avatars__card-container">
+              <button
+                className={`account__top__avatars__card ${
+                  activeIndex === index ? "active" : ""
+                }`}
+                onClick={() => handleChildChange(index, childItem)}
+              >
+                <img
+                  src={avatars[childItem.image]}
+                  alt="avatar"
+                  className="account__top__avatars__card--image"
+                />
+              </button>
+            </div>
+          ))}
+
           <button
-            className={`account__top__avatars__card ${activeIndex === index ? 'active' : ''}`}
-            onClick={() => handleChildChange(index, childItem)}
+            className="account__top__avatars__add"
+            onClick={handleAddChild}
           >
-            <img src={avatars[childItem.image]} alt="avatar" className="account__top__avatars__card--image" />
+            <div className="account__top__avatars__add--plus"> + </div>
+            <div className="account__top__avatars__add--text">
+              Додати
+              <br />
+              дитину
+            </div>
           </button>
         </div>
-      ))}
-
-      <button className="account__top__avatars__add" onClick={handleAddChild}>
-        <div className="account__top__avatars__add--plus"> + </div>
-        <div className="account__top__avatars__add--text">Додати<br />дитину</div>
-      </button>
-    </div>
       </div>
 
-      <div className="account__container" style={{ backgroundColor: colors[activeIndex] }}>
-        {heightData && weightData && footData && vaccinesData && eyesData &&
+      <div
+        className="account__container"
+        style={{ backgroundColor: colors[activeIndex] }}
+      >
+        {heightData && weightData && footData && vaccinesData && eyesData && (
           <Dashboard
-          child={child}
-          heightData={heightData}
-          weightData={weightData}
-          footData={footData}
-          vaccinesData={vaccinesData}
-          eyesData={eyesData}
-        />
-        }
+            child={child}
+            heightData={heightData}
+            weightData={weightData}
+            footData={footData}
+            vaccinesData={vaccinesData}
+            eyesData={eyesData}
+          />
+        )}
       </div>
-      {modal && ChildsDataArray.length > 0 &&
+      {modal && ChildsDataArray.length > 0 && (
         <div className="account__modalContainer">
-          <AddModal setModal= {setModal} />
+          <AddModal setModal={setModal} />
         </div>
-      }
+      )}
 
       {additingModal && (
         <div className="account__modalContainer">
-        <EditModal
-          setModal={setAdditingModal}
-          name={child.name}
-          surname={child.surname}
-          birth={child.birth}
-          gender={child.gender}
-          avatar={avatars[child.image]}
+          <EditModal
+            setModal={setAdditingModal}
+            name={child.name}
+            surname={child.surname}
+            birth={child.birth}
+            gender={child.gender}
+            avatar={avatars[child.image]}
           />
         </div>
       )}

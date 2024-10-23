@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { vaccine, vaccinesSelect } from "../../Utils/kit";
 import { parse } from "date-fns";
 import "./CardVaccines.scss";
-import { CardTitleTypes, Child, VaccineData } from "../../Shared/types";
+import { CardTitleTypes, Child, VaccineData } from "../../Shared/types/types";
 import { VaccinesChart } from "../../Charts/VaccinesChart/VaccinesChart";
 import { VaccinesMobile } from "../../Charts/VaccinesChartMobile/VaccinesMobile";
 import { TitleCardBlock } from "../../Components/CardTitleBlock/TitleCardBlock";

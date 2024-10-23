@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { WeightLineChart } from "../../Charts/WeightLineChart/WeightLineChart";
 import "./CardWeight.scss";
-import { CardTitleTypes, Data } from "../../Shared/types";
-import { months, sliderRange, weight } from "../../Utils/kit";
+import { CardTitleTypes, Data } from "../../Shared/types/types";
+import { cardSize, months, sliderRange, weight } from "../../Utils/kit";
 import { findTodayMonth } from "../../Shared/servises/findTodayMonth";
 import { SelectionCardBlock } from "../../Components/SelectionCardBlock/SelectionCardBlock";
 import { SliderElement } from "../../Components/SliderElement/SliderElement";
@@ -108,8 +108,8 @@ export const CardWeight: React.FC<Props> = ({ data, years }) => {
 
       <div className="weight__chart">
         <WeightLineChart
-          width={400}
-          height={200}
+          width={cardSize.width}
+          height={cardSize.height}
           data={filteredData}
           selectedMonth={selectedMonth}
           slider={sliderValue.x}

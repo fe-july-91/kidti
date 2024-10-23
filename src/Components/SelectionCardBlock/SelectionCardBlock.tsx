@@ -1,3 +1,4 @@
+import React from "react";
 import { months } from "../../Utils/kit"
 import "./SelectionCardBlock.scss"
 
@@ -5,14 +6,14 @@ type Props = {
   selectedYear: string;
   years: string[];
   selectedMonth: string;
-  setSelectedYear: React.Dispatch<React.SetStateAction<string>>;
-  setSelectedMonth: React.Dispatch<React.SetStateAction<string>>;
-  setActiveSlider: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedYear: (year: string) => void;
+  setSelectedMonth: (month: string) => void;
+  setActiveSlider: (value: boolean) => void;
 }
 
-export const SelectionCardBlock: React.FC<Props> = ({ 
-  selectedYear, 
-  years, 
+export const SelectionCardBlock: React.FC<Props> = React.memo(({
+  selectedYear,
+  years,
   selectedMonth,
   setSelectedYear,
   setSelectedMonth,
@@ -56,4 +57,4 @@ export const SelectionCardBlock: React.FC<Props> = ({
       </select>
     </div>
   )
-}
+});

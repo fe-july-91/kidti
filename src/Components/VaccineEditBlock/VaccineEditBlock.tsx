@@ -1,6 +1,6 @@
 import { parseDate } from "../../Shared/hendlers/parseDate";
 import { updateVaccines } from "../../Shared/servises/updateVaccines";
-import { VaccineData } from "../../Shared/types";
+import { VaccineData } from "../../Shared/types/types";
 import { vaccinesSelect } from "../../Utils/kit";
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
   setSelectedVaccine: React.Dispatch<React.SetStateAction<string>>;
   setNewdata: React.Dispatch<React.SetStateAction<VaccineData[]>>;
   setActiveVaccine: React.Dispatch<React.SetStateAction<VaccineData | null>>;
-}
+};
 
 export const VaccineEditBlock: React.FC<Props> = ({
   activeVaccine,
@@ -26,11 +26,9 @@ export const VaccineEditBlock: React.FC<Props> = ({
   setNewParametrs,
   setSelectedVaccine,
   setNewdata,
-  setActiveVaccine
-
+  setActiveVaccine,
 }) => {
-
-    const handleEditClick = (
+  const handleEditClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     setActiveButton(true);
@@ -117,60 +115,60 @@ export const VaccineEditBlock: React.FC<Props> = ({
 
   return (
     <div className="vaccine__top--rightBlock">
-    {!activeVaccine && !activeBatton ? (
-      <button
-        className="vaccine__top__button edit-button"
-        onClick={handleEditClick}
-      >
-        Редагувати
-      </button>
-    ) : (
-      <>
-        <div className="vaccine__top--picker">
-          {!activeVaccine ? (
-            <select
-              className="vaccine__top--selectVaccine"
-              value={selectedVaccine}
-              onChange={handleVaccineChenge}
-            >
-              {vaccinesSelect.map((vaccine) => (
-                <option key={vaccine} value={vaccine}>
-                  {vaccine}
-                </option>
-              ))}
-            </select>
+      {!activeVaccine && !activeBatton ? (
+        <button
+          className="vaccine__top__button edit-button"
+          onClick={handleEditClick}
+        >
+          Редагувати
+        </button>
+      ) : (
+        <>
+          <div className="vaccine__top--picker">
+            {!activeVaccine ? (
+              <select
+                className="vaccine__top--selectVaccine"
+                value={selectedVaccine}
+                onChange={handleVaccineChenge}
+              >
+                {vaccinesSelect.map((vaccine) => (
+                  <option key={vaccine} value={vaccine}>
+                    {vaccine}
+                  </option>
+                ))}
+              </select>
             ) : (
               <span className="vaccine__top--type">{selectedVaccine}</span>
             )}
 
-          <input
-            type="date"
-            className="vaccine__top--selectDate"
-            value={startDate.toISOString().split("T")[0]} // yyyy-mm-dd
-            onChange={(e) => {
-              const newDate = new Date(e.target.value);
-              setStartDate(newDate);
-            }}
-          />
-        </div>
+            <input
+              type="date"
+              className="vaccine__top--selectDate"
+              value={startDate.toISOString().split("T")[0]} // yyyy-mm-dd
+              onChange={(e) => {
+                const newDate = new Date(e.target.value);
+                setStartDate(newDate);
+              }}
+            />
+          </div>
 
-        <div className="vaccine__top__button__container">
-          <button
-            className="vaccine__top__button vaccine__top__button--add"
-            onClick={handleApplyClick}
-          >
-            {activeVaccine ? `Зберегти` : `Додати`}
-          </button>
-          <button
-            className="vaccine__top__button vaccine__top__button--cancel"
-            onClick={handleRemoveClick}
-          >
-            {" "}
-            {activeVaccine ? `Видалити` : `Скасувати`}
-          </button>
-        </div>
-      </>
-    )}
-  </div>
-  )
-}
+          <div className="vaccine__top__button__container">
+            <button
+              className="vaccine__top__button vaccine__top__button--add"
+              onClick={handleApplyClick}
+            >
+              {activeVaccine ? `Зберегти` : `Додати`}
+            </button>
+            <button
+              className="vaccine__top__button vaccine__top__button--cancel"
+              onClick={handleRemoveClick}
+            >
+              {" "}
+              {activeVaccine ? `Видалити` : `Скасувати`}
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};

@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import { BarChart } from "../../Charts/HeightBarChart/BarChart";
 import "./CardHeight.scss";
-import { CardTitleTypes, Data } from "../../Shared/types";
-import { height, months, sliderRange } from "../../Utils/kit";
+import { CardTitleTypes, Data } from "../../Shared/types/types";
+import { cardSize, height, months, sliderRange } from "../../Utils/kit";
 import { findTodayMonth } from "../../Shared/servises/findTodayMonth";
 import { SliderElement } from "../../Components/SliderElement/SliderElement";
 import { SelectionCardBlock } from "../../Components/SelectionCardBlock/SelectionCardBlock";
-import { findMaxValue } from "../../Shared/servises/findMaxValue";
 import { TitleCardBlock } from "../../Components/CardTitleBlock/TitleCardBlock";
 import { ButtonsCardBlock } from "../../Components/ButtonsCardBlock/ButtonsCardBlock";
+import { findMaxValue } from "../../Shared/servises/findMaxValue";
+import { reduser } from "../../Shared/servises/reduser";
 
 type Props = {
   data: Data[];
@@ -16,52 +17,63 @@ type Props = {
 };
 
 export const CardHeight: React.FC<Props> = ({ data, years }) => {
-  const [selectedYear, setSelectedYear] = useState(years[0]);
-  const [selectedMonth, setSelectedMonth] = useState(months[findTodayMonth()]);
-  const [newData, setNewdata] = useState<Data[]>(data);
+  const initialState = {
+    selectedYear: years[0],
+    selectedMonth: months[findTodayMonth()],
+    data: data
+  };
+  const [state, dispatch] = useReducer(reduser, initialState);
   const [activeSlider, setActiveSlider] = useState(false);
   const [sliderValue, setSliderValue] = useState({ x: 0 });
 
-  const filteredData = newData.filter((d) => d.year === selectedYear);
-  const currentData = filteredData.find((d) => d.month === selectedMonth);
-  const maxValue = findMaxValue(filteredData);
+  const filteredData = useMemo(() => {
+    return state.data.filter((d) => d.year === state.selectedYear);
+  }, [state.selectedYear, state.data])
 
-  const saveData = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const currentData = useMemo(() => {
+    return filteredData.find((d) => d.month === state.selectedMonth);
+  }, [state.selectedMonth, filteredData]);
+
+  const maxValue = useMemo(() => {
+    return findMaxValue(filteredData);
+  }, [filteredData])
+
+  const saveData = useCallback((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (e) {
       e.preventDefault();
     }
 
     const newParametr: Data = {
-      id: newData.length + 1,
-      year: selectedYear,
-      month: selectedMonth,
+      id: state.data.length + 1,
+      year: state.selectedYear,
+      month: state.selectedMonth,
       value: sliderValue.x,
     };
 
     if (currentData) {
-      const updatedData = newData.map((d, i) =>
-        d.id === currentData.id ? { ...d, value: sliderValue.x } : d
+      const updatedData = state.data.map((d, i) =>
+        d.id === currentData?.id ? { ...d, value: sliderValue.x } : d
       );
-      setNewdata(updatedData);
+      dispatch({ type: "data", payload: updatedData });
     } else {
-      setNewdata([...newData, newParametr]);
+      dispatch({ type: "data", payload: [...state.data, newParametr] });
     }
     setSliderValue({ x: 0 });
-  };
+  }, [sliderValue.x, currentData, state.data, state.selectedMonth, state.selectedYear]) 
 
   useEffect(() => {
-    setNewdata(data);
+    dispatch({ type: "data", payload: data });
   }, [data]);
 
-  const HandleGraph = (d: Data) => {
+  const HandleGraph = useCallback((d: Data) => {
     setActiveSlider(true);
-    setSelectedMonth(d.month);
+    dispatch({ type: "selectedMonth", payload: d.month });
     if (d.value) {
       setSliderValue({ x: d.value });
     } else {
       setSliderValue({ x: maxValue });
     }
-  };
+  }, [maxValue, setActiveSlider, setSliderValue]) 
 
   return (
     <div className="card">
@@ -77,11 +89,15 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
           />
 
           <SelectionCardBlock
-            selectedYear={selectedYear}
+            selectedYear={state.selectedYear}
             years={years}
-            selectedMonth={selectedMonth}
-            setSelectedYear={setSelectedYear}
-            setSelectedMonth={setSelectedMonth}
+            selectedMonth={state.selectedMonth}
+            setSelectedYear={(year) =>
+              dispatch({ type: "selectedYear", payload: year })
+            }
+            setSelectedMonth={(month) =>
+              dispatch({ type: "selectedMonth", payload: month })
+            }
             setActiveSlider={setActiveSlider}
           />
         </div>
@@ -89,7 +105,7 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
         <div className="card__rightBlock">
           {activeSlider && (
             <SliderElement
-              setSliderValue={setSliderValue}
+              setSliderValue={(value) => setSliderValue(value)}
               sliderValue={sliderValue}
               range={sliderRange.height}
             />
@@ -107,10 +123,10 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
 
       <div className="card__chart">
         <BarChart
-          width={400}
-          height={200}
+          width={cardSize.width}
+          height={cardSize.height}
           data={filteredData}
-          selectedMonth={selectedMonth}
+          selectedMonth={state.selectedMonth}
           slider={sliderValue.x}
           HandleGraph={HandleGraph}
         />

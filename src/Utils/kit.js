@@ -69,6 +69,10 @@ export const settings = gear;
 export const bunner = image;
 export const sliderWidth = "200px";
 export const sliderWidthMobile = "300px";
+export const cardSize = {
+  width: 400,
+  height: 200,
+}
 
 export const sliderRange = {
   height: { min: 0, max: 180 },

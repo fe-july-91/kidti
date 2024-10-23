@@ -1,4 +1,4 @@
-import { Child, Data, Eye, VaccineData } from "../../Shared/types";
+import { Child, Data, Eye, VaccineData } from "../../Shared/types/types";
 import "./Dashboard.scss";
 import { CardWeight } from "../../Cards/CardWeight/CardWeight";
 import { CardHeight } from "../../Cards/CardHeight/CardHeight";

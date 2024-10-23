@@ -50,7 +50,18 @@ export const VaccinesChart = ({
     if (xAxisRef.current) {
       d3.select(xAxisRef.current).call(xAxis);
     }
-  }, [data, handleVaccineclick, targeVaccine, xScale, width, height, birth, HandleGraph, updatedVaccine, activeBatton]);
+  }, [data, 
+      handleVaccineclick, 
+      targeVaccine, 
+      xScale, 
+      width, 
+      height, 
+      birth, 
+      HandleGraph,
+      updatedVaccine,
+      activeBatton,
+      selectedVaccine
+    ]);
 
   return (
     <svg ref={rectRef} viewBox={`0 0 ${width} ${height}`}>

@@ -1,5 +1,5 @@
 import { parseDate } from "../hendlers/parseDate";
-import { VaccineData } from "../types";
+import { VaccineData } from "../types/types";
 
 export const updateVaccines = (
   newVaccine: VaccineData,
@@ -11,9 +11,7 @@ export const updateVaccines = (
   );
   if (!clone) {
     newSetOfVaccines = [...currentVaccines, newVaccine]
-      .sort(
-        (a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime()
-      )
+      .sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime())
       .map((v, i) => ({ ...v, orderNumber: i + 1 }));
   } else {
     newSetOfVaccines = currentVaccines;
