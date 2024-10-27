@@ -1,8 +1,5 @@
-import { Child, Data, Eye, VaccineData } from "../../Shared/types/types";
+import { CardTitleTypes, Child, Data, Eye, VaccineData } from "../../Shared/types/types";
 import "./Dashboard.scss";
-import { CardWeight } from "../../Cards/CardWeight/CardWeight";
-import { CardHeight } from "../../Cards/CardHeight/CardHeight";
-import { CardFoot } from "../../Cards/CardFoot copy/CardFoot";
 import { CardEyes } from "../../Cards/CardEyes/CardEyes";
 import {
   calculateChildAge,
@@ -10,6 +7,7 @@ import {
 } from "../../Shared/hendlers/generateYearArray";
 import { CardVaccines } from "../../Cards/CardVaccines/CardVaccines";
 import { useMemo } from "react";
+import { CardItem } from "../../Cards/CardItem/CardItem";
 
 type Props = {
   child: Child;
@@ -34,13 +32,13 @@ export const Dashboard: React.FC<Props> = ({
   return (
     <div className="dashboard">
       <div className="dashboard__item">
-        <CardHeight data={heightData} years={years} />
+        <CardItem data={heightData} years={years} cardType={CardTitleTypes.height} />
       </div>
       <div className="dashboard__item">
-        <CardWeight data={weightData} years={years} />
+        <CardItem data={weightData} years={years} cardType={CardTitleTypes.weight} />
       </div>
       <div className="dashboard__item">
-        <CardFoot data={footData} years={years} />
+        <CardItem data={footData} years={years} cardType={CardTitleTypes.foot} />
       </div>
       <div className="dashboard__item">
         <CardEyes data={eyesData} />

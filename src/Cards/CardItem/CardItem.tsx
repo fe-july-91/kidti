@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import { BarChart } from "../../Charts/HeightBarChart/BarChart";
-import "./CardHeight.scss";
-import { CardTitleTypes, Data } from "../../Shared/types/types";
-import { cardSize, height, months, sliderRange } from "../../Utils/kit";
+import "./CardItem.scss";
+import { cardSize, months, sliderRange } from "../../Utils/kit";
 import { findTodayMonth } from "../../Shared/servises/findTodayMonth";
 import { SliderElement } from "../../Components/SliderElement/SliderElement";
 import { SelectionCardBlock } from "../../Components/SelectionCardBlock/SelectionCardBlock";
@@ -10,13 +9,18 @@ import { TitleCardBlock } from "../../Components/CardTitleBlock/TitleCardBlock";
 import { ButtonsCardBlock } from "../../Components/ButtonsCardBlock/ButtonsCardBlock";
 import { findMaxValue } from "../../Shared/servises/findMaxValue";
 import { reduser } from "../../Shared/servises/reduser";
+import { CardTitleTypes, Data } from "../../Shared/types/types";
+import { findCardImage } from "../../Shared/servises/findCardImage";
+import { WeightLineChart } from "../../Charts/WeightLineChart/WeightLineChart";
+import { FootChart } from "../../Charts/FootLineChart/FootChart";
 
 type Props = {
   data: Data[];
   years: string[];
+  cardType: string;
 };
 
-export const CardHeight: React.FC<Props> = ({ data, years }) => {
+export const CardItem: React.FC<Props> = ({ data, years, cardType }) => {
   const initialState = {
     selectedYear: years[0],
     selectedMonth: months[findTodayMonth()],
@@ -84,8 +88,8 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
             currentData={currentData}
             sliderValue={sliderValue}
             maxValue={maxValue}
-            image={height}
-            title={CardTitleTypes.height}
+            image={findCardImage(cardType)}
+            title={cardType}
           />
 
           <SelectionCardBlock
@@ -122,7 +126,8 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
       </div>
 
       <div className="card__chart">
-        <BarChart
+        {cardType === CardTitleTypes.height && 
+          <BarChart
           width={cardSize.width}
           height={cardSize.height}
           data={filteredData}
@@ -130,6 +135,30 @@ export const CardHeight: React.FC<Props> = ({ data, years }) => {
           slider={sliderValue.x}
           HandleGraph={HandleGraph}
         />
+        }
+
+        {cardType === CardTitleTypes.weight && 
+        <WeightLineChart
+          width={cardSize.width}
+          height={cardSize.height}
+          data={filteredData}
+          selectedMonth={state.selectedMonth}
+          slider={sliderValue.x}
+          HandleGraph={HandleGraph}
+        />
+        }
+
+        {cardType === CardTitleTypes.foot && 
+        <FootChart
+          width={cardSize.width}
+          height={cardSize.height}
+          data={filteredData}
+          selectedMonth={state.selectedMonth}
+          slider={sliderValue.x}
+          HandleGraph={HandleGraph}
+        />
+        }
+        
       </div>
     </div>
   );
