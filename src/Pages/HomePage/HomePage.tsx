@@ -8,11 +8,6 @@ export const HomePage: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
-    navigate('/account');
-  };
-
   return (
     <div className="homePage">
       <GenerativeBG />
@@ -45,12 +40,22 @@ export const HomePage: React.FC = () => {
               </div>
           </div>
 
-          <button
-            className="homePage__button homePage__button--home"
-            onClick={handleSubmit}
-          >
-            Перейти в додаток
-          </button>
+          <div>
+            <button
+              className="homePage__button"
+              onClick={() => navigate('account')}
+            >
+              Увійти
+            </button>
+
+            <button
+              className="homePage__button homePage__button--home"
+              onClick={() => navigate('signup')}
+            >
+               Зареєструватися
+            </button>
+
+          </div>
         </div>
       </div>
     </div>

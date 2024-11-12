@@ -12,7 +12,7 @@ export const FootChart = ({
   HandleGraph,
 }) => {
 
-  const margin = 20;
+  const margin = 24;
   const xAxisRef = useRef(null);
   const rectRef = useRef();
 

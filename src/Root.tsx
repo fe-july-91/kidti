@@ -4,18 +4,26 @@ import { HomePage } from './Pages/HomePage/HomePage';
 import { AccountPage } from './Pages/AccountPage/AccountPage';
 import { LogInPage } from './Pages/LogInPage/LogInPage';
 import { SignUpPage } from './Pages/SignUpPage/SignUpPage';
+import { AuthProvider } from './Components/AuthContext/AuthContext';
+import { RequireAuth } from './Components/RequireAuth/RequireAuth';
 
 const Root = () => {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<HomePage />} />
-          <Route path='account' element={<AccountPage />} />
-          <Route path='login' element={<LogInPage />} />
-          <Route path='signup' element={<SignUpPage />} />
-        </Route>
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<HomePage />} />
+            <Route path='login' element={<LogInPage />} />
+            <Route path='signup' element={<SignUpPage />} />
+
+            <Route path='account' element={<RequireAuth />}>
+              <Route index element={<AccountPage />} />
+            </Route>
+          </Route>
+        </Routes>
+      </AuthProvider>
+
     </Router>
   )
 };

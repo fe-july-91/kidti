@@ -8,14 +8,17 @@ import { VaccinesMobile } from "../../Charts/VaccinesChartMobile/VaccinesMobile"
 import { TitleCardBlock } from "../../Components/CardTitleBlock/TitleCardBlock";
 import { VaccineEditBlock } from "../../Components/VaccineEditBlock/VaccineEditBlock";
 
+import vaccinesData from "./../../api/data/Vaccines.json";
+
 type Props = {
-  data: VaccineData[];
   years: string[];
   age?: number;
   child: Child;
 };
 
-export const CardVaccines: React.FC<Props> = ({ data, child }) => {
+export const CardVaccines: React.FC<Props> = ({ child }) => {
+  const [data, setData] = useState<VaccineData[] | []>([]);
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedVaccine, setSelectedVaccine] = useState(vaccinesSelect[0]);
   const [activeVaccine, setActiveVaccine] = useState<VaccineData | null>(null);
@@ -24,8 +27,8 @@ export const CardVaccines: React.FC<Props> = ({ data, child }) => {
   const [newParametrs, setNewParametrs] = useState<VaccineData | null>(null);
 
   useEffect(() => {
-    setNewdata(data);
-  }, [data]);
+    setData(vaccinesData);
+  }, []);
 
   const HandleGraph = (v: VaccineData) => {
     if (v === activeVaccine) {

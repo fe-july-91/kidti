@@ -7,7 +7,7 @@ export const SignUpForm = () => {
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-    navigate('/account');
+    navigate('/account', { replace: true });
   };
 
   return (
@@ -24,7 +24,7 @@ export const SignUpForm = () => {
           <input type="password" className="form__control" id="exampleInputPassword1" />
         </div>
         <div className="form__input">
-          <label htmlFor="exampleInputPassword1" className="form__label">Підтвердити паспорт</label>
+          <label htmlFor="exampleInputPassword1" className="form__label">Підтвердити пароль</label>
           <input type="password" className="form__control" id="exampleInputPassword1" />
         </div>
         <div className="form__options">

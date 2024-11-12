@@ -7,20 +7,20 @@ import { EyesChart } from "../../Charts/EyesChart/EyesChart";
 import { TitleCardBlock } from "../../Components/CardTitleBlock/TitleCardBlock";
 import { SliderElement } from "../../Components/SliderElement/SliderElement";
 import { ButtonsCardBlock } from "../../Components/ButtonsCardBlock/ButtonsCardBlock";
+import eyeData from "./../../api/data/Eyes.json";
 
-type Props = {
-  data: Eye;
-};
 
-export const CardEyes: React.FC<Props> = ({ data }) => {
+export const CardEyes = ( ) => {
+  const [data, setData] = useState<Eye>({"left": 1, "right": 1 });
+
   const [activeParametrs, setActiveParametrs] = useState<Eye>(data);
   const [activeSlider, setActiveSlider] = useState(false);
   const [leftSliderValue, setLeftSliderValue] = useState({ x: data.left });
   const [rightSliderValue, setRightSliderValue] = useState({ x: data.right });
 
   useEffect(() => {
-    setActiveParametrs(data);
-  }, [data]);
+    setData(eyeData);
+  }, []);
 
   const saveData = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (e) {

@@ -29,7 +29,6 @@ export const ButtonsCardBlock: React.FC<Props> = React.memo(({
       }
     }
   };
-  console.log('render button')
 
   const handleCanсelClick = () => {
     setActiveSlider(false);

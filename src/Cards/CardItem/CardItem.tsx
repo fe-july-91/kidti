@@ -13,14 +13,23 @@ import { CardTitleTypes, Data } from "../../Shared/types/types";
 import { findCardImage } from "../../Shared/servises/findCardImage";
 import { WeightLineChart } from "../../Charts/WeightLineChart/WeightLineChart";
 import { FootChart } from "../../Charts/FootLineChart/FootChart";
+import heightData from "./../../api/data/height.json";
+// import { weight } from "./../../api/data/weight.json";
+// import {foot} from "./../../api/data/foot.json";
+
 
 type Props = {
-  data: Data[];
   years: string[];
   cardType: string;
 };
 
-export const CardItem: React.FC<Props> = ({ data, years, cardType }) => {
+export const CardItem: React.FC<Props> = ( {years, cardType }) => {
+  const [data, setData] = useState<Data[] | []>([]);
+
+  useEffect(() => {
+    setData(heightData);
+  }, [])
+
   const initialState = {
     selectedYear: years[0],
     selectedMonth: months[findTodayMonth()],
