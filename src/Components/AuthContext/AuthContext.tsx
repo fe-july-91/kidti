@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import { client } from '../../Utils/httpClient';
-import { error } from "console";
 
 interface AuthContextType {
   authorized: boolean;
   setAuthorized: (value: boolean) => void;
-  authenticate: (email: string, password: string) => Promise<void>;
-  authorizate: (email: string, password1: string, password2: string, name: string) => Promise<void>;
+  logIn: () => void;
+  logOut: () => void;
+  setToken: (token: string) => void
 }
 
 export const AuthContext = React.createContext<AuthContextType>({
   authorized: false,
-  setAuthorized: () => {},
-  authenticate: () => Promise.resolve(),
-  authorizate: () => Promise.resolve()
+  setAuthorized: () => { },
+  logIn: () => { },
+  logOut: () => { },
+  setToken: () => { },
+
 })
 
 type Props = {
@@ -21,34 +22,36 @@ type Props = {
 }
 
 export const AuthProvider: React.FC<Props> = ({ children }) => {
-  const [authorized, setAuthorized] = useState(false);
 
-  console.log(authorized)
+  const [authorized, setAuthorized] = useState(() => {
+    return localStorage.getItem("isAuthorized") === "true";
+  });
 
-
-  async function authenticate(email: string, password: string) {
-    client.post('auth/login', { "email": email, "password": password })
-      .then(() => {
-        setAuthorized(true)
-      })
-    .catch((error) => {throw error})
+  const setToken = (token: string) => {
+    localStorage.setItem("authToken", token);
   }
 
-  async function authorizate(
-    email: string,
-    password1: string,
-    password2: string,
-    name: string
-  ) {
-    client.post('auth/login', {email, password1, password2, name })
-    .then(() => {
-      setAuthorized(true)
-    })
-  .catch((error) => {throw error})
-  }
+  const logIn = () => {
+    setAuthorized(true);
+    localStorage.setItem("isAuthorized", "true");
+  };
+
+  const logOut = () => {
+    setAuthorized(false);
+    localStorage.removeItem("isAuthorized");
+    // localStorage.removeItem("password");
+    // localStorage.removeItem("email");
+    localStorage.removeItem("authToken");
+  };
 
   return (
-    <AuthContext.Provider value={{ authorized, authenticate, authorizate, setAuthorized }}>
+    <AuthContext.Provider value={{
+      authorized,
+      setAuthorized,
+      logIn,
+      logOut,
+      setToken
+    }}>
       {children}
     </AuthContext.Provider>
   )

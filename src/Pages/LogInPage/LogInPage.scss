@@ -1,10 +1,17 @@
 @import './../../styles/main';
 
 .logInPage {
-  margin: 0 auto;
-  padding-top: 50px ;
   box-sizing: border-box;
   display: flex;
+  padding-top: 80px;
   justify-content: center;
-  align-items: center;
+  height: auto;
+
+  @include on-tablet {
+    height: calc(100vh - 48px * 2);
+  }
+  
+  @include on-desktop {
+    height: calc(100vh - 64px * 2);
+  }
 }

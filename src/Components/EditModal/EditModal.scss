@@ -8,6 +8,7 @@
     flex-direction: column;
     gap: 16px;
     width: 375px;
+    min-width: 375px;
     background-color: $colorGrayLight;
     padding: 24px 32px;
     border-radius: 25px;
@@ -58,6 +59,23 @@
         color: $colorGrayLight;
       }
      }
+    }
+
+    &--deleteButton {
+      font-size: 16px;
+      font-weight: 500;
+      color: $colorGrayLight;
+      border-radius: 15px;
+      padding: 10px 14px;
+      cursor: pointer;
+      background-color: $colorTransparent;
+      border: 1px solid $colorCyclamen;
+      color: $colorCyclamen;
+      
+      &:hover {
+        background-color: $colorTransparent;
+        color: #f33a84;
+      }
     }
 
     &__control {
@@ -132,4 +150,8 @@
       color: $colorTextThird;
     }
   }
+
+  &__popApp {
+  }
 }
+

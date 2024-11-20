@@ -1,6 +1,6 @@
 export function generateYearArray(birth: string) {
   const today = new Date();
-  const startYear = birth.split(".")[2];
+  const startYear = birth.split("-")[2];
 
   const endYear: string = today.toLocaleDateString("ukr-GB", {
     year: "numeric"});
@@ -22,7 +22,7 @@ export function calculateChildAge(birth: string) {
 };
 
 export function calculateFullChildAge(birthDate: string) {
-  const [day, month, year] = birthDate.split('.').map(Number);
+  const [day, month, year] = birthDate.split('-').map(Number);
   
   const birth = new Date(year, month - 1, day);
 

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from 'react-router-dom';
 import { logo } from "../../Utils/kit";
 import './Header.scss';
 import { Menu } from "../Menu/Menu";
+import { AuthContext } from "../AuthContext/AuthContext";
 
 
 export const Header: React.FC = () => {
@@ -13,7 +14,7 @@ export const Header: React.FC = () => {
     setIsMenuOpen((prev: boolean) => !prev);
   };
 
-  const [isLogin, setIsLogIn] = useState(false);
+  const { authorized, logOut} = useContext(AuthContext);
 
   return (
     <header className="header">
@@ -23,28 +24,30 @@ export const Header: React.FC = () => {
 
       <div className="navContainer">
         <div className="navContainer__actions">
-          {!isLogin ? (
+          {!authorized ? (
             <>
           <Link
             to="login"
               className="navContainer__account"
-              onClick={() => setIsLogIn(true)}
             >
-              <p className="navContainer__actions--text">Увійти</p>
+              <p className="navContainer__actions--text">log In</p>
               </Link>
-              <span>або</span>
+              <span> or </span>
             <Link
-            to="signup"
+              to="signup"
               className="navContainer__account"
-              onClick={() => setIsLogIn(true)}
             >
-              <p className="navContainer__actions--text">Зареєструватися</p>
+              <p className="navContainer__actions--text">Sign Up</p>
            </Link>
             </>
 
           ) : (
-            <Link to="account" className="navContainer__account">
-            <div className="navContainer__account--hellow"> Вітаю, Марія!</div>
+            <Link 
+              to="login" 
+                className="navContainer__account"
+                onClick={() => logOut()}
+            >
+            <div className="navContainer__actions--text"> log out </div>
           </Link>
           )}
         </div>

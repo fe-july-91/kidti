@@ -1,27 +1,50 @@
 import React, { useState } from 'react';
 import './AddModal.scss'
 import { AvatarSelector } from '../AvatarSelector/AvatarSelector';
+import { client } from '../../Utils/httpClient';
+import { Child } from '../../Shared/types/types';
 
 type Props = {
   setModal: (a: boolean) => void;
+  setCurrentChild: (value: Child) => void;
 };
 
-export const AddModal: React.FC <Props> = ({ setModal }) => {
-
-const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-  event.preventDefault();
-  setModal(false);
-};
+export const AddModal: React.FC<Props> = ({ setModal, setCurrentChild }) => {
   
 const [selectedGender, setSelectedGender] = useState('');
 const [selectedDay, setSelectedDay] = useState('');
 const [selectedMonth, setSelectedMonth] = useState('');
 const [selectedYear, setSelectedYear] = useState('');
+const [avatarIndex, setAvatarIndex] = useState<number>(0)
+const [errowMessage, setErrowmessage] = useState("");
+const [surname, setSurname] = useState('');
+const [name, setName] = useState('');
 
+
+  
 
 const days = Array.from({ length: 31 }, (_, i) => i + 1);
 const months = Array.from({ length: 12 }, (_, i) => i + 1);
 const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
+
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+  
+    client.post<Child>(`children`, {
+      "birth": `${selectedDay}-${selectedMonth}-${selectedYear}`,
+      "genderName": `${selectedGender}`,
+      "image": `${avatarIndex}`,
+      "name": name,
+      "surname": surname,
+    })
+      .then(response => {
+        setCurrentChild(response);
+        setModal(false);
+      })
+      .catch(error => {
+        setErrowmessage("Помилка при сохранении данних");
+      });
+  };
 
   return (
     <div className="modal">
@@ -35,14 +58,26 @@ const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i
       </div>
 
         <div className="modal__form__title">Введіть дані дитини </div>
-        <AvatarSelector />
+        <AvatarSelector setAvatarIndex={setAvatarIndex} avatarIndex={avatarIndex} />
           <div className="modal__form__input">
             <label htmlFor="name" className="modal__form__label">Ім'я</label>
-            <input type="text" className="form__control" id="name" />
+            <input
+            type="text"
+            value={name}
+              className="form__control"
+            id="name"
+            onChange={(event) => setName(event.target.value)}
+            />
         </div>
         <div className="modal__form__input">
             <label htmlFor="surname" className="modal__form__label">Прізвище</label>
-            <input type="text" className="form__control" id="surname" />
+            <input
+            type="text"
+            value={surname}
+              className="form__control"
+            id="surname"
+            onChange={(event) => setSurname(event.target.value)}
+            />
         </div>
 
         <div className="modal__form__input">
@@ -54,8 +89,8 @@ const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i
             onChange={(e) => setSelectedGender(e.target.value)}
           >
             <option value="">Виберіть стать</option>
-            <option value="male">Хлопчик</option>
-            <option value="female">Дівчинка</option>
+            <option value="Хлопчик">Хлопчик</option>
+            <option value="Дівчинка">Дівчинка</option>
           </select>
         </div>
 

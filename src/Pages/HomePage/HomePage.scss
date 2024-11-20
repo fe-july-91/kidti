@@ -3,7 +3,6 @@
 .homePage {
   display: flex;
   flex-direction: column;
-  height: auto;
   
   @include on-tablet {
     height: calc(100vh - 48px * 2);

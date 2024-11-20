@@ -51,7 +51,7 @@
     gap: 8px;
     font-size: 14px;
     color: $colorGrayLight;
-    padding-inline: 16px;
+    padding-right: 16px;
 
     &--text {
       position: relative;
@@ -77,25 +77,6 @@
       font-size: 14px;
     }
   }
-  // &__settings {
-  //   @include on-phone {
-  //     display: none;
-  //   }
-  // }
-
-  // &-button {
-  //   padding-right: 20px;
-  //   display: block;
-  //   cursor: pointer;
-  // }
-  // &-button-img {
-  //   transform-origin: center;
-  //   transition: transform 0.3s ease;
-
-  //   &:hover {
-  //     transform: rotate(30deg);
-  //   }
-  // }
 }
 
 .BurgerMenu {

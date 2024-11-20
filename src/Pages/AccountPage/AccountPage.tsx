@@ -1,81 +1,103 @@
 import { Dashboard } from "../../Components/Dashboard/Dashboard";
-import { avatars } from "../../Utils/kit";
+import { avatars, colors } from "../../Utils/kit";
 import "./AccountPage.scss";
-import Children from "../../api/Children.json";
 import { useEffect, useState } from "react";
 import { Child } from "../../Shared/types/types";
 import { calculateFullChildAge } from "../../Shared/hendlers/generateYearArray";
 import { AddModal } from "../../Components/AddModal/AddModal";
 import { EditModal } from "../../Components/EditModal/EditModal";
 import GenerativeBG from "../../Components/GenerativeBg/GenerativeBG";
+import { client } from "../../Utils/httpClient";
 
-const colors = ["#cdbdda", "#adb0d9", "#9bc7dc", "#d5b99c", "#e2a1bb"];
 
 export const AccountPage: React.FC = () => {
-  const [child, setChild] = useState(Children[0]);
-  const [activeIndex, setActiveIndex] = useState<number>(child.id - 1);
-  const [modal, setModal] = useState(false);
+  const [children, setChildren] = useState<Child[]>([]);
+  const [child, setChild] = useState<Child | null>(null);
+  const [isAddmodal, setIsAddModal] = useState(false);
   const [additingModal, setAdditingModal] = useState(false);
+  const [errowMessage, setErrowmessage] = useState("");
 
   useEffect(() => {
-    if (additingModal || modal) {
-      document.body.classList.add("no-scroll");
-    } else {
-      document.body.classList.remove("no-scroll");
-    }
-  }, [additingModal, modal]);
+    client.get<Child[]>(`children`)
+      .then(response => {
+        setChildren(response);
+        if (response.length > 0) {
+          setChild(response[0]);
+        }
+      })
+      .catch(err => setErrowmessage(err.message || "Щось пішло не так"));
+  }, []);
 
-  const handleChildChange = (index: number, selectedChild: Child) => {
-    setActiveIndex(index);
-    setChild(selectedChild);
+  useEffect(() => {
+    if (child) {
+      client.get<Child>(`children/${child.id}`)
+        .then(updatedChild => {
+          setChildren(prevChildren =>
+            prevChildren.map(c => (c.id === updatedChild.id ? updatedChild : c))
+          );
+
+          client.get<Child[]>(`children` )
+            .then(response => setChildren(response))
+            .catch(err => setErrowmessage(err.message || "Щось пішло не так"));
+        })
+        .catch(err => setErrowmessage(err.message || "Не вдалося оновити дані"));
+    }
+  }, [child]);
+
+    
+  useEffect(() => {
+    document.body.classList.toggle("no-scroll", additingModal || isAddmodal);
+  }, [additingModal, isAddmodal]);
+
+  const handleChildChange = (index: number) => {
+    const currentChild = children.find(ch => ch.id === index)!
+    setChild(currentChild);
   };
 
   const handleAddChild = () => {
-    document.body.classList.add("no-scroll");
-    setModal(true);
+    setIsAddModal(true);
   };
 
-  const fullAge = calculateFullChildAge(child.birth);
+  const fullAge = child ? calculateFullChildAge(child.birth) : { years: 0, months: 0 };
 
   return (
     <div className="account">
       <GenerativeBG />
       <div className="account__top">
+      {errowMessage && <div className="form__error">{errowMessage}</div>}
+
         <div className="account__top__personalInfo">
-          <img
-            src={avatars[child.image]}
-            alt="avatar"
-            className="account__top__personalInfo--image"
-            onClick={() => {
-              console.log("Image clicked");
-              setAdditingModal(true);
-            }}
-          />
-          <div className="account__top__personalInfo--info">
-            <header className="account__top__personalInfo-name">
-              {child.name}
-            </header>
-            <p className="account__top__personalInfo-txt">
-              Вік: {fullAge.years}p. {fullAge.months}м.
-            </p>
-            <p className="account__top__personalInfo-txt">
-              Pік народження: {child.birth}
-            </p>
-            <p className="account__top__personalInfo-txt">Стать: дівчинка</p>
-          </div>
+          {child && (
+            <>
+              <img
+                src={avatars[+child.image]}
+                alt="avatar"
+                className="account__top__personalInfo--image"
+                onClick={() => setAdditingModal(true)}
+              />
+              <div className="account__top__personalInfo--info">
+                <header className="account__top__personalInfo-name">{child.name}</header>
+                <p className="account__top__personalInfo-txt">
+                  Вік: {fullAge.years}p. {fullAge.months}м.
+                </p>
+                <p className="account__top__personalInfo-txt">Рік народження: {child.birth}</p>
+                <p className="account__top__personalInfo-txt">Стать: {child.genderName}</p>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="account__top__avatars">
-          {Children.map((childItem, index) => (
-            <div key={index} className="account__top__avatars__card-container">
+          {children.map((childItem, index) => (
+            <div key={childItem.id} className="account__top__avatars__card-container">
               <button
                 className={`account__top__avatars__card ${
-                  activeIndex === index ? "active" : ""
+                  child?.id === childItem.id ? "active" : ""
                 }`}
-                onClick={() => handleChildChange(index, childItem)}
+                onClick={() => handleChildChange(childItem.id)}
               >
                 <img
-                  src={avatars[childItem.image]}
+                  src={avatars[+childItem.image]}
                   alt="avatar"
                   className="account__top__avatars__card--image"
                 />
@@ -83,10 +105,7 @@ export const AccountPage: React.FC = () => {
             </div>
           ))}
 
-          <button
-            className="account__top__avatars__add"
-            onClick={handleAddChild}
-          >
+          <button className="account__top__avatars__add" onClick={handleAddChild}>
             <div className="account__top__avatars__add--plus"> + </div>
             <div className="account__top__avatars__add--text">
               Додати
@@ -97,29 +116,26 @@ export const AccountPage: React.FC = () => {
         </div>
       </div>
 
-      <div
-        className="account__container"
-        style={{ backgroundColor: colors[activeIndex] }}
-      >
-        {child && (
-          <Dashboard child={child} />
-        )}
+      <div className="account__container" style={{ backgroundColor: colors[child?.id || 0] }}>
+        {child && <Dashboard child={child} />}
       </div>
-      {modal && (
+
+      {(isAddmodal || children.length === 0) && (
         <div className="account__modalContainer">
-          <AddModal setModal={setModal} />
+          <AddModal
+            setModal={setIsAddModal}
+            setCurrentChild={setChild}
+          />
         </div>
       )}
 
-      {additingModal && (
+      {additingModal && child && (
         <div className="account__modalContainer">
           <EditModal
             setModal={setAdditingModal}
-            name={child.name}
-            surname={child.surname}
-            birth={child.birth}
-            gender={child.gender}
-            avatar={avatars[child.image]}
+            currentChild={child}
+            setCurrentChild={setChild}
+            setChildren={setChildren}
           />
         </div>
       )}

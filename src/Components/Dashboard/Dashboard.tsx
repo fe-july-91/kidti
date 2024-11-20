@@ -22,13 +22,13 @@ export const Dashboard: React.FC<Props> = ({ child }) => {
   return (
     <div className="dashboard">
       <div className="dashboard__item">
-        <CardItem years={years} cardType={CardTitleTypes.height} />
+        <CardItem childId={child.id} years={years} cardType={CardTitleTypes.height} />
       </div>
       <div className="dashboard__item">
-        <CardItem years={years} cardType={CardTitleTypes.weight} />
+        <CardItem childId={child.id} years={years} cardType={CardTitleTypes.weight} />
       </div>
       <div className="dashboard__item">
-        <CardItem years={years} cardType={CardTitleTypes.foot} />
+        <CardItem childId={child.id} years={years} cardType={CardTitleTypes.foot} />
       </div>
       <div className="dashboard__item">
         <CardEyes />

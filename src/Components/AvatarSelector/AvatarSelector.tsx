@@ -3,15 +3,15 @@ import { avatars } from '../../Utils/kit';
 import './AvatarSelector.scss'
 
 type Props = {
-  avatar?: string;
+  avatarIndex: number;
+  setAvatarIndex: (value: number) => void;
 }
 
-export const AvatarSelector:React.FC<Props>= ({avatar}) => {
+export const AvatarSelector:React.FC<Props>= ({avatarIndex, setAvatarIndex}) => {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedAvatar, setSelectedAvatar] = useState(avatar);
   
-  const handleAvatarSelect = (avatar: string) => {
-    setSelectedAvatar(avatar);
+  const handleAvatarSelect = (i: number) => {
+    setAvatarIndex(i);
     setShowDropdown(false);
   };
 
@@ -26,11 +26,7 @@ export const AvatarSelector:React.FC<Props>= ({avatar}) => {
         className="avatar-selector__selected"
         onClick={toggleDropdown}
       >
-        {selectedAvatar ? (
-          <img src={selectedAvatar} alt="Selected Avatar" />
-        ) : (
-          <div className="avatar-selector__placeholder">+</div>
-        )}
+          <img src={`${avatars[avatarIndex]}`} alt="Selected Avatar" />
       </div>
       {showDropdown && (
         <div className="avatar-selector__dropdown">
@@ -38,10 +34,10 @@ export const AvatarSelector:React.FC<Props>= ({avatar}) => {
             <div
               key={index}
               className="avatar-selector__dropdown--item"
-              onClick={() => handleAvatarSelect(avatar)}
+              onClick={() => handleAvatarSelect(index)}
             >
               <img
-                src={avatar}
+                src={`${avatar}`}
                 alt={`Avatar ${index + 1}`}
                 className="avatar-selector__dropdown--image"
               />

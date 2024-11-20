@@ -36,10 +36,10 @@ export const TitleCardBlock: React.FC<Props> = React.memo(({
               })}
             >
               {activeSlider
-                ? `${sliderValue?.x}см`
+                ? `${sliderValue?.x}${units}`
                 : !currentData
                   ? maxValue + units
-                  : `${currentData.value}кг`}
+                  : `${currentData.value}${units}`}
             </p>
           )}
       </div>

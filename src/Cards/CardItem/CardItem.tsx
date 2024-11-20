@@ -13,22 +13,28 @@ import { CardTitleTypes, Data } from "../../Shared/types/types";
 import { findCardImage } from "../../Shared/servises/findCardImage";
 import { WeightLineChart } from "../../Charts/WeightLineChart/WeightLineChart";
 import { FootChart } from "../../Charts/FootLineChart/FootChart";
-import heightData from "./../../api/data/height.json";
-// import { weight } from "./../../api/data/weight.json";
-// import {foot} from "./../../api/data/foot.json";
+import { client } from "../../Utils/httpClient";
+import { findKeyByValue } from "../../Shared/hendlers/findKeyByValue";
 
 
 type Props = {
   years: string[];
   cardType: string;
+  childId: number
 };
 
-export const CardItem: React.FC<Props> = ( {years, cardType }) => {
+export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
   const [data, setData] = useState<Data[] | []>([]);
+  const [errowMessage, setErrowmessage] = useState("");
+  const typeOfValue = findKeyByValue(CardTitleTypes, cardType)
 
   useEffect(() => {
-    setData(heightData);
-  }, [])
+    client.get<Data[]>(`children/${childId}/${typeOfValue}` )
+      .then(response => {
+        setData(response)
+      })
+      .catch(err => setErrowmessage(err.message || "Щось пішло не так"));
+  }, [cardType, childId, typeOfValue])
 
   const initialState = {
     selectedYear: years[0],
@@ -40,7 +46,7 @@ export const CardItem: React.FC<Props> = ( {years, cardType }) => {
   const [sliderValue, setSliderValue] = useState({ x: 0 });
 
   const filteredData = useMemo(() => {
-    return state.data.filter((d) => d.year === state.selectedYear);
+    return state.data.filter((d) => (+d.year) === (+state.selectedYear));
   }, [state.selectedYear, state.data])
 
   const currentData = useMemo(() => {
@@ -91,6 +97,7 @@ export const CardItem: React.FC<Props> = ( {years, cardType }) => {
   return (
     <div className="card">
       <div className="card__top">
+      {errowMessage && <div className="form__error">{errowMessage}</div>}
         <div className="card__leftBlock">
           <TitleCardBlock
             activeSlider={activeSlider}

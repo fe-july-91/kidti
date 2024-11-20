@@ -41,8 +41,11 @@ export type Child = {
   surname: string;
   parent: string;
   birth: string;
-  gender: string;
-  image: number;
+  genderName: string;
+  image: string;
+  userId: number;
+  userEmail: string;
+  userName: string
 };
 
 export enum CardTitleTypes {
