@@ -83,7 +83,7 @@ const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
       ?  (
         <div className="modal__popApp">
           <PopUpWindow
-            message={`Ви дійсно хочете видалити дані про дитину ${currentChild.name}`}
+            message={`Ви дійсно хочете видалити дані про дитину (${currentChild.name})?`}
             handleApplyClick={deleteChild}
             handleCanсelClick={setIsPopUp}
           />

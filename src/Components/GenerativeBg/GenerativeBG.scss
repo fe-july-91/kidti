@@ -2,11 +2,11 @@
 
 .bg-container {
   position: absolute;
+  top: 48px;
   overflow: hidden;
   width: 100%;
-  opacity: 10%;
   z-index: -1;
-  height: auto;
+  height: 120vh;
   overflow: hidden;
 
   @include on-tablet {
@@ -20,7 +20,7 @@
 
 .bg-grid {
   display: grid;
-  grid-template-columns: repeat(15, 1fr); 
+  grid-template-columns: repeat(30, 1fr); 
   grid-template-rows: repeat(30, 1fr); 
   gap: 4px;
   text-align: center;
@@ -57,7 +57,7 @@
 
 .bg-grid-item.shape.rectangle {
   border-radius: 0;
-  width: 10%;
+  width: 50%;
 }
 
 .bg-grid-item.shape.t-shape {

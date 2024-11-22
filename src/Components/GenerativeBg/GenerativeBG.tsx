@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './GenerativeBG.scss';
 
-const GenerativeBG = () => {
+type Props = {
+  isloading?: boolean;
+}
+const GenerativeBG: React.FC<Props> = ({isloading}) => {
   const shapes = ['circle', 'square', 'rectangle', 'd-shape', 't-shape'];
   const colors = ['#adb0d9', '#9bc7dc', '#cdbdda'];
 
@@ -39,7 +42,10 @@ const GenerativeBG = () => {
   }, []);
 
   return (
-    <div className="bg-container">
+    <div
+      className="bg-container"
+      style={isloading? { opacity: "50%" } : { opacity: "10%" }}
+    >
       <div className="bg-grid">
         {grid.map((item) => (
           <div
@@ -47,8 +53,8 @@ const GenerativeBG = () => {
             className={`bg-grid-item ${item.type}`}
             style={{
               backgroundColor: item.type.startsWith('shape') ? item.color : undefined,
-              color: item.type === 'letter' ? item.color : undefined, // Цвет для букв
-              transitionDelay: `${item.columnIndex * 100}ms`,
+              color: item.type === 'letter' ? item.color : undefined,
+              transitionDelay: `${item.columnIndex }ms`,
             }}
           >
           </div>

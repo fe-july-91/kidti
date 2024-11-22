@@ -2,7 +2,6 @@ import React from "react";
 import './HomePage.scss';
 import { useNavigate } from 'react-router-dom'
 import Banner from "../../Components/Banner/Banner";
-import GenerativeBG from "../../Components/GenerativeBg/GenerativeBG";
 
 export const HomePage: React.FC = () => {
 
@@ -10,12 +9,10 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="homePage">
-      <GenerativeBG />
       <div className="homePage__top">
       <div className="homePage__bunner">
         <Banner />
       </div>
-  
         <div className="homePage__description">
           <div className="homePage__header">
               <span className="homePage__header__title">KIDTY - надійний cервіс для турботливих батьків</span>

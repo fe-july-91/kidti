@@ -1,13 +1,13 @@
 import { Dashboard } from "../../Components/Dashboard/Dashboard";
 import { avatars, colors } from "../../Utils/kit";
 import "./AccountPage.scss";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Child } from "../../Shared/types/types";
 import { calculateFullChildAge } from "../../Shared/hendlers/generateYearArray";
 import { AddModal } from "../../Components/AddModal/AddModal";
 import { EditModal } from "../../Components/EditModal/EditModal";
-import GenerativeBG from "../../Components/GenerativeBg/GenerativeBG";
 import { client } from "../../Utils/httpClient";
+import { AuthContext } from "../../Components/AuthContext/AuthContext";
 
 
 export const AccountPage: React.FC = () => {
@@ -16,6 +16,8 @@ export const AccountPage: React.FC = () => {
   const [isAddmodal, setIsAddModal] = useState(false);
   const [additingModal, setAdditingModal] = useState(false);
   const [errowMessage, setErrowmessage] = useState("");
+  const { authorized } = useContext(AuthContext);
+
 
   useEffect(() => {
     client.get<Child[]>(`children`)
@@ -25,7 +27,7 @@ export const AccountPage: React.FC = () => {
           setChild(response[0]);
         }
       })
-      .catch(err => setErrowmessage(err.message || "Щось пішло не так"));
+      .catch(err => setErrowmessage(err.message || "Щось пішло не так"))
   }, []);
 
   useEffect(() => {
@@ -62,65 +64,67 @@ export const AccountPage: React.FC = () => {
 
   return (
     <div className="account">
-      <GenerativeBG />
-      <div className="account__top">
-      {errowMessage && <div className="form__error">{errowMessage}</div>}
-
-        <div className="account__top__personalInfo">
-          {child && (
-            <>
-              <img
-                src={avatars[+child.image]}
-                alt="avatar"
-                className="account__top__personalInfo--image"
-                onClick={() => setAdditingModal(true)}
-              />
-              <div className="account__top__personalInfo--info">
-                <header className="account__top__personalInfo-name">{child.name}</header>
-                <p className="account__top__personalInfo-txt">
-                  Вік: {fullAge.years}p. {fullAge.months}м.
-                </p>
-                <p className="account__top__personalInfo-txt">Рік народження: {child.birth}</p>
-                <p className="account__top__personalInfo-txt">Стать: {child.genderName}</p>
-              </div>
-            </>
-          )}
-        </div>
-
-        <div className="account__top__avatars">
-          {children.map((childItem, index) => (
-            <div key={childItem.id} className="account__top__avatars__card-container">
-              <button
-                className={`account__top__avatars__card ${
-                  child?.id === childItem.id ? "active" : ""
-                }`}
-                onClick={() => handleChildChange(childItem.id)}
-              >
+      {child && (
+        <>
+        <div className="account__top">
+        {errowMessage && <div className="form__error">{errowMessage}</div>}
+          <div className="account__personalInfo">
                 <img
-                  src={avatars[+childItem.image]}
+                  src={avatars[+child.image]}
                   alt="avatar"
-                  className="account__top__avatars__card--image"
+                  className="account__image"
+                  onClick={() => setAdditingModal(true)}
                 />
-              </button>
-            </div>
-          ))}
+                <div className="account__info">
+                  <header className="account__name">{child.name}</header>
+                  <p className="account__txt">
+                    Вік: {fullAge.years}p. {fullAge.months}м.
+                  </p>
+                  <p className="account__txt">
+                    Рік народження: <span className="account__date">{child.birth}</span>
+                  </p>
+                  <p className="account__txt">Стать: {child.genderName}</p>
+                </div>
+          </div>
 
-          <button className="account__top__avatars__add" onClick={handleAddChild}>
-            <div className="account__top__avatars__add--plus"> + </div>
-            <div className="account__top__avatars__add--text">
-              Додати
-              <br />
-              дитину
-            </div>
-          </button>
+          <div className="account__avatars">
+            {children.map((childItem) => (
+              <div key={childItem.id} className="account__top__avatars__card-container">
+                <button
+                  className={`account__avatars--card ${
+                    child?.id === childItem.id ? "active" : ""
+                  }`}
+                  onClick={() => handleChildChange(childItem.id)}
+                >
+                  <img
+                    src={avatars[+childItem.image]}
+                    alt="avatar"
+                    className="account__avatars--image"
+                  />
+                </button>
+              </div>
+            ))}
+
+            <button className="account__add" onClick={handleAddChild}>
+              <div className="account__add--plus"> + </div>
+              <div>
+                Додати
+                <br />
+                дитину
+              </div>
+            </button>
+          </div>
         </div>
-      </div>
+        <div
+          className="account__container"
+          style={{ backgroundColor: colors[child.id] }}
+          >
+          {child && <Dashboard child={child} />}
+        </div>
+        </>
+    )}
 
-      <div className="account__container" style={{ backgroundColor: colors[child?.id || 0] }}>
-        {child && <Dashboard child={child} />}
-      </div>
-
-      {(isAddmodal || children.length === 0) && (
+      {(isAddmodal || children.length === 0) && !authorized &&(
         <div className="account__modalContainer">
           <AddModal
             setModal={setIsAddModal}

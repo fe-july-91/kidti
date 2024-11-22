@@ -9,7 +9,7 @@ function wait(delay: number) {
 
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
-function request<T, D = unknown>(
+function request<T>(
   url: string,
   method: RequestMethod = 'GET',
   data: any  = null,
@@ -29,7 +29,7 @@ function request<T, D = unknown>(
     };
   }
 
-  return wait(200)
+  return wait(50)
     .then(() => fetch(BASE_URL + url, options))
     .then(response => {
       if (response.status === 401) {

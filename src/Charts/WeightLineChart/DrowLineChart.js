@@ -76,7 +76,7 @@ export function DrowLineChart(
   // Update
   points
     .transition()
-    .duration(600)
+    .duration(700)
     .attr('cx', d => xScale(d.month) + xScale.bandwidth() / 2)
     .attr('cy', d =>
       slider > 0 && d.month === targetMonth
@@ -117,7 +117,7 @@ export function DrowLineChart(
   // Update
   labels
     .transition()
-    .duration(200)
+    .duration(500)
     .attr('x', d => xScale(d.month) + xScale.bandwidth() / 2)
     .attr('y', d => yScale(d.value) - 10) // Adjust vertical position
     .attr('fill', d =>

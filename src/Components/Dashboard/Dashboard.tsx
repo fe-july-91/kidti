@@ -15,31 +15,29 @@ type Props = {
 };
 
 export const Dashboard: React.FC<Props> = ({ child }) => {
-
   const years = useMemo(() => generateYearArray(child.birth), [child]);
   const age = useMemo(() => calculateChildAge(child.birth), [child]);
 
+  const items = [
+    { component: <CardItem childId={child.id} years={years} cardType={CardTitleTypes.height} />, delay: '0s' },
+    { component: <CardItem childId={child.id} years={years} cardType={CardTitleTypes.weight} />, delay: '0.2s' },
+    { component: <CardItem childId={child.id} years={years} cardType={CardTitleTypes.foot} />, delay: '0.4s' },
+    { component: <CardEyes />, delay: '0.6s' },
+    { component: <CardVaccines years={years} age={age} child={child} />, delay: '0.8s', big: true },
+  ];
+
   return (
     <div className="dashboard">
-      <div className="dashboard__item">
-        <CardItem childId={child.id} years={years} cardType={CardTitleTypes.height} />
-      </div>
-      <div className="dashboard__item">
-        <CardItem childId={child.id} years={years} cardType={CardTitleTypes.weight} />
-      </div>
-      <div className="dashboard__item">
-        <CardItem childId={child.id} years={years} cardType={CardTitleTypes.foot} />
-      </div>
-      <div className="dashboard__item">
-        <CardEyes />
-      </div>
-      <div className="dashboard__item dashboard__item-big">
-        <CardVaccines
-          years={years}
-          age={age}
-          child={child}
-        />
-      </div>
+      {items.map((item, index) => (
+        <div
+          key={index}
+          className={`dashboard__item ${item.big ? 'dashboard__item-big' : ''}`}
+          style={{ animationDelay: item.delay }}
+        >
+          {item.component}
+        </div>
+      ))}
     </div>
   );
 };
+

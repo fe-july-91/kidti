@@ -62,20 +62,25 @@ export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
       e.preventDefault();
     }
 
-    const newParametr: Data = {
-      id: state.data.length + 1,
-      year: state.selectedYear,
-      month: state.selectedMonth,
-      value: sliderValue.x,
+    const newParametr: Omit<Data, "id"> = {
+      "year": state.selectedYear,
+      "month": state.selectedMonth,
+      "value": sliderValue.x,
     };
 
     if (currentData) {
-      const updatedData = state.data.map((d, i) =>
-        d.id === currentData?.id ? { ...d, value: sliderValue.x } : d
-      );
-      dispatch({ type: "data", payload: updatedData });
+      client.put<Data>(`children/${childId}/${typeOfValue}/${currentData.id}`, newParametr)
+        .then((response) => {
+          const updatedData = state.data.map(d =>
+            d.id === response.id ? response : d
+          );
+          dispatch({ type: "data", payload: updatedData })
+        })
     } else {
-      dispatch({ type: "data", payload: [...state.data, newParametr] });
+      client.post<Data>(`children/${childId}/${typeOfValue}`, newParametr)
+      .then((response) => {
+        dispatch({ type: "data", payload: [...state.data, response] })
+      })
     }
     setSliderValue({ x: 0 });
   }, [sliderValue.x, currentData, state.data, state.selectedMonth, state.selectedYear]) 

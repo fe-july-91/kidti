@@ -1,5 +1,4 @@
 import { scaleLinear,scaleBand, max, extent,axisBottom} from 'd3';
-import * as d3 from "d3";
 import { months } from "../../Utils/kit";
 import { sortDataByMonth } from '../../Shared/hendlers/sortDataByMoonth';
 
@@ -20,18 +19,16 @@ export function DrawChart(
   const xScale = scaleBand()
   .domain(months.map((m) => m))
   .range([0, width - margin])
-  .padding(0.4);
+  .padding(0.5);
   
   const yScale = scaleLinear()
     .domain(extent([0, max(data, d => d.value) + 3]))
     .nice()
     .range([height - margin, margin * 2]);
 
-  // SVG.selectAll('.bar').remove();
 
  // Create bars
   const bars = SVG.selectAll('.bar').data(data, d => d.id);
-
 
 // Enter - Add new bars with animation
 const barsEnter = bars.enter()
@@ -53,7 +50,8 @@ const barsEnter = bars.enter()
   HandleGraph(d);
 });
 
-barsEnter.transition()
+barsEnter
+.transition()
 .duration(500)
 .attr('y', d => yScale(d.value)) // Animate to the final y position
 .attr('height', d => height - margin - yScale(d.value)); // Animate to the final height
@@ -108,9 +106,13 @@ bars.transition()
   // Update
   labels
     .transition()
-    .duration(500)
+    .duration(100)
     .attr('x', d => xScale(d.month) + xScale.bandwidth() / 2)
-    .attr('y', d => yScale(d.value) - 5)
+    .attr('y', d =>
+      slider > 0 && d.month === selectedMonth
+        ? yScale(slider) - 5
+        : yScale(d.value) - 5
+    )
     .attr('fill', d =>
       d.month.toLowerCase() === selectedMonth.toLowerCase()
         ? '#FF5C9D'
@@ -133,7 +135,7 @@ const xAxisGroup = SVG.append('g')
   .selectAll('text') 
   .style('font-size', '12px')
   .style('cursor', 'pointer')
-  
+
 xAxisGroup
   .style('fill', m => m === selectedMonth ? '#FF5C9D' : '#625F6C')
   .on('click', (event, m) => {

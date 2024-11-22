@@ -5,7 +5,9 @@ interface AuthContextType {
   setAuthorized: (value: boolean) => void;
   logIn: () => void;
   logOut: () => void;
-  setToken: (token: string) => void
+  setToken: (token: string) => void,
+  isloading: boolean,
+  setisLoading: (value: boolean) => void
 }
 
 export const AuthContext = React.createContext<AuthContextType>({
@@ -14,6 +16,8 @@ export const AuthContext = React.createContext<AuthContextType>({
   logIn: () => { },
   logOut: () => { },
   setToken: () => { },
+  isloading: false,
+  setisLoading: () => {}
 
 })
 
@@ -26,6 +30,9 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   const [authorized, setAuthorized] = useState(() => {
     return localStorage.getItem("isAuthorized") === "true";
   });
+
+  const [isloading, setisLoading] = useState(false);
+
 
   const setToken = (token: string) => {
     localStorage.setItem("authToken", token);
@@ -50,7 +57,9 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       setAuthorized,
       logIn,
       logOut,
-      setToken
+      setToken,
+      isloading,
+      setisLoading
     }}>
       {children}
     </AuthContext.Provider>
