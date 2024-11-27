@@ -8,7 +8,6 @@ type Props = {
   activeSlider?: boolean;
   currentData?: Data | undefined;
   sliderValue?: { x: number };
-  maxValue?: number;
   image: string;
   title: string;
 };
@@ -17,7 +16,6 @@ export const TitleCardBlock: React.FC<Props> = React.memo(({
   activeSlider,
   currentData,
   sliderValue,
-  maxValue,
   image,
   title,
 }) => {
@@ -38,7 +36,7 @@ export const TitleCardBlock: React.FC<Props> = React.memo(({
               {activeSlider
                 ? `${sliderValue?.x}${units}`
                 : !currentData
-                  ? maxValue + units
+                  ? `${sliderValue?.x}${units}`
                   : `${currentData.value}${units}`}
             </p>
           )}

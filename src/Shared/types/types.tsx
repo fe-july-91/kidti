@@ -13,8 +13,8 @@ export interface YearlyMeasurementData {
 }
 
 export type Eye = {
-  left: number;
-  right: number
+  leftEye: number;
+  rightEye: number
 }
 
 export interface EyesData {

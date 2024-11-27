@@ -22,7 +22,7 @@ export const Dashboard: React.FC<Props> = ({ child }) => {
     { component: <CardItem childId={child.id} years={years} cardType={CardTitleTypes.height} />, delay: '0s' },
     { component: <CardItem childId={child.id} years={years} cardType={CardTitleTypes.weight} />, delay: '0.2s' },
     { component: <CardItem childId={child.id} years={years} cardType={CardTitleTypes.foot} />, delay: '0.4s' },
-    { component: <CardEyes />, delay: '0.6s' },
+    { component: <CardEyes childId={child.id}/>, delay: '0.6s' },
     { component: <CardVaccines years={years} age={age} child={child} />, delay: '0.8s', big: true },
   ];
 

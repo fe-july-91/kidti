@@ -7,7 +7,6 @@ import { SliderElement } from "../../Components/SliderElement/SliderElement";
 import { SelectionCardBlock } from "../../Components/SelectionCardBlock/SelectionCardBlock";
 import { TitleCardBlock } from "../../Components/CardTitleBlock/TitleCardBlock";
 import { ButtonsCardBlock } from "../../Components/ButtonsCardBlock/ButtonsCardBlock";
-import { findMaxValue } from "../../Shared/servises/findMaxValue";
 import { reduser } from "../../Shared/servises/reduser";
 import { CardTitleTypes, Data } from "../../Shared/types/types";
 import { findCardImage } from "../../Shared/servises/findCardImage";
@@ -26,12 +25,15 @@ type Props = {
 export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
   const [data, setData] = useState<Data[] | []>([]);
   const [errowMessage, setErrowmessage] = useState("");
-  const typeOfValue = findKeyByValue(CardTitleTypes, cardType)
+  const [activeSlider, setActiveSlider] = useState(false);
+  const [sliderValue, setSliderValue] = useState({ x: 0 });
+  const typeOfValue = findKeyByValue(CardTitleTypes, cardType) as keyof typeof sliderRange;
 
   useEffect(() => {
     client.get<Data[]>(`children/${childId}/${typeOfValue}` )
       .then(response => {
         setData(response)
+        setSliderValue({x: response[response.length-1].value})
       })
       .catch(err => setErrowmessage(err.message || "Щось пішло не так"));
   }, [cardType, childId, typeOfValue])
@@ -42,8 +44,6 @@ export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
     data: data
   };
   const [state, dispatch] = useReducer(reduser, initialState);
-  const [activeSlider, setActiveSlider] = useState(false);
-  const [sliderValue, setSliderValue] = useState({ x: 0 });
 
   const filteredData = useMemo(() => {
     return state.data.filter((d) => (+d.year) === (+state.selectedYear));
@@ -52,10 +52,6 @@ export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
   const currentData = useMemo(() => {
     return filteredData.find((d) => d.month === state.selectedMonth);
   }, [state.selectedMonth, filteredData]);
-
-  const maxValue = useMemo(() => {
-    return findMaxValue(filteredData);
-  }, [filteredData])
 
   const saveData = useCallback((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (e) {
@@ -95,9 +91,9 @@ export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
     if (d.value) {
       setSliderValue({ x: d.value });
     } else {
-      setSliderValue({ x: maxValue });
+      setSliderValue({ x: 0 });
     }
-  }, [maxValue, setActiveSlider, setSliderValue]) 
+  }, [ setActiveSlider, setSliderValue]) 
 
   return (
     <div className="card">
@@ -108,7 +104,6 @@ export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
             activeSlider={activeSlider}
             currentData={currentData}
             sliderValue={sliderValue}
-            maxValue={maxValue}
             image={findCardImage(cardType)}
             title={cardType}
           />
@@ -132,16 +127,14 @@ export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
             <SliderElement
               setSliderValue={(value) => setSliderValue(value)}
               sliderValue={sliderValue}
-              range={sliderRange.height}
+              range={sliderRange[typeOfValue]}
             />
           )}
 
           <ButtonsCardBlock
             handleData={saveData}
-            value={currentData?.value}
             activeSlider={activeSlider}
             setActiveSlider={setActiveSlider}
-            setSliderValue={setSliderValue}
           />
         </div>
       </div>

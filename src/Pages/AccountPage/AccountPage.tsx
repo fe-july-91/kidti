@@ -1,14 +1,12 @@
 import { Dashboard } from "../../Components/Dashboard/Dashboard";
 import { avatars, colors } from "../../Utils/kit";
 import "./AccountPage.scss";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Child } from "../../Shared/types/types";
 import { calculateFullChildAge } from "../../Shared/hendlers/generateYearArray";
 import { AddModal } from "../../Components/AddModal/AddModal";
 import { EditModal } from "../../Components/EditModal/EditModal";
 import { client } from "../../Utils/httpClient";
-import { AuthContext } from "../../Components/AuthContext/AuthContext";
-
 
 export const AccountPage: React.FC = () => {
   const [children, setChildren] = useState<Child[]>([]);
@@ -16,8 +14,7 @@ export const AccountPage: React.FC = () => {
   const [isAddmodal, setIsAddModal] = useState(false);
   const [additingModal, setAdditingModal] = useState(false);
   const [errowMessage, setErrowmessage] = useState("");
-  const { authorized } = useContext(AuthContext);
-
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     client.get<Child[]>(`children`)
@@ -25,9 +22,12 @@ export const AccountPage: React.FC = () => {
         setChildren(response);
         if (response.length > 0) {
           setChild(response[0]);
+        } else if (response.length === 0) {
+          setIsAddModal(true)
         }
       })
       .catch(err => setErrowmessage(err.message || "Щось пішло не так"))
+    .finally(() => setIsLoading(false))
   }, []);
 
   useEffect(() => {
@@ -124,7 +124,7 @@ export const AccountPage: React.FC = () => {
         </>
     )}
 
-      {(isAddmodal || children.length === 0) && !authorized &&(
+      {(isAddmodal || children.length === 0) && !isLoading &&(
         <div className="account__modalContainer">
           <AddModal
             setModal={setIsAddModal}

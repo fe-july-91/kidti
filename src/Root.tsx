@@ -23,7 +23,6 @@ const Root = () => {
           </Route>
         </Routes>
       </AuthProvider>
-
     </Router>
   )
 };

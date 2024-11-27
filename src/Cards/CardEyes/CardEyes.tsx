@@ -7,47 +7,63 @@ import { EyesChart } from "../../Charts/EyesChart/EyesChart";
 import { TitleCardBlock } from "../../Components/CardTitleBlock/TitleCardBlock";
 import { SliderElement } from "../../Components/SliderElement/SliderElement";
 import { ButtonsCardBlock } from "../../Components/ButtonsCardBlock/ButtonsCardBlock";
-import eyeData from "./../../api/data/Eyes.json";
+import { client } from "../../Utils/httpClient";
 
+type Props = {
+  childId: number
+};
 
-export const CardEyes = ( ) => {
-  const [data, setData] = useState<Eye>({"left": 1, "right": 1 });
+export const CardEyes: React.FC<Props> = ({ childId }) => {
+  const initialData = {
+    "id": 0,
+    "childId": childId,
+    "leftEye": 0,
+    "rightEye": 0
+  }
 
-  const [activeParametrs, setActiveParametrs] = useState<Eye>(data);
+  const [data, setData] = useState<Eye>(initialData);
+  const [errowMessage, setErrowmessage] = useState("");
   const [activeSlider, setActiveSlider] = useState(false);
-  const [leftSliderValue, setLeftSliderValue] = useState({ x: data.left });
-  const [rightSliderValue, setRightSliderValue] = useState({ x: data.right });
+  const [leftSliderValue, setLeftSliderValue] = useState({ x: data.leftEye });
+  const [rightSliderValue, setRightSliderValue] = useState({ x: 1 });
 
   useEffect(() => {
-    setData(eyeData);
-  }, []);
+    client.get<Eye>(`children/${childId}/eye`)
+      .then(response => {
+        setData(response)
+        setLeftSliderValue({ x: response.leftEye })
+        setRightSliderValue({x: response.rightEye})
+      })
+      .catch(err => setErrowmessage(err.message || "Щось пішло не так"));
+  }, [childId])
 
   const saveData = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (e) {
       e.preventDefault();
     }
     const newParametrs = {
-      left: leftSliderValue.x,
-      right: rightSliderValue.x,
+      leftEye: leftSliderValue.x,
+      rightEye: rightSliderValue.x,
     };
 
-    setActiveParametrs(newParametrs);
+    client.put<Eye>(`children/${childId}/eye`, newParametrs)
+    .then(response => {
+      setData(response)
+    })
+    .catch(err => setErrowmessage(err.message || "Щось пішло не так"));
   };
 
   return (
     <div className="eyes">
       <div className="eyes__top">
+      {errowMessage && <div className="form__error">{errowMessage}</div>}
         <TitleCardBlock image={eye} title={CardTitleTypes.eyes} />
 
         <div className="eyes__edit">
           <ButtonsCardBlock
             handleData={saveData}
-            value={activeParametrs.left}
-            value2={activeParametrs.right}
             activeSlider={activeSlider}
             setActiveSlider={setActiveSlider}
-            setSliderValue={setLeftSliderValue}
-            setSecondSliderValue={setRightSliderValue}
           />
         </div>
       </div>
@@ -60,7 +76,7 @@ export const CardEyes = ( ) => {
               "eyes__value--activeLeft": activeSlider,
             })}
           >
-            {activeSlider ? leftSliderValue.x : activeParametrs.left}
+            {activeSlider ? leftSliderValue.x : data.leftEye}
           </p>
         </div>
 
@@ -82,7 +98,7 @@ export const CardEyes = ( ) => {
               "eyes__value--activeRight": activeSlider,
             })}
           >
-            {activeSlider ? rightSliderValue.x : activeParametrs.right}
+            {activeSlider ? rightSliderValue.x : data.rightEye}
           </p>
         </div>
 
@@ -99,12 +115,8 @@ export const CardEyes = ( ) => {
       <div className="eyes__mobile">
         <ButtonsCardBlock
           handleData={saveData}
-          value={activeParametrs.left}
-          value2={activeParametrs.right}
           activeSlider={activeSlider}
           setActiveSlider={setActiveSlider}
-          setSliderValue={setLeftSliderValue}
-          setSecondSliderValue={setRightSliderValue}
         />
       </div>
 
@@ -112,7 +124,7 @@ export const CardEyes = ( ) => {
         <EyesChart
           width={cardSize.width}
           height={cardSize.height}
-          data={activeParametrs}
+          data={data}
           sliderLeft={leftSliderValue.x}
           sliderRight={rightSliderValue.x}
         />
