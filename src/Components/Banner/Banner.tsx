@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Banner.scss';
 import { avatars } from '../../Utils/kit';
 
@@ -7,10 +7,10 @@ const Banner = () => {
   const shapes = ['circle', 'square', 'rectangle', 'd-shape', 't-shape'];
   const colors = ['#6771DE', '#C88CF8', '#50C3F9', '#6c6e90'];
 
-  const [animationDirection, setAnimationDirection] = useState<'up' | 'down'>('up');
-
   const rows = 10;
   const columns = 5;
+
+  const [grid, setGrid] = useState(() => generateInitialGrid());
 
   function generateInitialGrid() {
     const items = [];
@@ -41,28 +41,39 @@ const Banner = () => {
       return { type: 'avatar', src: randomAvatar, key, columnIndex };
     }
   }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setGrid(prevGrid =>
+        prevGrid.map(item => generateRandomItem(item.key, item.columnIndex))
+      );
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+    const refreshGrid = () => {
+      setGrid(prevGrid =>
+        prevGrid.map(item => generateRandomItem(item.key, item.columnIndex))
+      );
+    };
+  
+    const handleBannerClick = () => {
+      refreshGrid();
+    };
   
 
-  const handleMouseDown = (event: React.MouseEvent) => {
-    if (event.button === 0) { // Проверка, что нажата левая кнопка мыши
-      setAnimationDirection(prev => prev === 'up' ? 'down' : 'up'); // Переключение направления
-    }
-  };
-
   return (
-    <div
-      className="banner-container"
-      onMouseDown={handleMouseDown}
-    >
+    <div className="banner-container" onClick={handleBannerClick}>
       <div className="grid">
-        {generateInitialGrid().map((item) => (
+        {grid.map((item) => (
           <div
             key={item.key}
             className={`grid-item ${item.type}`}
             style={{
               backgroundColor: item.type.startsWith('shape') ? item.color : undefined,
-              color: item.type === 'letter' ? item.color : undefined, // Цвет для букв
-              transitionDelay: `${item.columnIndex * 100}ms`,
+              color: item.type === 'letter' ? item.color : undefined,
+              transitionDelay: `${item.columnIndex * 600}ms`,
             }}
           >
             {item.type === 'letter' && item.content}

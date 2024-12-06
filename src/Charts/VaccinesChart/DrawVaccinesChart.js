@@ -2,7 +2,6 @@ import { scaleBand, axisBottom, axisLeft, scalePoint } from 'd3';
 
 import { vaccinTypes } from '../../Utils/kit';
 import { getAgeAtVaccination } from '../../Shared/hendlers/VactinationAge';
-import { parseDate } from '../../Shared/hendlers/parseDate';
 
 export function DrawVaccinesChart(
   SVG,
@@ -18,7 +17,6 @@ export function DrawVaccinesChart(
   activeBatton,
   handleVaccineclick
 ) {
-
   const marginLeft = margin + 145;
   const marginGrahp = margin;
 
@@ -30,8 +28,9 @@ export function DrawVaccinesChart(
 
   const xData = data.map(d => d.date);
   const uniqueXData = [...new Set(xData)]
-    .sort((a, b) => parseDate(a).getTime() - parseDate(b).getTime());
+    .sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
   
+
   const newVaccine = (d) => {
     return updatedVaccine && d.type === updatedVaccine.type && d.date === updatedVaccine.date
   }
@@ -45,7 +44,7 @@ export function DrawVaccinesChart(
     .domain(uniqueXData)
     .range([marginLeft, width])
     .padding(0.5);
-  
+
     //Y
     const yScale = scaleBand()
     .domain(vaccinTypes)
@@ -140,7 +139,7 @@ SVG.selectAll('.x-axis').remove();
  SVG.selectAll('.point-label').remove();
 
 const points = SVG.selectAll('.point')
-  .data(data, d => d.date + d.type );
+  .data(data.filter(d => vaccinTypes.includes(d.type)), d => d.date + d.type); // Фильтруем только валидные типы
 
 // Enter new points
 points.enter()

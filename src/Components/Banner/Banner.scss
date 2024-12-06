@@ -3,40 +3,53 @@
 .banner-container {
   position: relative;
   overflow: hidden;
-  height: 280px; // Высота контейнера
+  height: 220px; // Высота контейнера
   cursor: pointer;
 
   @include on-tablet {
-    height: 350px; // Высота контейнера
+    height: 330px; // Высота контейнера
   }
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); // 5 столбцов
-  grid-template-rows: repeat(7, 70px); // 10 строк по 70px высоты
+  grid-template-columns: repeat(2, 1fr); 
+  grid-template-rows: repeat(2, 1fr); 
   text-align: center;
   width: 100%;
   height: 100%;
   transition: transform 1s linear;
 
   @include on-tablet {
-    grid-template-columns: repeat(5, 1fr); // 5 столбцов
-    grid-template-rows: repeat(7, 70px); // 10 строк по 70px высоты
+    grid-template-columns: repeat(5, 1fr); 
+    grid-template-rows: repeat(3, 1fr); 
+  }
+  @include middle {
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(3, 1fr); 
+  }
+
+  @include on-desktop {
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(3, 1fr); 
   }
 }
 
 .grid-item {
   display: flex;
+  gap: 15px;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: 10px;
-  font-size: 24px;
-  width: 100%;
-  height: 100%; // Высота элемента соответствует высоте строки
+  font-size: 86px;
+  font-weight: 700;
+  width: 110px;
+  height: 110px;
   box-sizing: border-box;
+
 }
+
 
 .grid-item.shape {
   border-radius: 50%;
@@ -45,39 +58,39 @@
 
 .grid-item.shape.square {
   border-radius: 0;
-  width: 50px;
-  height: 50px;
+  width: 110px;
+  height: 110px;
 }
 
 .grid-item.shape.rectangle {
   border-radius: 0;
-  width: 20px;
-  height: 50px;
+  width: 110px;
+  height: 110px;
 }
 
 .grid-item.shape.t-shape {
   border-radius: 0;
-  width: 50px;
-  height: 20px;
+  width: 110px;
+  height: 110px;
 }
 
 .grid-item.shape.d-shape {
-  border-radius: 0 25px 25px 0;
-  width: 50px;
-  height: 50px;
+  border-radius: 0;
+  width: 110px;
+  height: 110px;
 }
 
 .grid-item.shape.circle {
-  border-radius: 0;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 110px;
+  height: 110px;
 }
 
 .avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%; /* Обрезка в виде круга */
-  object-fit: cover; /* Для корректного отображения изображений */
+  width: 110px;
+  height: 110px;
+  background-color: rgb(150, 102, 195);
+  border-radius: 50%;
+  object-fit: cover;
 }
 

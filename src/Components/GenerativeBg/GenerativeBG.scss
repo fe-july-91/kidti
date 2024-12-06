@@ -8,13 +8,15 @@
   z-index: -1;
   height: 120vh;
   overflow: hidden;
+  opacity: 0.1;
+
 
   @include on-tablet {
-    height: calc(100vh - 48px * 2);
+    min-height: calc(100vh - 48px * 2);
   }
   
   @include on-desktop {
-    height: calc(100vh - 64px * 2);
+    min-height: calc(100vh - 64px * 2);
   }
 }
 
@@ -44,6 +46,7 @@
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
 .bg-grid-item.shape {

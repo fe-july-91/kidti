@@ -3,13 +3,15 @@
 .homePage {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+
   
   @include on-tablet {
-    height: calc(100vh - 48px * 2);
+    min-height: calc(100vh - 48px * 2);
   }
   
   @include on-desktop {
-    height: calc(100vh - 64px * 2);
+    min-height: calc(100vh - 64px * 2);
   }
 
   &__top {
@@ -24,12 +26,6 @@
   &__description {
     grid-column: 1 / -1;
     padding-bottom: 60px;
-    
-    @include middle {
-      padding-top: 16px;
-
-    grid-column: 13 / -2;
-    }
   }
 
   &__text {
@@ -41,11 +37,15 @@
     padding-bottom: 24px;
 
     &__title {
-      font-size: 32px;
+      font-size: 36px;
       line-height: 120%;
       padding-bottom: 8px;    
       font-weight: 500;
       color: $colorIndigoDark;
+
+      @include on-tablet {
+        font-size: 48px;
+      }
     }
   }
 
@@ -71,22 +71,20 @@
 
   &__bunner {
     padding: 20px;
-    padding-left: 60px;
+    margin: auto;
+    overflow-y: hidden;
     grid-column: 1 / -1;
-    background-color: #fff;
-    box-shadow: 0px 0px 8px rgba(34, 2, 73, 0.2);
-    padding-bottom: 20px;
+    background-color: rgba(255, 255, 255);
+    
+    box-shadow: 0px 0px 8px rgba(34, 2, 73, 0.4);
+    padding-bottom: 40px;
     border-radius: 25px;
-    margin-bottom: 20px;
 
     @include middle {
-      grid-column: 1 / 12;
-    }
-
-    &--img {
-      width: 100%;
-      height: auto;
-      object-fit: contain; 
+      margin: 0;
+      grid-column: 1 / -1;
+      padding: 40px;
+      margin-bottom: 20px
     }
   }
 

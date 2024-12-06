@@ -23,6 +23,7 @@ export interface EyesData {
 };
 
 export type VaccineData = {
+  id: number
   type: string;
   orderNumber: number;
   date: string;
@@ -31,7 +32,6 @@ export type VaccineData = {
 export type VaccinesData = {
   type: string;
   data: VaccineData[];
-
 }
 export type ChildData = (YearlyMeasurementData | EyesData | VaccinesData)[];
 

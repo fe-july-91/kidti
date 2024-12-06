@@ -1,5 +1,4 @@
-import { parseDate } from "../../Shared/hendlers/parseDate";
-import { updateVaccines } from "../../Shared/servises/updateVaccines";
+
 import { VaccineData } from "../../Shared/types/types";
 import { vaccinesSelect } from "../../Utils/kit";
 
@@ -10,10 +9,9 @@ type Props = {
   setStartDate: React.Dispatch<React.SetStateAction<Date>>;
   startDate: Date;
   setActiveButton: React.Dispatch<React.SetStateAction<boolean>>;
-  setNewParametrs: React.Dispatch<React.SetStateAction<VaccineData | null>>;
   setSelectedVaccine: React.Dispatch<React.SetStateAction<string>>;
-  setNewdata: React.Dispatch<React.SetStateAction<VaccineData[]>>;
-  setActiveVaccine: React.Dispatch<React.SetStateAction<VaccineData | null>>;
+  handleData: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleRemoveData: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 export const VaccineEditBlock: React.FC<Props> = ({
@@ -23,94 +21,32 @@ export const VaccineEditBlock: React.FC<Props> = ({
   setStartDate,
   startDate,
   setActiveButton,
-  setNewParametrs,
   setSelectedVaccine,
-  setNewdata,
-  setActiveVaccine,
+  handleData,
+  handleRemoveData,
 }) => {
   const handleEditClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     setActiveButton(true);
-    setNewParametrs(null);
   };
 
   const handleApplyClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    saveData(e);
+    handleData(e);
     setActiveButton(false);
   };
 
   const handleRemoveClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    setNewdata((currentData) => {
-      const newSetOfVaccines = currentData
-        .filter((v) => v.type === activeVaccine?.type)
-        .filter((v) => v !== activeVaccine)
-        .sort(
-          (a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime()
-        )
-        .map((v, i) => ({ ...v, orderNumber: i + 1 }));
-
-      const filteredVaccinesWithoutNewType = currentData.filter(
-        (v) => v.type !== activeVaccine?.type
-      );
-      return [...filteredVaccinesWithoutNewType, ...newSetOfVaccines];
-    });
-
-    setActiveVaccine(null);
+    handleRemoveData(e)
     setActiveButton(false);
-    setSelectedVaccine(vaccinesSelect[0]);
-    setStartDate(new Date());
   };
 
   const handleVaccineChenge = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedVaccine(event.target.value);
-  };
-
-  const formattedDate = startDate.toLocaleDateString("uk-UA", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
-
-  const saveData = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if (e) {
-      e.preventDefault();
-    }
-    const newParametrs: VaccineData = {
-      type: selectedVaccine,
-      orderNumber: 0,
-      date: formattedDate,
-    };
-    if (activeVaccine) {
-      setNewdata((currentData) =>
-        currentData.map((v) =>
-          v === activeVaccine ? { ...v, date: formattedDate } : v
-        )
-      );
-    } else {
-      setNewdata((currentData: VaccineData[]) => {
-        const filteredNewTypeVaccines = currentData.filter(
-          (v) => v.type === newParametrs.type
-        );
-        const filteredVaccinesWithoutNewType = currentData.filter(
-          (v) => v.type !== newParametrs.type
-        );
-        const newSetOfVaccines = updateVaccines(
-          newParametrs,
-          filteredNewTypeVaccines
-        );
-        return [...filteredVaccinesWithoutNewType, ...newSetOfVaccines];
-      });
-    }
-
-    setNewParametrs(newParametrs);
-    setActiveVaccine(null);
-    setSelectedVaccine(vaccinesSelect[0]);
-    setStartDate(new Date());
   };
 
   return (

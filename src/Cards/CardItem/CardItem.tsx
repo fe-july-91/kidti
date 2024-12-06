@@ -24,7 +24,7 @@ type Props = {
 
 export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
   const [data, setData] = useState<Data[] | []>([]);
-  const [errowMessage, setErrowmessage] = useState("");
+  const [errowMessage, setErrorMessage] = useState("");
   const [activeSlider, setActiveSlider] = useState(false);
   const [sliderValue, setSliderValue] = useState({ x: 0 });
   const typeOfValue = findKeyByValue(CardTitleTypes, cardType) as keyof typeof sliderRange;
@@ -35,7 +35,7 @@ export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
         setData(response)
         setSliderValue({x: response[response.length-1].value})
       })
-      .catch(err => setErrowmessage(err.message || "Щось пішло не так"));
+      .catch(err => setErrorMessage(err.message || "Щось пішло не так"));
   }, [cardType, childId, typeOfValue])
 
   const initialState = {
@@ -96,9 +96,9 @@ export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
   }, [ setActiveSlider, setSliderValue]) 
 
   return (
+    <>
     <div className="card">
       <div className="card__top">
-      {errowMessage && <div className="form__error">{errowMessage}</div>}
         <div className="card__leftBlock">
           <TitleCardBlock
             activeSlider={activeSlider}
@@ -175,5 +175,9 @@ export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
         
       </div>
     </div>
+
+      {errowMessage && <div className="form__error">{errowMessage}</div>}
+    </>
+    
   );
 };

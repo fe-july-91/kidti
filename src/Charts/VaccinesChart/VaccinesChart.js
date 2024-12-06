@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { select, scaleBand, axisBottom } from "d3";
+import { select} from "d3";
 import * as d3 from "d3";
 import { DrawVaccinesChart } from "./DrawVaccinesChart";
 
@@ -20,14 +20,7 @@ export const VaccinesChart = ({
   const targeVaccine = activeVaccine;
   const updatedVaccine = newVaccine;
 
-  const xAxisRef = useRef(null);
   const rectRef = useRef();
-
-  const xScale = scaleBand()
-    .domain(data.map((d) => d.month))
-    .range([0, width])
-    .padding(0.4);
-
   useEffect(() => {
     const SVG = select(rectRef.current);
     DrawVaccinesChart(
@@ -45,15 +38,9 @@ export const VaccinesChart = ({
       handleVaccineclick
     );
 
-    const xAxis = axisBottom(xScale).tickFormat((month) => month.slice(0, 3));
-
-    if (xAxisRef.current) {
-      d3.select(xAxisRef.current).call(xAxis);
-    }
   }, [data, 
       handleVaccineclick, 
       targeVaccine, 
-      xScale, 
       width, 
       height, 
       birth, 

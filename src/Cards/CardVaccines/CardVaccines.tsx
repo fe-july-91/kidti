@@ -7,8 +7,8 @@ import { VaccinesChart } from "../../Charts/VaccinesChart/VaccinesChart";
 import { VaccinesMobile } from "../../Charts/VaccinesChartMobile/VaccinesMobile";
 import { TitleCardBlock } from "../../Components/CardTitleBlock/TitleCardBlock";
 import { VaccineEditBlock } from "../../Components/VaccineEditBlock/VaccineEditBlock";
-
-import vaccinesData from "./../../api/data/Vaccines.json";
+import { client } from "../../Utils/httpClient";
+import { Loader } from "../../Components/Loader/Loader";
 
 type Props = {
   years: string[];
@@ -22,13 +22,68 @@ export const CardVaccines: React.FC<Props> = ({ child }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedVaccine, setSelectedVaccine] = useState(vaccinesSelect[0]);
   const [activeVaccine, setActiveVaccine] = useState<VaccineData | null>(null);
-  const [newData, setNewdata] = useState<VaccineData[]>(data);
   const [activeBatton, setActiveButton] = useState(false);
-  const [newParametrs, setNewParametrs] = useState<VaccineData | null>(null);
+  const [newParametrs, setNewParametrs] = useState<Omit<VaccineData, "id"> | null>(null);
+  const [errowMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    setData(vaccinesData);
-  }, []);
+    client.get<VaccineData[]>(`children/${child.id}/vaccination` )
+      .then(response => {
+        setData(response)
+      })
+      .catch(err => setErrorMessage(err.message || "Щось пішло не так"))
+      .finally(() => setIsLoading(false))
+  }, [child])
+
+  
+  const formattedDate = selectedDate.toLocaleDateString("uk-UA", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).replace(/\./g, "-");
+
+  const saveData= (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if (e) {
+      e.preventDefault();
+    }
+    const newParametr: Omit<VaccineData, "id"> = {
+      "type": selectedVaccine,
+      "orderNumber": 1,
+      "date": formattedDate,
+    };
+    if (activeVaccine) { 
+      client.put<VaccineData>(`children/${child.id}/vaccination/${activeVaccine.id}`, newParametr)
+        .then((response) => {
+          const updatedData = data.map(d =>
+            d.id === response.id ? response : d
+          );
+          setData(updatedData);
+      })
+    } else {
+      client.post<VaccineData>(`children/${child.id}/vaccination`, newParametr)
+      .then(response => setData((currentdata) => [...currentdata, response]))
+    }
+
+    setNewParametrs(newParametr);
+    setActiveVaccine(null);
+    setSelectedVaccine(vaccinesSelect[0]);
+    setSelectedDate(new Date());
+  };
+
+  const removeData = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const updatedData = data.filter(d =>
+      d.id !== activeVaccine?.id
+    );
+    setData(updatedData);
+    console.log("delete")
+    client.delete(`children/${child.id}/vaccination/${activeVaccine?.id}`)
+      .catch(err => setErrorMessage(err.message || "Щось пішло не так"));
+
+    setActiveVaccine(null);
+    setSelectedVaccine(vaccinesSelect[0]);
+    setSelectedDate(new Date());
+  }
 
   const HandleGraph = (v: VaccineData) => {
     if (v === activeVaccine) {
@@ -40,7 +95,7 @@ export const CardVaccines: React.FC<Props> = ({ child }) => {
       setSelectedVaccine(v.type);
       setNewParametrs(null);
       if (v.date) {
-        const parsedDate = parse(v.date, "dd.MM.yyyy", new Date());
+        const parsedDate = parse(v.date, "dd-MM-yyyy", new Date());
         setSelectedDate(new Date(parsedDate));
       }
     }
@@ -54,14 +109,18 @@ export const CardVaccines: React.FC<Props> = ({ child }) => {
 
   return (
     <div className="vaccine">
+      {errowMessage && <div className="form__error">{errowMessage}</div>}
       <div className="vaccine__top">
         <TitleCardBlock image={vaccine} title={CardTitleTypes.vactination} />
 
         <div className="vaccine--chart-mobile">
+        {isLoading
+          ? (<Loader />)
+          : (
           <VaccinesMobile
             width={500}
             height={360}
-            data={newData}
+            data={data}
             activeVaccine={activeVaccine}
             selectedVaccine={selectedVaccine}
             newVaccine={newParametrs}
@@ -69,7 +128,8 @@ export const CardVaccines: React.FC<Props> = ({ child }) => {
             HandleGraph={HandleGraph}
             activeBatton={activeBatton}
             handleVaccineclick={handleVaccineclick}
-          />
+              />
+            )}
         </div>
 
         <VaccineEditBlock
@@ -79,26 +139,30 @@ export const CardVaccines: React.FC<Props> = ({ child }) => {
           setStartDate={setSelectedDate}
           startDate={selectedDate}
           setActiveButton={setActiveButton}
-          setNewParametrs={setNewParametrs}
           setSelectedVaccine={setSelectedVaccine}
-          setNewdata={setNewdata}
-          setActiveVaccine={setActiveVaccine}
+          handleData={saveData}
+          handleRemoveData ={removeData}
         />
       </div>
 
       <div className="vaccine--chart">
-        <VaccinesChart
-          width={800}
-          height={360}
-          data={newData}
-          activeVaccine={activeVaccine}
-          selectedVaccine={selectedVaccine}
-          newVaccine={newParametrs}
-          birth={child.birth}
-          HandleGraph={HandleGraph}
-          activeBatton={activeBatton}
-          handleVaccineclick={handleVaccineclick}
-        />
+        {isLoading
+          ? (<Loader />)
+          : (
+            <VaccinesChart
+              width={800}
+              height={360}
+              data={data}
+              activeVaccine={activeVaccine}
+              selectedVaccine={selectedVaccine}
+              newVaccine={newParametrs}
+              birth={child.birth}
+              HandleGraph={HandleGraph}
+              activeBatton={activeBatton}
+              handleVaccineclick={handleVaccineclick}
+            />
+            )}
+
       </div>
     </div>
   );

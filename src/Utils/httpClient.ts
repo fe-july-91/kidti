@@ -34,14 +34,24 @@ function request<T>(
     .then(response => {
       if (response.status === 401) {
         window.location.href = 'kidty#/login';
-        throw new Error('Неавторизован. Пожалуйста, войдите в систему.');
+        throw new Error('Неавторизований. Будь ласка, увійдіть до системи');
       }
 
       if (!response.ok) {
         return response.json().then(error => {
-          throw new Error(error.message || 'Ошибка на сервере');
+          throw new Error(error.message || 'Помилка на сервері');
         });
       }
+
+      if (response.status === 204) {
+        return null as T;
+      }
+
+      const contentType = response.headers.get('Content-Type');
+      if (!contentType || !contentType.includes('application/json')) {
+        return null as T;
+      }
+
 
       return response.json();
     });
