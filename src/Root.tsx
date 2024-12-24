@@ -6,6 +6,8 @@ import { LogInPage } from './Pages/LogInPage/LogInPage';
 import { SignUpPage } from './Pages/SignUpPage/SignUpPage';
 import { AuthProvider } from './Components/AuthContext/AuthContext';
 import { RequireAuth } from './Components/RequireAuth/RequireAuth';
+import { SettingsPage } from './Pages/SettingsPage/SettingsPage';
+import { Recovery } from './Pages/PasswordRecovery/Recovery';
 
 const Root = () => {
   return (
@@ -15,10 +17,12 @@ const Root = () => {
           <Route path="/" element={<App />}>
             <Route index element={<HomePage />} />
             <Route path='login' element={<LogInPage />} />
+            <Route path='recovery' element={<Recovery />} />
             <Route path='signup' element={<SignUpPage />} />
 
             <Route path='account' element={<RequireAuth />}>
               <Route index element={<AccountPage />} />
+              <Route path='settings' element={<SettingsPage />} />
             </Route>
           </Route>
         </Routes>

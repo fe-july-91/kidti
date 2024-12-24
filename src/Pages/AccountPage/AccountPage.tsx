@@ -7,8 +7,10 @@ import { calculateFullChildAge } from "../../Shared/hendlers/generateYearArray";
 import { AddModal } from "../../Components/AddModal/AddModal";
 import { EditModal } from "../../Components/EditModal/EditModal";
 import { client } from "../../Utils/httpClient";
+import { useLocalStorage } from "../../Shared/CustomHooks/useLocalStorage";
 
 export const AccountPage: React.FC = () => {
+  const [savedUserName, setSavedUserName] = useLocalStorage<string>('userName', '');
   const [children, setChildren] = useState<Child[]>([]);
   const [child, setChild] = useState<Child | null>(null);
   const [isAddmodal, setIsAddModal] = useState(false);
@@ -26,8 +28,10 @@ export const AccountPage: React.FC = () => {
           setIsAddModal(true)
         }
       })
-      .catch(err => setErrowmessage(err.message || "Щось пішло не так"))
-    .finally(() => setIsLoading(false))
+      .catch(err => setErrowmessage(err.message || "Щось пішло не так, спробуйте ще раз"))
+      .finally(() => 
+        setIsLoading(false),
+      )
   }, []);
 
   useEffect(() => {
@@ -42,7 +46,8 @@ export const AccountPage: React.FC = () => {
             .then(response => setChildren(response))
             .catch(err => setErrowmessage(err.message || "Щось пішло не так"));
         })
-        .catch(err => setErrowmessage(err.message || "Не вдалося оновити дані"));
+        .catch(err => setErrowmessage(err.message || "Не вдалося оновити дані"))
+        .finally (() => setSavedUserName(child.userName))
     }
   }, [child]);
 
@@ -64,10 +69,10 @@ export const AccountPage: React.FC = () => {
 
   return (
     <div className="account">
+      {errowMessage && <div className="form__error">{errowMessage}</div>}
       {child && (
         <>
         <div className="account__top">
-        {errowMessage && <div className="form__error">{errowMessage}</div>}
           <div className="account__personalInfo">
                 <img
                   src={avatars[+child.image]}
@@ -76,7 +81,7 @@ export const AccountPage: React.FC = () => {
                   onClick={() => setAdditingModal(true)}
                 />
                 <div className="account__info">
-                  <header className="account__name">{child.name}</header>
+                  <header className="account__name">{`${child.name} ${child.surname}`}</header>
                   <p className="account__txt">
                     Вік: {fullAge.years}p. {fullAge.months}м.
                   </p>
@@ -124,7 +129,7 @@ export const AccountPage: React.FC = () => {
         </>
     )}
 
-      {(isAddmodal || children.length === 0) && !isLoading &&(
+      {isAddmodal && (
         <div className="account__modalContainer">
           <AddModal
             setModal={setIsAddModal}

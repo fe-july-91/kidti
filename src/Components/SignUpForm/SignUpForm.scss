@@ -46,6 +46,11 @@
     background-color: $colorIndigo;
    }
 
+   &:disabled {
+    background-color: #6f7484; 
+    cursor: not-allowed; 
+  }
+
    &--guest {
     border: 1px solid $ButtonCardColor;
     background-color: white;

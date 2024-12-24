@@ -11,15 +11,40 @@ export const SignUpForm = () => {
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
   const [isRegistered, setIsRegistered] = useState(false);
+  const [errors, setErrors] = useState({
+    name: false,
+    email: false,
+    password1: false,
+    password2: false,
+  });
 
+  const validateFields = () => {
+    const newErrors = {
+      name: name.trim() === '',
+      email: email.trim() === '' || !/^\S+@\S+\.\S+$/.test(email),
+      password1: password1.trim() === '',
+      password2: password2.trim() !== password1.trim(),
+    };
+    setErrors(newErrors);
+
+    return Object.values(newErrors).every((error) => !error);
+  };
+
+  const isFormValid =
+  name.trim() !== '' &&
+  email.trim() !== '' &&
+  /^\S+@\S+\.\S+$/.test(email) &&
+  password1.trim() !== '' &&
+  password2.trim() === password1.trim();
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     setErrowmessage('');
-    console.log(email)
-    console.log(password1)
-    console.log(password2)
-    console.log(name)
+
+    if (!validateFields()) {
+      setErrowmessage('Будь ласка, перевірте правильність введених даних.');
+      return;
+    }
 
     client.post('auth/registration', {
       "email": email.trim(),
@@ -46,16 +71,18 @@ export const SignUpForm = () => {
       {!isRegistered
       ?  (
       <form className="form">
-      <div className="form__title">Ласкаво просимо до Kidti</div>
+        <div className="form__title">
+          Ласкаво просимо до Kidti
+        </div>
         <div className="form__input">
           <label htmlFor="name" className="form__label">Ім'я</label>
           <input
             type="text"
             value={name}
-            className={cn("form__control", {"form__control--invalid": errowMessage})}
+            className={cn("form__control", {"form__control--invalid": errors.name})}
             id="name"
-                onChange={(event) => setName(event.target.value)}
-                required
+            onChange={(event) => setName(event.target.value)}
+            onBlur={() => setErrors((prev) => ({ ...prev, name: name.trim() === '' }))}
             />
         </div>
         <div className="form__input">
@@ -63,11 +90,16 @@ export const SignUpForm = () => {
           <input
             type="email"
             value={email}
-            className={cn("form__control", {"form__control--invalid": errowMessage})}
+            className={cn("form__control", {"form__control--invalid": errors.email})}
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
-                onChange={(event) => setEmail(event.target.value)}
-                required
+            onChange={(event) => setEmail(event.target.value)}
+            onBlur={() =>
+              setErrors((prev) => ({
+                ...prev,
+                email: email.trim() === '' || !/^\S+@\S+\.\S+$/.test(email),
+              }))
+            }
           />
         </div>
         <div className="form__input">
@@ -75,10 +107,10 @@ export const SignUpForm = () => {
           <input
             type="password"
             value={password1}
-            className={cn("form__control", {"form__control--invalid": errowMessage})}
+            className={cn("form__control", {"form__control--invalid": errors.password1})}
             id="exampleInputPassword1"
             onChange={(event) => setPassword1(event.target.value)}
-            required
+            onBlur={() => setErrors((prev) => ({ ...prev, password1: password1.trim() === '' }))}
             />
         </div>
         <div className="form__input">
@@ -86,22 +118,21 @@ export const SignUpForm = () => {
           <input
             type="password"
             value={password2}
-            className={cn("form__control", {"form__control--invalid": errowMessage})}
+            className={cn("form__control", {"form__control--invalid": errors.password2})}
             id="exampleInputPassword2"
             onChange={(event) => setPassword2(event.target.value)}
-            required
+            onBlur={() => setErrors((prev) => ({ ...prev, password2: password2.trim() === '' }))}
             />
         </div>
 
-        {errowMessage && <div className="form__error">{errowMessage}</div>}
-        
-        <div className="form__options">
-
-      </div>
+          {errowMessage && <div className="form__error">{errowMessage}</div>}
+          <div className="form__options"></div>
         <button
           type="submit"
           className="form__button"
           onClick={e => handleSubmit(e)}
+          disabled={!isFormValid}
+
         >
           Зареєструватися
         </button>

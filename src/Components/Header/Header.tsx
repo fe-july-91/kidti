@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
 import { Link } from 'react-router-dom';
-import { logo } from "../../Utils/kit";
+import { logo, settings } from "../../Utils/kit";
 import './Header.scss';
 import { Menu } from "../Menu/Menu";
 import { AuthContext } from "../AuthContext/AuthContext";
+import { useLocation } from "react-router-dom";
+
 
 
 export const Header: React.FC = () => {
@@ -14,13 +16,23 @@ export const Header: React.FC = () => {
     setIsMenuOpen((prev: boolean) => !prev);
   };
 
-  const { authorized, logOut} = useContext(AuthContext);
+  const { authorized } = useContext(AuthContext);
+  const location = useLocation();
+  const isAccountPage = location.pathname === "/account";
+  const {logOut} = useContext(AuthContext);
+
 
   return (
     <header className="header">
-      <Link to="/" className="header__logo">
+      {authorized ? (
+      <Link to="account" className="header__logo">
         <img src={logo} className="header__logo-img" alt="logo"/>
       </Link>
+      ) : (
+        <Link to="/" className="header__logo">
+        <img src={logo} className="header__logo-img" alt="logo"/>
+      </Link>
+      )}
 
       <div className="navContainer">
         <div className="navContainer__actions">
@@ -42,24 +54,25 @@ export const Header: React.FC = () => {
             </>
 
           ) : (
-            <Link 
-              to="login" 
+              <>
+                <Link
+                  to="/"
+                  className="navContainer__account"
+                  onClick={() => logOut()}
+                >
+                  <p className="navContainer__actions--text">Log out</p>
+                </Link>
+
+                <Link 
+                to="account/settings" 
                 className="navContainer__account"
-                onClick={() => logOut()}
-            >
-            <div className="navContainer__actions--text"> log out </div>
-          </Link>
+              >
+                <img src={settings} className="navContainer__img" alt="settings"/>
+                </Link>
+                
+              </>
           )}
         </div>
-        {/* <div className="navContainer__settings">
-          <button
-            type="button"
-            className="navContainer-button"
-            onClick={toggleSettings}
-          >
-            <img src={settings} className="navContainer-button-img" alt="settings"/>
-          </button>
-        </div> */}
       </div>
 
       <div className="BurgerMenu">

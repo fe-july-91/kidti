@@ -25,7 +25,6 @@ export interface EyesData {
 export type VaccineData = {
   id: number
   type: string;
-  orderNumber: number;
   date: string;
 }
 

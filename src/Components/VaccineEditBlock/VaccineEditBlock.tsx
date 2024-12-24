@@ -41,7 +41,9 @@ export const VaccineEditBlock: React.FC<Props> = ({
   const handleRemoveClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    handleRemoveData(e)
+    if (activeVaccine) {
+      handleRemoveData(e)
+    }
     setActiveButton(false);
   };
 

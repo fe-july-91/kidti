@@ -48,7 +48,7 @@
   &__actions {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 16px;
     font-size: 14px;
     color: $colorGrayLight;
     padding-right: 16px;
@@ -71,6 +71,23 @@
 
   &__account {
     text-decoration: none;
+
+    &--active {
+      .navContainer__actions--text {
+        position: relative;
+        
+        &::after {
+          content: ''; 
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background-color: $colorGrayLight;
+        }
+      }
+    }
+
     
     &--hellow {
       color: $colorGrayLight;

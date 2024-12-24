@@ -28,8 +28,16 @@ export function DrawVaccinesChart(
 
   const xData = data.map(d => d.date);
   const uniqueXData = [...new Set(xData)]
-    .sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
-  
+    .sort((a, b) => {
+      const [dayA, monthA, yearA] = a.split('-');
+      const [dayB, monthB, yearB] = b.split('-');
+      const dateA = new Date(`${yearA}-${monthA}-${dayA}`);
+      const dateB = new Date(`${yearB}-${monthB}-${dayB}`);
+      return dateA - dateB;
+    });
+
+console.log(data);
+
 
   const newVaccine = (d) => {
     return updatedVaccine && d.type === updatedVaccine.type && d.date === updatedVaccine.date
@@ -187,7 +195,21 @@ labels.enter()
 .style('font-size', '14px')
 .style('cursor', 'pointer')
 .style('user-select', 'none')
-.text(d => d.orderNumber)
+  .text((d) => {
+    const index = data
+      .filter(v => v.type === d.type)
+      .map(d => d.date)
+      .sort((a, b) => {
+        const [dayA, monthA, yearA] = a.split('-');
+        const [dayB, monthB, yearB] = b.split('-');
+        const dateA = new Date(`${yearA}-${monthA}-${dayA}`);
+        const dateB = new Date(`${yearB}-${monthB}-${dayB}`);
+        return dateA - dateB;
+          })
+      .findIndex(i => i === d.date) 
+
+    return index < 0 ? 1 : index + 1
+})
   .style('opacity', 1)
   .on('click', (event, d) => {
     HandleGraph(d);

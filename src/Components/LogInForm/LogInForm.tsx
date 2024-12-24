@@ -16,7 +16,7 @@ export const LogInForm = () => {
   const [errowMessage, setErrowmessage] = useState('')
   const [email, setEmail] = useState(savedEmail)
   const [password, setPassword] = useState(savedPassword)
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(true)
 
   const handleCheckedButton = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     setChecked((prevChecked) => !prevChecked);
@@ -75,7 +75,7 @@ export const LogInForm = () => {
         <div className="form__check">
           <input 
             type="checkbox"
-            className={cn("form__check--input", {"form__check--active": checked})} 
+            className={cn("form__check__input", {"form__check__input--active": checked})} 
             id="exampleCheck1"
             onClick={handleCheckedButton}
           />
@@ -86,7 +86,7 @@ export const LogInForm = () => {
             Запам'ятати мене
           </label>
         </div>
-        <Link to="/forgot-password" className="form__link">Забули пароль?</Link>
+        <Link to="/recovery" className="form__link">Забули пароль?</Link>
       </div>
         <button
           type="submit"

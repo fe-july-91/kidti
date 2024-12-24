@@ -1,0 +1,83 @@
+@import './../../styles/main';
+
+.settings {
+  height: 100vh;
+  background-color: $colorGrayLight;
+  
+  @include on-tablet {
+    min-height: calc(100vh - 48px * 2);
+  }
+  
+  @include on-desktop {
+    min-height: calc(100vh - 64px * 2);
+  }
+
+  &__container {
+    padding-top: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    margin: 16px;
+    gap: 16px;
+    padding: 20px;
+    height:fit-content;
+    width: 375px;
+
+    @include on-tablet {
+      padding: 20px;
+      width: 420px;
+    }
+  }
+
+  &__password {
+    display: flex;
+    flex-direction: column;
+    margin: 16px;
+    gap: 16px;
+    padding: 20px;
+    height:fit-content;
+    width: 375px;
+    opacity: 0;
+    transform: translateY(-15px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  
+    &--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @include on-tablet {
+      padding: 20px;
+      width: 420px;
+    }
+  }
+
+  &__header {
+    @include card-title;
+  }
+
+  &__link {
+    cursor: pointer;
+  }
+
+  &__links {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 375px;
+
+    @include on-tablet {
+      padding: 0 20px;
+      width: 420px;
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import { useState } from "react"
 import GenerativeBG from "../../Components/GenerativeBg/GenerativeBG"
 import { LogInForm } from "../../Components/LogInForm/LogInForm"
 import './LogInPage.scss'

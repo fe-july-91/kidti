@@ -10,6 +10,19 @@ body {
 .app {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+
+  &__container {
+    min-height: 100vh;
+  
+    @include on-tablet {
+      min-height: calc(100vh - 48px * 2);
+    }
+    
+    @include on-desktop {
+      min-height: calc(100vh - 64px * 2);
+    }
+  }
 }
 
 .no-scroll {

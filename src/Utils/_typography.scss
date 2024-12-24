@@ -7,13 +7,13 @@
   color: $colorSkyBlue;
 }
 
-@mixin h2-tablet {
+@mixin h2 {
   font-family: Rubik, sans-serif;
-  font-size: 32px;
+  font-size: 28px;
   line-height: 41px;
   letter-spacing: 0.01em;
   font-weight: bold;
-  color: $colorTextMain;
+  color: $colorIndigoDark;
 }
 
 @mixin h3-tablet {

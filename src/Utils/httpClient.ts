@@ -29,7 +29,7 @@ function request<T>(
     };
   }
 
-  return wait(50)
+  return wait(0)
     .then(() => fetch(BASE_URL + url, options))
     .then(response => {
       if (response.status === 401) {

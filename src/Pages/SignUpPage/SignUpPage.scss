@@ -6,14 +6,13 @@
   box-sizing: border-box;
   display: flex;
   justify-content: center;
-  height: auto;
-
+  height: 100vh;
+  
   @include on-tablet {
-    padding-top: 80px;
-    height: calc(100vh - 48px * 2);
+    min-height: calc(100vh - 48px * 2);
   }
   
   @include on-desktop {
-    height: calc(100vh - 64px * 2);
+    min-height: calc(100vh - 64px * 2);
   }
 }

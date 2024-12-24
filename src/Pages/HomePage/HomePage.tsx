@@ -16,7 +16,7 @@ export const HomePage: React.FC = () => {
         <div className="homePage__description">
           <div className="homePage__header">
               <span className="homePage__header__title">KIDTY - надійний cервіс для турботливих батьків</span>
-            </div>
+          </div>
 
             <div className="homePage__paragraph">
               <div className="homePage__paragraph-dots">
@@ -39,14 +39,14 @@ export const HomePage: React.FC = () => {
 
           <div>
             <button
-              className="homePage__button"
+              className="homePage__button homePage__button--logIn"
               onClick={() => navigate('account')}
             >
               Увійти
             </button>
 
             <button
-              className="homePage__button homePage__button--home"
+              className="homePage__button homePage__button--signUp"
               onClick={() => navigate('signup')}
             >
                Зареєструватися

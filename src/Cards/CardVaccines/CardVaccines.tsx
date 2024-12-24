@@ -49,20 +49,30 @@ export const CardVaccines: React.FC<Props> = ({ child }) => {
     }
     const newParametr: Omit<VaccineData, "id"> = {
       "type": selectedVaccine,
-      "orderNumber": 1,
       "date": formattedDate,
     };
+    const clone = data.find(d => d.date === newParametr.date && d.type === newParametr.type)
+
     if (activeVaccine) { 
       client.put<VaccineData>(`children/${child.id}/vaccination/${activeVaccine.id}`, newParametr)
         .then((response) => {
           const updatedData = data.map(d =>
             d.id === response.id ? response : d
           );
-          setData(updatedData);
+
+          if (clone) {
+            updatedData.filter(d => d !== clone);
+          }
+
+          setData(updatedData.filter(d => d !== clone));
       })
     } else {
-      client.post<VaccineData>(`children/${child.id}/vaccination`, newParametr)
-      .then(response => setData((currentdata) => [...currentdata, response]))
+        if (!clone) {
+          client.post<VaccineData>(`children/${child.id}/vaccination`, newParametr)
+          .then(response => {
+              setData((currentdata) => [...currentdata, response])
+          })
+        }
     }
 
     setNewParametrs(newParametr);
