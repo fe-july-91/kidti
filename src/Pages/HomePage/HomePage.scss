@@ -3,7 +3,7 @@
 .homePage {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: calc(100vh - 48px * 2);
   
   @include on-tablet {
     min-height: calc(100vh - 48px * 2);
@@ -29,7 +29,6 @@
 
   &__text {
     @include section-grid;
-
   }
 
   &__header {
@@ -43,7 +42,7 @@
       color: $colorIndigoDark;
 
       @include on-tablet {
-        font-size: 48px;
+        font-size: 36px;
       }
     }
   }
@@ -76,13 +75,12 @@
     background-color: rgba(255, 255, 255);
     
     box-shadow: 0px 0px 8px rgba(34, 2, 73, 0.4);
-    padding-bottom: 40px;
+    padding-bottom: 20px;
     border-radius: 25px;
 
     @include middle {
       margin: 0;
       grid-column: 1 / -1;
-      padding: 40px;
       margin-bottom: 20px
     }
   }
@@ -95,14 +93,14 @@
     @include on-tablet {
       width: 200px;
       font-size: 18px;
-      padding: 16px 20px;
+      padding: 10px 20px;
     }
 
     &--signUp {
       @include on-tablet {
         width: 200px;
         font-size: 18px;
-        padding: 16px 20px;
+        padding: 10px 20px;
         background-color: $colorCyclamen;
       }
     }

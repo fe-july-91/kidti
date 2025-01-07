@@ -54,3 +54,9 @@ export enum CardTitleTypes {
   eyes = 'Зір',
   vactination = 'Щеплення',
 }
+
+export type PersonalData = {
+  id: number,
+  name: string,
+  email: string
+}

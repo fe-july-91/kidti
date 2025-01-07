@@ -132,6 +132,7 @@ export const AccountPage: React.FC = () => {
       {isAddmodal && (
         <div className="account__modalContainer">
           <AddModal
+            children={children}
             setModal={setIsAddModal}
             setCurrentChild={setChild}
           />

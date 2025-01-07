@@ -4,9 +4,6 @@ import { logo, settings } from "../../Utils/kit";
 import './Header.scss';
 import { Menu } from "../Menu/Menu";
 import { AuthContext } from "../AuthContext/AuthContext";
-import { useLocation } from "react-router-dom";
-
-
 
 export const Header: React.FC = () => {
 
@@ -17,8 +14,6 @@ export const Header: React.FC = () => {
   };
 
   const { authorized } = useContext(AuthContext);
-  const location = useLocation();
-  const isAccountPage = location.pathname === "/account";
   const {logOut} = useContext(AuthContext);
 
 
@@ -69,7 +64,6 @@ export const Header: React.FC = () => {
               >
                 <img src={settings} className="navContainer__img" alt="settings"/>
                 </Link>
-                
               </>
           )}
         </div>
@@ -88,7 +82,11 @@ export const Header: React.FC = () => {
           )}
         </button>
       </div>
-      {isMenuOpen && <Menu toggleMenu={ toggleMenu } />}
+      <Menu
+        toggleMenu={toggleMenu}
+        authorized={authorized}
+        isMenuOpen={isMenuOpen}
+      />
     </header>
   );
 };

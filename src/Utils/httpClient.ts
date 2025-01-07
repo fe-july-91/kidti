@@ -39,7 +39,7 @@ function request<T>(
 
       if (!response.ok) {
         return response.json().then(error => {
-          throw new Error(error.message || 'Помилка на сервері');
+          throw new Error(error.message || error.error || 'Помилка на сервері');
         });
       }
 

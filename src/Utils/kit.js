@@ -5,12 +5,16 @@ import gear from '../assets/icons/gear.svg'
 import plusImage from '../assets/icons/plus.svg'
 import plusImageHover from '../assets/icons/plusHover.svg'
 
+
 import image from '../assets/images/Bunner_kitty.png'
 import footImage from '../assets/images/foot.png'
 import heightImage from '../assets/images/height.png'
 import weightImage from '../assets/images/weight.png'
 import eyeImage from '../assets/images/eye.png'
 import vaccineImage from '../assets/images/vaccine.png'
+import MariasPhoto from '../assets/images/Maria.jpg'
+import YanasPhoto from '../assets/images/Яна.jpg'
+
 
 //avatars
 import avatarImage1 from '../assets/avatars/1.png'
@@ -25,6 +29,10 @@ import avatarImage9 from '../assets/avatars/9.png'
 import avatarImage10 from '../assets/avatars/10.png'
 import avatarImage11 from '../assets/avatars/11.png'
 import avatarImage12 from '../assets/avatars/12.png'
+
+//photos
+export const Maria = MariasPhoto;
+export const Yana = YanasPhoto;
 
 export const avatar_1 = avatarImage1;
 export const avatar_2 = avatarImage2;

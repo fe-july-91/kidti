@@ -8,6 +8,7 @@ import { AuthProvider } from './Components/AuthContext/AuthContext';
 import { RequireAuth } from './Components/RequireAuth/RequireAuth';
 import { SettingsPage } from './Pages/SettingsPage/SettingsPage';
 import { Recovery } from './Pages/PasswordRecovery/Recovery';
+import { RightsPage } from './Pages/RightsPage/RightsPage';
 
 const Root = () => {
   return (
@@ -19,6 +20,7 @@ const Root = () => {
             <Route path='login' element={<LogInPage />} />
             <Route path='recovery' element={<Recovery />} />
             <Route path='signup' element={<SignUpPage />} />
+            <Route path='rights' element={<RightsPage />} />
 
             <Route path='account' element={<RequireAuth />}>
               <Route index element={<AccountPage />} />

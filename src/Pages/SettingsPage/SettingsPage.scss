@@ -1,7 +1,7 @@
 @import './../../styles/main';
 
 .settings {
-  height: 100vh;
+  min-height: 100vh;
   background-color: $colorGrayLight;
   
   @include on-tablet {
@@ -13,22 +13,27 @@
   }
 
   &__container {
-    padding-top: 20px;
+    padding-top: 50px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @include on-phone {
+      padding-top: 32px;
+    }
   }
 
   &__form {
     display: flex;
+    padding: 20px;
     flex-direction: column;
     margin: 16px;
     gap: 16px;
-    padding: 20px;
     height:fit-content;
-    width: 375px;
+    min-width: 345px;
+
 
     @include on-tablet {
       padding: 20px;
@@ -60,7 +65,9 @@
   }
 
   &__header {
-    @include card-title;
+    padding-inline: 10px;
+    @include h3-tablet;
+    color: $colorIndigo;
   }
 
   &__link {
@@ -68,12 +75,13 @@
   }
 
   &__links {
+    width: 300px;
+    padding-inline: 10px;
     cursor: pointer;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 375px;
 
     @include on-tablet {
       padding: 0 20px;

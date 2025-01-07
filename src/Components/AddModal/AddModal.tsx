@@ -7,9 +7,10 @@ import { Child } from '../../Shared/types/types';
 type Props = {
   setModal: (a: boolean) => void;
   setCurrentChild: (value: Child) => void;
+  children: Child[];
 };
 
-export const AddModal: React.FC<Props> = ({ setModal, setCurrentChild }) => {
+export const AddModal: React.FC<Props> = ({ setModal, setCurrentChild, children }) => {
   
 const [selectedGender, setSelectedGender] = useState('');
 const [selectedDay, setSelectedDay] = useState('');
@@ -20,12 +21,18 @@ const [errowMessage, setErrowmessage] = useState("");
 const [surname, setSurname] = useState('');
 const [name, setName] = useState('');
 
-
-  
-
 const days = Array.from({ length: 31 }, (_, i) => i + 1);
 const months = Array.from({ length: 12 }, (_, i) => i + 1);
 const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
+  
+  const isSaveValid =
+    name.trim() !== '' &&
+    surname.trim() !== '' &&
+    selectedGender.trim() !== '' &&
+    selectedDay !== '' &&
+    selectedMonth !== '' &&
+    selectedYear !== '';
+
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
@@ -49,17 +56,19 @@ const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i
   return (
     <div className="modal">
       <form className="modal__form">
+        {children.length > 0 && (
+
         <div className="modal__form__close-button">
           <button
             className='icons icons--close'
             onClick={() => setModal(false)}
           />
-            
-      </div>
+        </div>
+        )}
 
-        <div className="modal__form__title">Введіть дані дитини </div>
+        <div className="modal__title">Введіть дані дитини </div>
         <AvatarSelector setAvatarIndex={setAvatarIndex} avatarIndex={avatarIndex} />
-          <div className="modal__form__input">
+          <div className="modal__input">
             <label htmlFor="name" className="modal__form__label">Ім'я</label>
             <input
             type="text"
@@ -69,7 +78,7 @@ const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i
             onChange={(event) => setName(event.target.value)}
             />
         </div>
-        <div className="modal__form__input">
+        <div className="modal__input">
             <label htmlFor="surname" className="modal__form__label">Прізвище</label>
             <input
             type="text"
@@ -80,7 +89,7 @@ const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i
             />
         </div>
 
-        <div className="modal__form__input">
+        <div className="modal__input">
           <label htmlFor="gender" className="modal__form__label">Стать</label>
           <select
             id="gender"
@@ -94,9 +103,9 @@ const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i
           </select>
         </div>
 
-        <div className="modal__form__input">
-          <label className="modal__form__label">Дата народження</label>
-          <div className="modal__form__control--date">
+        <div className="modal__input">
+          <label className="modal__label">Дата народження</label>
+          <div className="modal__control--date">
             <select value={selectedDay} onChange={(e) => setSelectedDay(e.target.value)}>
               <option value="">День</option>
               {days.map(day => (
@@ -117,11 +126,15 @@ const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i
             </select>
           </div>
         </div>
+
+        {errowMessage && <div className="form__error">{errowMessage}</div>}
         
           <button
             type="submit"
-            className="modal__form__button"
+            className="form__button"
             onClick={e => handleSubmit(e)}
+            disabled={!isSaveValid}
+
           >
             Зберегти
           </button>

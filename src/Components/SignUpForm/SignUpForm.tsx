@@ -2,9 +2,11 @@ import './SignUpForm.scss'
 import { useState } from 'react';
 import { client } from '../../Utils/httpClient';
 import cn from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
 
 export const SignUpForm = () => {
+    const navigate = useNavigate();
   const [errowMessage, setErrowmessage] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -137,14 +139,6 @@ export const SignUpForm = () => {
           Зареєструватися
         </button>
 
-        <button
-          type="submit"
-          className="form__button form__button--guest"
-          onClick={e => handleSubmit(e)}
-        >
-          Продовжити як гість
-        </button>
-
         <hr className="form__divider" />
 
         <button type="button" className="form__button-social">
@@ -157,11 +151,17 @@ export const SignUpForm = () => {
       </form>
         ) : (
           <div className="notification">
-            <div className="notification__header"> Мяу! <br /> Лист-підтвердження надіслано на вказану електронну пошту!
+            <div className="notification__header"> Мяу 🎉 ! <br /> Лист-підтвердження надіслано на вказану електронну пошту!
             </div>
             <p className="notification__text">Для завершення реєстрації вам необхідно зайти на свою електронну пошту,
-              відкрити лист і перейти за вказаним посиланням.
+              відкрити лист і перейти за вказаним посиланням. 
             </p>
+            <button
+              className="homePage__button homePage__button--logIn"
+              onClick={() => navigate('/login')}
+            >
+              Увійти
+            </button>
           </div>
         )
       }

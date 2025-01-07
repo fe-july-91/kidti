@@ -15,21 +15,22 @@ export const Footer: React.FC = () => {
     <footer className="footer">
       <div className="footer__navbar">
         <Link
-          to="https://github.com/msdreams"
+          to="https://github.com/orgs/fe-july-91/repositories"
           className="footer__navbar--link"
           target="_blank"
         >
           Github
         </Link>
+
         <Link
-          to="https://www.linkedin.com/in/mariashmakova"
+          to="/rights"
           className="footer__navbar--link"
-          target="_blank"
         >
           Contacts
         </Link>
+
         <Link
-          to="https://github.com/msdreams"
+          to="https://www.linkedin.com/in/mariashmakova"
           className="footer__navbar--link"
           target="_blank"
         >

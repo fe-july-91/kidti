@@ -9,8 +9,16 @@
   height: 100vh;
   z-index: 10;
   background-color: $colorGrayLight;
-  
+  opacity: 0; 
+  transition: opacity 0.3s ease-in-out;
+  pointer-events:none;
 
+  &--visible {
+    opacity: 1;
+    pointer-events:all;
+  }
+
+  
   &__nav {
     display: flex;
     align-items: center;

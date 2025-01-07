@@ -13,6 +13,13 @@ type Props = {
   childId: number
 };
 
+type EyeResponce = {
+  id: number;
+  childId: number;
+  leftEye: number;
+  rightEye: number;
+}
+
 export const CardEyes: React.FC<Props> = ({ childId }) => {
   const initialData = {
     "id": 0,
@@ -21,14 +28,14 @@ export const CardEyes: React.FC<Props> = ({ childId }) => {
     "rightEye": 0
   }
 
-  const [data, setData] = useState<Eye>(initialData);
+  const [data, setData] = useState<EyeResponce>(initialData);
   const [errowMessage, setErrowmessage] = useState("");
   const [activeSlider, setActiveSlider] = useState(false);
   const [leftSliderValue, setLeftSliderValue] = useState({ x: data.leftEye });
-  const [rightSliderValue, setRightSliderValue] = useState({ x: 1 });
+  const [rightSliderValue, setRightSliderValue] = useState({ x: data.rightEye });
 
   useEffect(() => {
-    client.get<Eye>(`children/${childId}/eye`)
+    client.get<EyeResponce>(`children/${childId}/eye`)
       .then(response => {
         setData(response)
         setLeftSliderValue({ x: response.leftEye })
@@ -46,7 +53,7 @@ export const CardEyes: React.FC<Props> = ({ childId }) => {
       rightEye: rightSliderValue.x,
     };
 
-    client.put<Eye>(`children/${childId}/eye`, newParametrs)
+    client.put<EyeResponce>(`children/${childId}/eye`, newParametrs)
     .then(response => {
       setData(response)
     })

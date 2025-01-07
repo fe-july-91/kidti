@@ -45,6 +45,10 @@
   justify-content: center;
   gap: 16px;
 
+  @include on-phone {
+    display: none;
+  }
+
   &__actions {
     display: flex;
     align-items: center;

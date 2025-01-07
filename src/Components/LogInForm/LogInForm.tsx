@@ -29,7 +29,7 @@ export const LogInForm = () => {
     client.post('auth/login', { "email": email.trim(), "password": password.trim() })
       .then((response: any) => {
         if (response.status === 'BAD_REQUEST') {
-          throw new Error('Email or password is wrong');
+          throw new Error('Електронна пошта або пароль неправильні');
         }
 
         if (checked) {
@@ -70,7 +70,7 @@ export const LogInForm = () => {
             onChange={(event) => setPassword(event.target.value)}
             />
         </div>
-        {errowMessage && <div className="form__error">{errowMessage}</div> }
+        {errowMessage && <div className="form__error">Помилка при виконанні запиту: {errowMessage}</div> }
         <div className="form__options">
         <div className="form__check">
           <input 

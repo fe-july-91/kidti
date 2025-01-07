@@ -1,20 +1,24 @@
 @import './styles/main';
 
+// html {
+//   overflow: hidden;
+// }
+
 body {
   margin: 0;
-  scroll-behavior: smooth;
   font-family: Rubik, sans-serif;
-  background-color: #F8F9FA;
 }
 
 .app {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  scroll-behavior: smooth;
+
 
   &__container {
-    min-height: 100vh;
-  
+    overflow: hidden;
+
     @include on-tablet {
       min-height: calc(100vh - 48px * 2);
     }
