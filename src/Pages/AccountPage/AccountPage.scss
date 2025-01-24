@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 48px * 2);
+  background: rgb(255, 255, 255, 0.6);
 
   @include on-tablet {
     min-height: calc(100vh - 48px * 2);
@@ -53,12 +54,17 @@
       border: 2px solid #fff;
       transform: border 0.6s ease;
 
+      @include on-tablet {
+        width: 70px;
+        height: 70px;
+      }
+
       &:hover {
         border: 2px solid $colorGrayDarck;
       }
 
       &.active {
-        border: 2px solid $colorLavender;
+        border: 5px solid $colorLavender;
       }
     }
 
@@ -77,16 +83,22 @@
     gap: 8px;
     height: 50px;
     cursor: pointer;
-    color: $colorTextSecond;
-    font-size: 14px;
+    color: $colorIndigo;
+    font-size: 16px;
     text-align: center;
+
+    @include on-tablet {
+      font-size: 20px;
+      font-weight: 700;
+
+    }
 
     &:hover {
       color: $colorVeronica;
     }
 
     &--plus {
-      color: $colorTextSecond;
+      color: $colorIndigo;
       font-size: 32px;
       text-align: center;
       &:hover {
@@ -115,8 +127,14 @@
       border: 1px solid $colorGrayDarck;
     }
 
+    @include on-tablet {
+      width: 120px;
+      height: auto;
+      object-fit: cover;
+    }
+
     @include on-desktop {
-      width: 118px;
+      width: 140px;
       height: auto;
       object-fit: cover;
     }
@@ -124,6 +142,13 @@
 
   &__info {
     display: flex;
+    box-shadow: 0px 0px 8px rgba(34, 2, 73, 0.2);
+    padding: 8px;
+    padding-inline: 16px;
+
+    background: #fff;
+    border-radius: 25px;
+
     flex-direction: column;
     justify-content:flex-start;
   }

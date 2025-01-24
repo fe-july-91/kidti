@@ -1,8 +1,9 @@
 @import './../../styles/main';
 
 .settings {
+  display: flex;
+  justify-content: center;
   min-height: 100vh;
-  background-color: $colorGrayLight;
   
   @include on-tablet {
     min-height: calc(100vh - 48px * 2);
@@ -13,60 +14,57 @@
   }
 
   &__container {
-    padding-top: 50px;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    gap: 32px;
+    box-sizing: border-box;
+    display: flex;
+    background-color: #fff;
+    box-shadow: 0px 0px 8px rgba(34, 2, 73, 0.2);
 
-    @include on-phone {
-      padding-top: 32px;
+    min-width: 345px;
+    margin-top: 32px;
+    border-radius: 15px;
+    height:fit-content;
+    padding: 24px;
+    height: fit-content;
+
+    @include on-tablet {
+      margin-top: 50px;
+      padding: 32px;
+      width: 480px;
     }
   }
 
   &__form {
     display: flex;
-    padding: 20px;
     flex-direction: column;
-    margin: 16px;
+    width: full;
     gap: 16px;
     height:fit-content;
-    min-width: 345px;
 
-
-    @include on-tablet {
-      padding: 20px;
-      width: 420px;
-    }
   }
 
   &__password {
     display: flex;
     flex-direction: column;
-    margin: 16px;
-    gap: 16px;
-    padding: 20px;
-    height:fit-content;
-    width: 375px;
+    gap: 32px;
     opacity: 0;
+    display: none;
     transform: translateY(-15px);
     transition: opacity 0.3s ease, transform 0.3s ease;
   
     &--visible {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
       opacity: 1;
       transform: translateY(0);
-    }
-
-    @include on-tablet {
-      padding: 20px;
-      width: 420px;
     }
   }
 
   &__header {
-    padding-inline: 10px;
-    @include h3-tablet;
+    @include h2;
     color: $colorIndigo;
   }
 
@@ -75,17 +73,11 @@
   }
 
   &__links {
-    width: 300px;
     padding-inline: 10px;
     cursor: pointer;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
-    @include on-tablet {
-      padding: 0 20px;
-      width: 420px;
-    }
   }
 }

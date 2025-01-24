@@ -28,12 +28,17 @@
 
   &__rightBlock {
     display: flex;
+    padding-top: 20px;
     flex-direction: column;
     align-items: end;
     gap: 20px;
     height: 104px;
     flex: 1;
     order: 1;
+
+    @include on-tablet {
+      padding-top: 0;
+    }
   }
 
   &__chart {

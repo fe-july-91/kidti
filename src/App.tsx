@@ -13,7 +13,15 @@ export const App: React.FC = () => {
   }, [])
 
   if (isLoading) {
-    return <GenerativeBG />;
+    return (
+      <div className="app">
+      <Header />
+      <div className="app__container">
+        <GenerativeBG />
+      </div>
+      <Footer />
+    </div>
+    )
   }
 
   return (

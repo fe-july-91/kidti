@@ -10,15 +10,11 @@ JavaScript
 TypeScript
 React
 React Router
+React Context
+Reactjs Protected Route
 D3 (Data Visualization Library)
 HTML
 SCSS
-BEM (Block Element Modifier) methodology
-Getting Started:
-Clone the repository: git clone <repository-url>
-Navigate to the project directory: cd <project-directory>
-Install dependencies: npm install
-Start the development server: npm start
-Open your browser and go to http://localhost:3000 to view the application.
+
 Feel free to contribute or provide feedback!
     - [DEMO LINK](https://fe-july-91.github.io/kidti/)

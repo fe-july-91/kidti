@@ -13,7 +13,7 @@ import weightImage from '../assets/images/weight.png'
 import eyeImage from '../assets/images/eye.png'
 import vaccineImage from '../assets/images/vaccine.png'
 import MariasPhoto from '../assets/images/Maria.jpg'
-import YanasPhoto from '../assets/images/Яна.jpg'
+import YanasPhoto from '../assets/images/Yana.jpeg'
 
 
 //avatars

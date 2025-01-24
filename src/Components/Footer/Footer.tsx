@@ -26,7 +26,7 @@ export const Footer: React.FC = () => {
           to="/rights"
           className="footer__navbar--link"
         >
-          Contacts
+          About Us
         </Link>
 
         <Link

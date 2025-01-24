@@ -24,7 +24,11 @@
 
   &__description {
     grid-column: 1 / -1;
-    padding-bottom: 60px;
+    background: #fff;
+    box-shadow: 0px 0px 8px rgba(34, 2, 73, 0.4);
+    border-radius: 25px;
+    padding: 20px;
+    margin-bottom: 60px;
   }
 
   &__text {

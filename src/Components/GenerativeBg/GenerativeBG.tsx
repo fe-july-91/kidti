@@ -9,17 +9,15 @@ const GenerativeBG: React.FC<Props> = ({ isloading }) => {
   const shapes = ['circle', 'square', 'rectangle', 'd-shape', 't-shape'];
   const colors = ['#adb0d9', '#9bc7dc', '#cdbdda'];
 
-  const rows = 30;
-  const columns = 30;
+  const rows = 90;
+  const columns = 60;
 
-  // Генерация начальной сетки
   const generateInitialGrid = () => {
     return Array.from({ length: rows * columns }, (_, index) => 
       generateRandomItem(index, index % columns)
     );
   };
 
-  // Генерация случайного элемента
   const generateRandomItem = (key: number, columnIndex: number) => {
     const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
