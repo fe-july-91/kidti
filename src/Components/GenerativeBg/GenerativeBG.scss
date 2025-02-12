@@ -2,12 +2,11 @@
 
 .bg-container {
   position: absolute;
-  overflow: hidden;
+  contain: strict;
   width: 100%;
-  z-index: -1;
-  height: 90%;
-  overflow: hidden;
+  z-index: -100;
   opacity: 0.8;
+  min-height: calc(100vh - 48px);
 }
 
 .bg-grid {
@@ -23,12 +22,14 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  will-change: background-color, opacity, transform;
   padding: 10px;
   font-size: 24px;
   width: 25px;
   height: 25px;
   box-sizing: border-box;
   transition: background-color 0.3s ease, opacity 0.3s ease;
+  transition-delay: calc(var(--column-index) * 30ms);
 }
 
 .bg-grid-item.shape {

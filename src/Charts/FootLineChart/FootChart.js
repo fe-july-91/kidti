@@ -11,6 +11,7 @@ export const FootChart = ({
   slider,
   HandleGraph,
 }) => {
+  
 
   const margin = 24;
   const xAxisRef = useRef(null);
@@ -31,7 +32,7 @@ export const FootChart = ({
       margin,
       selectedMonth,
       slider,
-      HandleGraph
+      HandleGraph,
     );
 
     const xAxis = axisBottom(xScale).tickFormat((month) => month.slice(0, 3));

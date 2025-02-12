@@ -15,7 +15,6 @@ import { FootChart } from "../../Charts/FootLineChart/FootChart";
 import { client } from "../../Utils/httpClient";
 import { findKeyByValue } from "../../Shared/hendlers/findKeyByValue";
 
-
 type Props = {
   years: string[];
   cardType: string;
@@ -35,14 +34,18 @@ export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
         setData(response)
         setSliderValue({x: response[response.length-1].value})
       })
-      .catch(err => setErrorMessage(err.message || "Щось пішло не так"));
-  }, [cardType, childId, typeOfValue])
+      .catch(err => setErrorMessage(err.message || "Щось пішло не так"))
+      .finally(() => {
+        dispatch({ type: "selectedMonth", payload: months[findTodayMonth()] });
+      })
+  }, [cardType, childId, typeOfValue, years])
 
   const initialState = {
     selectedYear: years[0],
     selectedMonth: months[findTodayMonth()],
     data: data
   };
+
   const [state, dispatch] = useReducer(reduser, initialState);
 
   const filteredData = useMemo(() => {
@@ -79,7 +82,7 @@ export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
       })
     }
     setSliderValue({ x: 0 });
-  }, [sliderValue.x, currentData, state.data, state.selectedMonth, state.selectedYear]) 
+  }, [sliderValue.x, currentData, state.data, state.selectedMonth, state.selectedYear, childId, typeOfValue]) 
 
   useEffect(() => {
     dispatch({ type: "data", payload: data });
@@ -140,7 +143,7 @@ export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
       </div>
 
       <div className="card__chart">
-        {cardType === CardTitleTypes.height && 
+        {cardType === CardTitleTypes.height &&
           <BarChart
           width={cardSize.width}
           height={cardSize.height}
@@ -151,7 +154,7 @@ export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
         />
         }
 
-        {cardType === CardTitleTypes.weight && 
+        {cardType === CardTitleTypes.weight &&
         <WeightLineChart
           width={cardSize.width}
           height={cardSize.height}
@@ -162,7 +165,7 @@ export const CardItem: React.FC<Props> = ( {years, cardType, childId }) => {
         />
         }
 
-        {cardType === CardTitleTypes.foot && 
+        {cardType === CardTitleTypes.foot &&
         <FootChart
           width={cardSize.width}
           height={cardSize.height}

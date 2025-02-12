@@ -18,7 +18,7 @@ export const BarChart: React.FC<GraphProps> = React.memo(({
   data,
   selectedMonth,
   slider,
-  HandleGraph
+  HandleGraph,
 }) => {
   const margin = 20;
   const rectRef = useRef<SVGSVGElement>(null);
@@ -33,7 +33,8 @@ export const BarChart: React.FC<GraphProps> = React.memo(({
       margin,
       selectedMonth,
       slider,
-      HandleGraph)
+      HandleGraph,
+    )
   }, [data, selectedMonth, width, height, slider, HandleGraph]);
 
   return <svg ref={rectRef} viewBox={`0 0 ${width} ${height}`}>

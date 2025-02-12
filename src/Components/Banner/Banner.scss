@@ -3,11 +3,11 @@
 .banner-container {
   position: relative;
   overflow: hidden;
-  height: 220px; // Высота контейнера
+  height: 220px;
   cursor: pointer;
 
   @include on-tablet {
-    height: 330px; // Высота контейнера
+    height: 330px;
   }
 }
 
@@ -21,23 +21,22 @@
   transition: transform 1s linear;
 
   @include on-tablet {
-    grid-template-columns: repeat(5, 1fr); 
+    grid-template-columns: repeat(3, 1fr); 
     grid-template-rows: repeat(3, 1fr); 
   }
   @include middle {
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr); 
   }
 
   @include on-desktop {
-    grid-template-columns: repeat(9, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(3, 1fr); 
   }
 }
 
 .grid-item {
   display: flex;
-  gap: 15px;
   align-items: center;
   justify-content: center;
   text-align: center;

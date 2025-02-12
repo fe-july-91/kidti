@@ -11,11 +11,10 @@ export function DrowFootChart(
   margin,
   selectedMonth,
   slider,
-  HandleGraph
+  HandleGraph,
+  
 ) {
-
   sortDataByMonth(data);
-
 
   const xScale = scaleBand()
   .domain(months.map(m => m))

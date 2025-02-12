@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./SettingsPage.scss";
 import cn from 'classnames';
 import { useLocalStorage } from "../../Shared/CustomHooks/useLocalStorage";
 import { Link } from "react-router-dom";
 import { client } from "../../Utils/httpClient";
 import { PersonalData } from "../../Shared/types/types";
+import { CSSTransition } from 'react-transition-group';
 
 export const SettingsPage = () => {
+  const [isVisible, setIsVisible] = useState(false);
   const [savedEmail, setSavedEmail] = useLocalStorage<string>('email', '');
   const [savedUserName, setSavedUserName] = useLocalStorage<string>('userName', '');
   const [errowMessage, setErrowmessage] = useState('');
@@ -26,6 +28,10 @@ export const SettingsPage = () => {
     password2: false,
   });
 
+  useEffect(() => {
+    setIsVisible(true)
+   }, [])
+
   const isSaveValid =
   name.trim() !== '' &&
   email.trim() !== '' &&
@@ -33,7 +39,9 @@ export const SettingsPage = () => {
   
   const isPasswordsValid =
     password1.trim() !== '' &&
-      password2.trim() === password1.trim();
+    password2.trim() === password1.trim();
+  
+  
   
   const handleDataSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
@@ -81,9 +89,15 @@ export const SettingsPage = () => {
 
   return (
     <div className="settings">
+      <CSSTransition
+        in={isVisible}
+        timeout={300}
+        classNames="fade"
+        unmountOnExit
+      >
       <div className="settings__container">
         <div className="settings__header"> Налаштування облікового запису </div>
-        
+
         <form className="settings__form">
           <div className="form__input">
             <label htmlFor="name" className="form__label">Ім'я</label>
@@ -125,7 +139,6 @@ export const SettingsPage = () => {
           {errowMessage && <div className="form__error">{errowMessage}</div>}
           <hr className="form__divider" />
         </form>
-
 
         <div className="settings__links">
           <button
@@ -181,6 +194,8 @@ export const SettingsPage = () => {
             <div className="form__options"></div>
         </form>
       </div>
+      </CSSTransition>
+
     </div>
   )
 }

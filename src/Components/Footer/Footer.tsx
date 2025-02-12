@@ -14,28 +14,28 @@ export const Footer: React.FC = () => {
   return (
     <footer className="footer">
       <div className="footer__navbar">
-        <Link
+        {/* <Link
           to="https://github.com/orgs/fe-july-91/repositories"
           className="footer__navbar--link"
           target="_blank"
         >
           Github
-        </Link>
+        </Link> */}
 
         <Link
-          to="/rights"
+          to="/about"
           className="footer__navbar--link"
         >
           About Us
         </Link>
 
-        <Link
+        {/* <Link
           to="https://www.linkedin.com/in/mariashmakova"
           className="footer__navbar--link"
           target="_blank"
         >
           Rights
-        </Link>
+        </Link> */}
       </div>
     </footer>
   );

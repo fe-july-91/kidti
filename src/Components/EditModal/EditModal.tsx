@@ -21,7 +21,6 @@ export const EditModal: React.FC<Props> = ({
   const [day, month, year] = currentChild.birth.split('-')
   const [errowMessage, setErrowmessage] = useState("");
   const [isPopUp, setIsPopUp] = useState(false);
-  console.log(day)
 
 
   const [selectedGender, setSelectedGender] = useState(currentChild.genderName);
@@ -36,7 +35,6 @@ export const EditModal: React.FC<Props> = ({
   const days = Array.from({ length: 31 }, (_, i) => String(i + 1).padStart(2, "0"));
   const months = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, "0"));
   const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
-  console.log(currentChild.id)
 
   const handleDelete = () => {
     setIsPopUp(true)

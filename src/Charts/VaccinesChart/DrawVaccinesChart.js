@@ -36,9 +36,6 @@ export function DrawVaccinesChart(
       return dateA - dateB;
     });
 
-console.log(data);
-
-
   const newVaccine = (d) => {
     return updatedVaccine && d.type === updatedVaccine.type && d.date === updatedVaccine.date
   }
@@ -116,9 +113,9 @@ SVG.selectAll('.x-axis').remove();
     .attr('transform', `translate(0,${height - marginGrahp})`)
     .call(axisBottom(xScale).tickFormat(d => d.slice(0, 6) + d.slice(8)))
     .selectAll('text')
-    .style('font-size', '12px');
-  
-    xAxisGroup.style('text-anchor', 'middle');
+    .style('font-size', '12px')
+    .style('text-anchor', 'middle');
+    xAxisGroup.style('cursor', 'pointer');
   // Y
   SVG.selectAll('.y-axis').remove();
   const yAxisGroup = SVG.append('g')
@@ -195,20 +192,20 @@ labels.enter()
 .style('font-size', '14px')
 .style('cursor', 'pointer')
 .style('user-select', 'none')
-  .text((d) => {
-    const index = data
-      .filter(v => v.type === d.type)
-      .map(d => d.date)
-      .sort((a, b) => {
-        const [dayA, monthA, yearA] = a.split('-');
-        const [dayB, monthB, yearB] = b.split('-');
-        const dateA = new Date(`${yearA}-${monthA}-${dayA}`);
-        const dateB = new Date(`${yearB}-${monthB}-${dayB}`);
-        return dateA - dateB;
-          })
-      .findIndex(i => i === d.date) 
+.text((d) => {
+  const index = data
+    .filter(v => v.type === d.type)
+    .map(d => d.date)
+    .sort((a, b) => {
+      const [dayA, monthA, yearA] = a.split('-');
+      const [dayB, monthB, yearB] = b.split('-');
+      const dateA = new Date(`${yearA}-${monthA}-${dayA}`);
+      const dateB = new Date(`${yearB}-${monthB}-${dayB}`);
+      return dateA - dateB;
+        })
+    .findIndex(i => i === d.date) 
 
-    return index < 0 ? 1 : index + 1
+  return index < 0 ? 1 : index + 1
 })
   .style('opacity', 1)
   .on('click', (event, d) => {

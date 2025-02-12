@@ -33,7 +33,7 @@
       width: 80px;
 
       @include on-desktop {
-        width: 100px;
+        width: 120px;
       }
     }
   }
@@ -42,20 +42,34 @@
 .navContainer {
   display: flex;
   align-items: center;
+  padding-inline: 24px;
   justify-content: center;
-  gap: 16px;
+  gap: 8px;
 
-  @include on-phone {
-    display: none;
+  &__selector {
+    background-color: $colorIndigoDark;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+
+    @include on-desktop {
+      font-size: 18px;
+    }
   }
 
   &__actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    font-size: 14px;
-    color: $colorGrayLight;
-    padding-right: 16px;
+  display: none;
+
+    @include on-tablet {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 16px;
+      color: $colorGrayLight;
+    }    
+    @include on-desktop {
+      font-size: 18px;
+    }
 
     &--text {
       position: relative;
@@ -104,7 +118,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-inline: 16px;
+  padding-inline: 8px;
 
   &__button {
     display: flex;

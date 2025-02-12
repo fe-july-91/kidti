@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const BASE_URL = 'http://localhost:8088/api/';
+//const BASE_URL = 'http://localhost:8088/api/';
+const BASE_URL = 'https://childvaccinationdiary-render-1.onrender.com/api/';
 
 function wait(delay: number) {
   const isDev = process.env.NODE_ENV === 'development';
@@ -51,7 +52,6 @@ function request<T>(
       if (!contentType || !contentType.includes('application/json')) {
         return null as T;
       }
-
 
       return response.json();
     });

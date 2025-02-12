@@ -11,7 +11,7 @@ export function DrowLineChart(
   margin,
   targetMonth,
   slider,
-  HandleGraph
+  HandleGraph,
 ) {
 
   const xScale = scaleBand()
@@ -134,8 +134,8 @@ export function DrowLineChart(
   labels.exit().remove();
 
     // Добавляем ось X
-SVG.selectAll('.x-axis').remove();
-const xAxisGroup = SVG.append('g')
+  SVG.selectAll('.x-axis').remove();
+  const xAxisGroup = SVG.append('g')
   .attr('class', 'x-axis')
   .attr('transform', `translate(0,${height - margin})`)
   .call(axisBottom(xScale).tickFormat(d => d.slice(0, 3)))

@@ -19,8 +19,8 @@ export const VaccinesChart = ({
   const margin = 22;
   const targeVaccine = activeVaccine;
   const updatedVaccine = newVaccine;
-
   const rectRef = useRef();
+
   useEffect(() => {
     const SVG = select(rectRef.current);
     DrawVaccinesChart(

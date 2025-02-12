@@ -1,8 +1,18 @@
 import React, { useEffect, useRef } from "react";
 import { select } from "d3";
 import { DrowLineChart } from "./DrowLineChart";
+import { Data } from "../../Shared/types/types";
 
-export const WeightLineChart = ({
+interface GraphProps {
+  width: number;
+  height: number;
+  data: Data[];
+  selectedMonth: string;
+  slider: number;
+  HandleGraph: (d: Data) => void;
+}
+
+export const WeightLineChart: React.FC<GraphProps> = ({
   width,
   height,
   data,
@@ -14,7 +24,7 @@ export const WeightLineChart = ({
   const margin = 20;
   const targetMonth = selectedMonth;
 
-  const rectRef = useRef();
+  const rectRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     const SVG = select(rectRef.current);

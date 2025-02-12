@@ -15,16 +15,3 @@ export function reduser(state: State, action: Action): State {
   const { type, payload } = action
   return { ...state, [type]: payload }
 }
-
-// export function createCard(reduser, initialState: State) {
-//   let state = initialState;
-
-//   return {
-//     dispatch(action: Action) {
-//       state = reduser(state, action);
-//     },
-//     getState() {
-//       return state
-//     }
-//   }
-// }

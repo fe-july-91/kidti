@@ -3,6 +3,8 @@
 .homePage {
   display: flex;
   flex-direction: column;
+  @include padding-inline;
+
   min-height: calc(100vh - 48px * 2);
   
   @include on-tablet {
@@ -14,21 +16,51 @@
   }
 
   &__top {
-    @include section-grid;
     padding-top: 24px;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
 
-    @include on-tablet {
-      padding-top: 60px;
+    @include middle {
+      flex-direction: row;
+      padding-top: 100px;
+      justify-content: center;
+      align-items: flex-start;
     }
   }
 
   &__description {
-    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
     background: #fff;
     box-shadow: 0px 0px 8px rgba(34, 2, 73, 0.4);
     border-radius: 25px;
-    padding: 20px;
-    margin-bottom: 60px;
+    padding: 32px;
+    flex-shrink: 4;
+    height: auto;
+    margin-bottom: 32px;
+
+    @include on-tablet {
+      max-width: 580px;
+      padding: 40px;
+    }
+
+    @include on-desktop {
+      height: 394px;
+    }
+  }
+
+  &__bunner {
+    display: flex;
+    padding: 32px;
+    overflow-y: hidden;
+    background-color: rgb(199, 197, 249);
+    box-shadow: 0px 0px 8px rgba(34, 2, 73, 0.4);
+    border-radius: 25px;
+    width: fit-content;
+    flex-shrink: 0;
   }
 
   &__text {
@@ -39,7 +71,7 @@
     padding-bottom: 24px;
 
     &__title {
-      font-size: 36px;
+      font-size: 28px;
       line-height: 120%;
       padding-bottom: 8px;    
       font-weight: 500;
@@ -57,8 +89,8 @@
     gap: 8px;
     @include h3-tablet;
     color: $colorTextSecond;
-    grid-column: 1 / 13;
     padding-bottom: 24px;
+
 
     &-dots {
       display: flex;
@@ -71,36 +103,33 @@
     }
   }
 
-  &__bunner {
-    padding: 20px;
-    margin: auto;
-    overflow-y: hidden;
-    grid-column: 1 / -1;
-    background-color: rgba(255, 255, 255);
-    
-    box-shadow: 0px 0px 8px rgba(34, 2, 73, 0.4);
-    padding-bottom: 20px;
-    border-radius: 25px;
 
-    @include middle {
-      margin: 0;
-      grid-column: 1 / -1;
-      margin-bottom: 20px
+
+  &__buttons-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @include on-tablet {
+      flex-direction: row;
+      gap: 16px;
     }
+
   }
 
   &__button {
     @include button-card;
-    margin-right: 16px;
-    margin-bottom: 24px;
+    width: full;
 
     @include on-tablet {
-      width: 200px;
+      width: 116px;
       font-size: 18px;
       padding: 10px 20px;
     }
 
     &--signUp {
+      background-color: $colorCyclamen;
+
       @include on-tablet {
         width: 200px;
         font-size: 18px;
@@ -119,3 +148,23 @@
   background-color: $colorSkyBlue;
   border-radius: 50%;
 }
+
+.fade-enter {
+  opacity: 0;
+  transform: translateY(25px);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+

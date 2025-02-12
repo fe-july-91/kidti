@@ -1,8 +1,6 @@
 import { scaleBand, axisBottom, axisLeft, scalePoint } from 'd3';
-
 import { vaccinTypes } from '../../Utils/kit';
 import { getAgeAtVaccination } from '../../Shared/hendlers/VactinationAge';
-import { parseDate } from '../../Shared/hendlers/parseDate';
 
 export function DrawVaccinesMobile(
   SVG,
@@ -30,12 +28,17 @@ export function DrawVaccinesMobile(
 
   const xData = data.map(d => d.date);
   const uniqueXData = [...new Set(xData)]
-    .sort((a, b) => parseDate(a).getTime() - parseDate(b).getTime());
-  
+    .sort((a, b) => {
+      const [dayA, monthA, yearA] = a.split('-');
+      const [dayB, monthB, yearB] = b.split('-');
+      const dateA = new Date(`${yearA}-${monthA}-${dayA}`);
+      const dateB = new Date(`${yearB}-${monthB}-${dayB}`);
+      return dateA - dateB;
+    });
+
   const newVaccine = (d) => {
     return updatedVaccine && d.type === updatedVaccine.type && d.date === updatedVaccine.date
   }
-
   const uniqueAgeData = uniqueXData.map((d, i) => ({
     age: getAgeAtVaccination(d, birth),
     index: i
@@ -141,7 +144,7 @@ SVG.selectAll('.x-axis').remove();
  SVG.selectAll('.point-label').remove();
 
 const points = SVG.selectAll('.point')
-  .data(data, d => d.date + d.type );
+.data(data.filter(d => vaccinTypes.includes(d.type)), d => d.date + d.type); // Фильтруем только валидные типы
 
 // Enter new points
 points.enter()
@@ -188,12 +191,26 @@ labels.enter()
 .style('fill', '#fff')
 .style('font-size', '14px')
 .style('cursor', 'pointer')
-.style('user-select', 'none') // Remove text cursor
-.text(d => d.orderNumber)
-  .style('opacity', 1)
-  .on('click', (event, d) => {
-    HandleGraph(d);
-  })
+.style('user-select', 'none')
+.text((d) => {
+  const index = data
+    .filter(v => v.type === d.type)
+    .map(d => d.date)
+    .sort((a, b) => {
+      const [dayA, monthA, yearA] = a.split('-');
+      const [dayB, monthB, yearB] = b.split('-');
+      const dateA = new Date(`${yearA}-${monthA}-${dayA}`);
+      const dateB = new Date(`${yearB}-${monthB}-${dayB}`);
+      return dateA - dateB;
+        })
+    .findIndex(i => i === d.date) 
+
+  return index < 0 ? 1 : index + 1
+})
+.style('opacity', 1)
+.on('click', (event, d) => {
+  HandleGraph(d);
+})
 
 // Update existing labels
 labels.transition()

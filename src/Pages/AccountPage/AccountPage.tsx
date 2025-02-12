@@ -1,5 +1,7 @@
 import { Dashboard } from "../../Components/Dashboard/Dashboard";
 import { avatars, colors } from "../../Utils/kit";
+import { CSSTransition } from 'react-transition-group';
+import './Modal.css';
 import "./AccountPage.scss";
 import { useEffect, useState } from "react";
 import { Child } from "../../Shared/types/types";
@@ -129,17 +131,28 @@ export const AccountPage: React.FC = () => {
         </>
     )}
 
-      {isAddmodal && (
-        <div className="account__modalContainer">
+    <CSSTransition
+          in={isAddmodal}
+          timeout={300}
+          classNames="modal"
+          unmountOnExit
+        >
+      <div className="account__modalContainer">
           <AddModal
             children={children}
             setModal={setIsAddModal}
             setCurrentChild={setChild}
           />
-        </div>
-      )}
+      </div>
+    </CSSTransition>
 
-      {additingModal && child && (
+      {child && (
+            <CSSTransition
+            in={additingModal}
+            timeout={300}
+            classNames="modal"
+            unmountOnExit
+          >
         <div className="account__modalContainer">
           <EditModal
             setModal={setAdditingModal}
@@ -147,7 +160,8 @@ export const AccountPage: React.FC = () => {
             setCurrentChild={setChild}
             setChildren={setChildren}
           />
-        </div>
+          </div>
+          </CSSTransition>
       )}
     </div>
   );

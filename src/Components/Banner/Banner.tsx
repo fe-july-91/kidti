@@ -9,20 +9,9 @@ const Banner = () => {
 
   const rows = 10;
   const columns = 5;
+  const updateRate = 0.2; // Процент элементов для обновления (20%)
 
-  const [grid, setGrid] = useState(() => generateInitialGrid());
-
-  function generateInitialGrid() {
-    const items = [];
-    for (let i = 0; i < rows; i++) {
-      for (let j = 0; j < columns; j++) {
-        items.push(generateRandomItem(i * columns + j, j));
-      }
-    }
-    return items;
-  }
-
-  function generateRandomItem(key: number, columnIndex: number) {
+  const generateRandomItem = (key: number, columnIndex: number) => {
     const randomType = Math.random();
 
     if (randomType < 0.33) {
@@ -40,28 +29,52 @@ const Banner = () => {
       const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
       return { type: 'avatar', src: randomAvatar, key, columnIndex };
     }
-  }
+  };
+
+  const generateInitialGrid = () => {
+    const items = [];
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < columns; j++) {
+        items.push(generateRandomItem(i * columns + j, j));
+      }
+    }
+    return items;
+  };
+
+  const [grid, setGrid] = useState(() => generateInitialGrid());
+
+  const partiallyUpdateGrid = () => {
+    setGrid((prevGrid) => {
+      const totalItems = prevGrid.length;
+      const itemsToUpdate = Math.floor(totalItems * updateRate);
+      const updatedIndices = new Set<number>();
+
+      // Выбираем случайные индексы для обновления
+      while (updatedIndices.size < itemsToUpdate) {
+        const randomIndex = Math.floor(Math.random() * totalItems);
+        updatedIndices.add(randomIndex);
+      }
+
+      // Создаём новый массив с обновлёнными элементами
+      return prevGrid.map((item, index) =>
+        updatedIndices.has(index)
+          ? generateRandomItem(item.key, item.columnIndex)
+          : item
+      );
+    });
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setGrid(prevGrid =>
-        prevGrid.map(item => generateRandomItem(item.key, item.columnIndex))
-      );
-    }, 10000);
+      partiallyUpdateGrid();
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
-    const refreshGrid = () => {
-      setGrid(prevGrid =>
-        prevGrid.map(item => generateRandomItem(item.key, item.columnIndex))
-      );
-    };
-  
-    const handleBannerClick = () => {
-      refreshGrid();
-    };
-  
+  const handleBannerClick = () => {
+    partiallyUpdateGrid();
+  };
 
   return (
     <div className="banner-container" onClick={handleBannerClick}>
@@ -73,7 +86,6 @@ const Banner = () => {
             style={{
               backgroundColor: item.type.startsWith('shape') ? item.color : undefined,
               color: item.type === 'letter' ? item.color : undefined,
-              transitionDelay: `${item.columnIndex * 600}ms`,
             }}
           >
             {item.type === 'letter' && item.content}

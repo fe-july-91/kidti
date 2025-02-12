@@ -18,7 +18,6 @@ export const AuthContext = React.createContext<AuthContextType>({
   setToken: () => { },
   isloading: false,
   setisLoading: () => {}
-
 })
 
 type Props = {

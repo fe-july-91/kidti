@@ -128,7 +128,6 @@ export const SignUpForm = () => {
         </div>
 
           {errowMessage && <div className="form__error">{errowMessage}</div>}
-          <div className="form__options"></div>
         <button
           type="submit"
           className="form__button"
@@ -137,12 +136,6 @@ export const SignUpForm = () => {
 
         >
           Зареєструватися
-        </button>
-
-        <hr className="form__divider" />
-
-        <button type="button" className="form__button-social">
-          <i className="icons icons--facebook"></i> Зареєструватися з Facebook
         </button>
 
         <button type="button" className="form__button-social">

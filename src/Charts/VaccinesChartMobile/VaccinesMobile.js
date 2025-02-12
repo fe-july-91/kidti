@@ -19,14 +19,7 @@ export const VaccinesMobile = ({
   const margin = 22;
   const targeVaccine = activeVaccine;
   const updatedVaccine = newVaccine;
-
-  const xAxisRef = useRef(null);
   const rectRef = useRef();
-
-  const xScale = scaleBand()
-    .domain(data.map((d) => d.month))
-    .range([0, width])
-    .padding(0.4);
 
   useEffect(() => {
     const SVG = select(rectRef.current);
@@ -45,12 +38,18 @@ export const VaccinesMobile = ({
       handleVaccineclick
     );
 
-    const xAxis = axisBottom(xScale).tickFormat((month) => month.slice(0, 3));
-
-    if (xAxisRef.current) {
-      d3.select(xAxisRef.current).call(xAxis);
-    }
-  }, [data, handleVaccineclick, targeVaccine, xScale, width, height, birth, HandleGraph, updatedVaccine, activeBatton]);
+  }, [
+      data, 
+      handleVaccineclick, 
+      targeVaccine, 
+      width, 
+      height, 
+      birth, 
+      HandleGraph, 
+      updatedVaccine,
+      activeBatton,
+      selectedVaccine
+  ]);
 
   return (
     <svg ref={rectRef} viewBox={`0 0 ${width} ${height}`}>

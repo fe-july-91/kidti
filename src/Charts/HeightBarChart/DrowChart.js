@@ -2,7 +2,6 @@ import { scaleLinear,scaleBand, max, extent,axisBottom} from 'd3';
 import { months } from "../../Utils/kit";
 import { sortDataByMonth } from '../../Shared/hendlers/sortDataByMoonth';
 
-
 export function DrawChart(
   SVG,
   data,
@@ -11,9 +10,8 @@ export function DrawChart(
   margin,
   selectedMonth,
   slider,
-  HandleGraph
+  HandleGraph,
 ) {
-
   sortDataByMonth(data);
 
   const xScale = scaleBand()

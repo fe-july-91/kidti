@@ -1,9 +1,5 @@
 @import './styles/main';
 
-// html {
-//   overflow: hidden;
-// }
-
 body {
   margin: 0;
   font-family: Rubik, sans-serif;
@@ -16,6 +12,7 @@ body {
   scroll-behavior: smooth;
 
   &__container {
+    position: relative;
     overflow: hidden;
 
     @include on-tablet {

@@ -26,6 +26,7 @@
       color: $colorIndigo;
       font-family: Rubik, sans-serif;
       font-size: 24px;
+      font-weight: 500;
       line-height: 120%;
       text-align: center;
     }
@@ -149,9 +150,6 @@
       font-size: 14px;
       color: $colorTextThird;
     }
-  }
-
-  &__popApp {
   }
 }
 
