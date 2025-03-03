@@ -114,7 +114,7 @@ export const RightsPage: React.FC = () => {
                   target="_blank"
                 >
                 <img
-                  src={avatars[3]}
+                  src={avatars[1]}
                   alt="kitty"
                   className="rightsPage__image"
                 />
@@ -126,7 +126,7 @@ export const RightsPage: React.FC = () => {
                   target="_blank"
                 >
                   <img
-                  src={avatars[0]}
+                  src={avatars[3]}
                   alt="kitty"
                   className="rightsPage__image"
                 />
