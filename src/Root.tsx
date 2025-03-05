@@ -1,4 +1,4 @@
-import { Route, Routes, HashRouter as Router } from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 import { App } from "./App";
 import { HomePage } from "./Pages/HomePage/HomePage";
 import { AccountPage } from "./Pages/AccountPage/AccountPage";
@@ -11,28 +11,35 @@ import { Recovery } from "./Pages/PasswordRecovery/Recovery";
 import { RightsPage } from "./Pages/RightsPage/RightsPage";
 import { LangProvider } from "./Context/LangContext";
 
+const router = createHashRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      { index: true, element: <HomePage /> },
+      { path: "login", element: <LogInPage /> },
+      { path: "recovery", element: <Recovery /> },
+      { path: "signup", element: <SignUpPage /> },
+      { path: "about", element: <RightsPage /> },
+      {
+        path: "account",
+        element: <RequireAuth />,
+        children: [
+          { index: true, element: <AccountPage /> },
+          { path: "settings", element: <SettingsPage /> },
+        ],
+      },
+    ],
+  },
+]);
+
 const Root = () => {
   return (
-    <Router>
-      <AuthProvider>
-        <LangProvider>
-          <Routes>
-            <Route path="/" element={<App />}>
-              <Route index element={<HomePage />} />
-              <Route path="login" element={<LogInPage />} />
-              <Route path="recovery" element={<Recovery />} />
-              <Route path="signup" element={<SignUpPage />} />
-              <Route path="about" element={<RightsPage />} />
-
-              <Route path="account" element={<RequireAuth />}>
-                <Route index element={<AccountPage />} />
-                <Route path="settings" element={<SettingsPage />} />
-              </Route>
-            </Route>
-          </Routes>
-        </LangProvider>
-      </AuthProvider>
-    </Router>
+    <AuthProvider>
+      <LangProvider>
+        <RouterProvider router={router} />
+      </LangProvider>
+    </AuthProvider>
   );
 };
 

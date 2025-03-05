@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import cn from "classnames";
 import "./CardEyes.scss";
-import { CardTitleTypes, Eye } from "../../Shared/types/types";
+import { CardTitleTypes } from "../../Shared/types/types";
 import { cardSize, eye, sliderRange } from "../../Utils/kit";
 import { EyesChart } from "../../Charts/EyesChart/EyesChart";
 import { TitleCardBlock } from "../../Components/CardTitleBlock/TitleCardBlock";

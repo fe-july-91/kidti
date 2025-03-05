@@ -1,5 +1,4 @@
 import { scaleBand, axisBottom, axisLeft, scalePoint } from 'd3';
-
 import { vaccinTypes } from '../../Utils/kit';
 import { getAgeAtVaccination } from '../../Shared/hendlers/VactinationAge';
 

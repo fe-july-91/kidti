@@ -1,22 +1,22 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import './GenerativeBG.scss';
 
 type Props = {
   isloading?: boolean;
 };
 
-const GenerativeBG: React.FC<Props> = ({ isloading }) => {
-  const shapes = ['circle', 'square', 'rectangle', 'd-shape', 't-shape'];
-  const colors = ['#adb0d9', '#9bc7dc', '#cdbdda'];
+const shapes = ['circle', 'square', 'rectangle', 'd-shape', 't-shape'];
+const colors = ['#adb0d9', '#9bc7dc', '#cdbdda'];
 
+const GenerativeBG: React.FC<Props> = ({ isloading }) => {
   const rows = 90;
   const columns = 60;
 
-  const generateRandomItem = (key: number, columnIndex: number) => {
+  const generateRandomItem = useCallback((key: number, columnIndex: number) => {
     const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     return { type: `shape ${randomShape}`, color: randomColor, key, columnIndex };
-  };
+  }, []);
 
   const grid = useMemo(() => {
     return Array.from({ length: rows * columns }, (_, index) => 

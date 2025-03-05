@@ -9,16 +9,13 @@ import { calculateFullChildAge } from "../../Shared/hendlers/generateYearArray";
 import { AddModal } from "../../Components/AddModal/AddModal";
 import { EditModal } from "../../Components/EditModal/EditModal";
 import { client } from "../../Utils/httpClient";
-import { useLocalStorage } from "../../Shared/CustomHooks/useLocalStorage";
 
 export const AccountPage: React.FC = () => {
-  const [savedUserName, setSavedUserName] = useLocalStorage<string>('userName', '');
   const [children, setChildren] = useState<Child[]>([]);
   const [child, setChild] = useState<Child | null>(null);
   const [isAddmodal, setIsAddModal] = useState(false);
   const [additingModal, setAdditingModal] = useState(false);
   const [errowMessage, setErrowmessage] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     client.get<Child[]>(`children`)
@@ -31,9 +28,6 @@ export const AccountPage: React.FC = () => {
         }
       })
       .catch(err => setErrowmessage(err.message || "Щось пішло не так, спробуйте ще раз"))
-      .finally(() => 
-        setIsLoading(false),
-      )
   }, []);
 
   useEffect(() => {
@@ -49,7 +43,6 @@ export const AccountPage: React.FC = () => {
             .catch(err => setErrowmessage(err.message || "Щось пішло не так"));
         })
         .catch(err => setErrowmessage(err.message || "Не вдалося оновити дані"))
-        .finally (() => setSavedUserName(child.userName))
     }
   }, [child]);
 
@@ -81,6 +74,7 @@ export const AccountPage: React.FC = () => {
                   alt="avatar"
                   className="account__image"
                   onClick={() => setAdditingModal(true)}
+                  loading="lazy"
                 />
                 <div className="account__info">
                   <header className="account__name">{`${child.name} ${child.surname}`}</header>
@@ -106,6 +100,7 @@ export const AccountPage: React.FC = () => {
                   <img
                     src={avatars[+childItem.image]}
                     alt="avatar"
+                    loading="lazy"
                     className="account__avatars--image"
                   />
                 </button>
@@ -132,17 +127,17 @@ export const AccountPage: React.FC = () => {
     )}
 
     <CSSTransition
-          in={isAddmodal}
-          timeout={300}
-          classNames="modal"
-          unmountOnExit
-        >
+      in={isAddmodal}
+      timeout={300}
+      classNames="modal"
+      unmountOnExit
+    >
       <div className="account__modalContainer">
-          <AddModal
-            children={children}
-            setModal={setIsAddModal}
-            setCurrentChild={setChild}
-          />
+        <AddModal
+          children={children}
+          setModal={setIsAddModal}
+          setCurrentChild={setChild}
+        />
       </div>
     </CSSTransition>
 

@@ -10,8 +10,8 @@
 
   &__selected {
     position: relative;
-    width: 80px;
-    height: 80px;
+    width: 140px;
+    height: 140px;
     box-sizing: border-box;
     border: 1px solid $colorTextSecond; // Серый фон
     border-radius: 50%; // Делает элемент кругом
@@ -59,12 +59,12 @@
     background-color: white;
     border: 1px solid #ddd;
     z-index: 1000;
-    max-height: 200px;
+    max-height: 480px;
     overflow-y: auto;
     
     &--item {
-      width: 60px;
-      height: 60px;
+      width: 130px;
+      height: 130px;
       background-color: #f0f0f0;
       border-radius: 50%;
       display: flex;

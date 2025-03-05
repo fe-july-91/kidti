@@ -40,8 +40,7 @@ export const SettingsPage = () => {
   const isPasswordsValid =
     password1.trim() !== '' &&
     password2.trim() === password1.trim();
-  
-  
+
   
   const handleDataSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();

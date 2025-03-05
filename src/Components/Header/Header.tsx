@@ -59,16 +59,6 @@ export const Header: React.FC = () => {
             </>
           )}
         </div>
-        {/* <select 
-          className="navContainer__selector" 
-          name="language" 
-          id="language"
-          value={currentLang}
-          onChange={handleLanguageChange}
-        >
-            <option value="UA">UA</option>
-            <option value="EN">EN</option>
-        </select> */}
 
         <div className="BurgerMenu">
           <button

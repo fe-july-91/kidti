@@ -55,9 +55,17 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/plugin-transform-private-property-in-object": "^7.25.9",
     "@types/d3": "^7.4.3",
     "@types/lodash.debounce": "^4.0.9",
     "gh-pages": "^6.1.1",
     "sass": "^1.77.8"
+  },
+  "babel": {
+    "plugins": [
+      "@babel/plugin-transform-private-property-in-object",
+      "@babel/plugin-proposal-private-property-in-object"
+    ]
   }
 }

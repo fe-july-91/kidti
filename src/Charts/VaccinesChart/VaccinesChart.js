@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { select} from "d3";
-import * as d3 from "d3";
 import { DrawVaccinesChart } from "./DrawVaccinesChart";
 
 export const VaccinesChart = ({

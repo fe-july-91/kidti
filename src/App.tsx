@@ -27,8 +27,8 @@ export const App: React.FC = () => {
   return (
     <div className="app">
       <Header />
-      <div className="app__container">
-        <GenerativeBG />
+      <div className="app__container bg">
+    {/* <GenerativeBG /> */}
         <Outlet />
       </div>
       <Footer />

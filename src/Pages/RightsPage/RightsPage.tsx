@@ -12,7 +12,8 @@ export const RightsPage: React.FC = () => {
   
     useEffect(() => {
       setIsVisible(true)
-      }, [])
+    }, [])
+  
   return (
     <div className="rightsPage">
       <CSSTransition

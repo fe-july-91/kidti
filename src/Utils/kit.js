@@ -17,31 +17,37 @@ import YanasPhoto from '../assets/images/Yana.jpeg'
 
 
 //avatars
-import avatarImage1 from '../assets/avatars/1.png'
-import avatarImage2 from '../assets/avatars/2.png'
-import avatarImage3 from '../assets/avatars/3.png'
-import avatarImage4 from '../assets/avatars/4.png'
-import avatarImage5 from '../assets/avatars/5.png'
-import avatarImage6 from '../assets/avatars/6.png'
-import avatarImage7 from '../assets/avatars/7.png'
-import avatarImage8 from '../assets/avatars/8.png'
-import avatarImage9 from '../assets/avatars/9.png'
-import avatarImage10 from '../assets/avatars/10.png'
-import avatarImage11 from '../assets/avatars/11.png'
-import avatarImage12 from '../assets/avatars/12.png'
-import avatarImage13 from '../assets/avatars/13.png'
-import avatarImage14 from '../assets/avatars/14.png'
-import avatarImage15 from '../assets/avatars/15.png'
-import avatarImage16 from '../assets/avatars/16.png'
-import avatarImage17 from '../assets/avatars/17.png'
-import avatarImage18 from '../assets/avatars/18.png'
-import avatarImage19 from '../assets/avatars/19.png'
-import avatarImage20 from '../assets/avatars/20.png'
+import avatarImage1 from '../assets/avatars/1.webp'
+import avatarImage2 from '../assets/avatars/2.webp'
+import avatarImage3 from '../assets/avatars/3.webp'
+import avatarImage4 from '../assets/avatars/4.webp'
+import avatarImage5 from '../assets/avatars/5.webp'
+import avatarImage6 from '../assets/avatars/6.webp'
+import avatarImage7 from '../assets/avatars/7.webp'
+import avatarImage8 from '../assets/avatars/8.webp'
+import avatarImage9 from '../assets/avatars/9.webp'
+import avatarImage10 from '../assets/avatars/10.webp'
+import avatarImage11 from '../assets/avatars/11.webp'
+import avatarImage12 from '../assets/avatars/12.webp'
+import avatarImage13 from '../assets/avatars/13.webp'
+import avatarImage14 from '../assets/avatars/14.webp'
+import avatarImage15 from '../assets/avatars/15.webp'
+import avatarImage16 from '../assets/avatars/16.webp'
+import avatarImage17 from '../assets/avatars/17.webp'
+import avatarImage18 from '../assets/avatars/18.webp'
+import avatarImage19 from '../assets/avatars/19.webp'
+import avatarImage20 from '../assets/avatars/20.webp'
+
+import bg from '../assets/images/bg.webp'
 
 //photos
 export const Maria = MariasPhoto;
 export const Yana = YanasPhoto;
 
+//bg
+export const bakground = bg;
+
+//avatars
 export const avatar_1 = avatarImage1;
 export const avatar_2 = avatarImage2;
 export const avatar_3 = avatarImage3;
